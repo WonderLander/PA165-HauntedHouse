@@ -3,7 +3,7 @@ package cz.muni.fi.haundedHause.entity;
 import javax.persistence.*;
 
 @Entity
-public class Info
+public class Comment
 {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -12,9 +12,9 @@ public class Info
     @Column(length = 2000)
     private String text;
 
-    public Info(){}
+    public Comment(){}
 
-    public Info(String text) {
+    public Comment(String text) {
         this.text = text;
     }
 
