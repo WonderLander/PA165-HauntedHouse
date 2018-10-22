@@ -1,4 +1,4 @@
-package cz.muni.fi.haundedHause.config;
+package cz.muni.fi.hauntedhouse.config;
 
 
 import org.springframework.context.annotation.Bean;
