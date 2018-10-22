@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.haunted_house.entity;
+package cz.muni.fi.hauntedhouse.entity;
 
 import com.sun.istack.internal.NotNull;
 

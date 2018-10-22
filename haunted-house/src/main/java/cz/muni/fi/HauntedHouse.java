@@ -1,4 +1,4 @@
-package cz.muni.fi.haundedHause;
+package cz.muni.fi;
 
 
 import cz.muni.fi.haundedHause.config.InMemoryConfig;
@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 
-public class HaundedHouse
+public class HauntedHouse
 {
     private static EntityManagerFactory emf;
 

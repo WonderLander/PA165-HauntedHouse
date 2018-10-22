@@ -1,6 +1,6 @@
-package cz.muni.fi.pa165.haunted_house.dao;
+package cz.muni.fi.hauntedhouse.dao;
 
-import cz.muni.fi.pa165.haunted_house.entity.House;
+import cz.muni.fi.hauntedhouse.entity.House;
 
 /**
  * Interface House Data Access Object
