@@ -1,4 +1,4 @@
-package cz.muni.fi.haundedHause.entity;
+package cz.muni.fi.hauntedhouse.entity;
 
 import javax.persistence.*;
 

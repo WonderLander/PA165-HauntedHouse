@@ -1,8 +1,8 @@
 package cz.muni.fi;
 
 
-import cz.muni.fi.haundedHause.config.InMemoryConfig;
-import cz.muni.fi.haundedHause.entity.Comment;
+import cz.muni.fi.hauntedhouse.config.*;
+import cz.muni.fi.hauntedhouse.entity.Comment;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.persistence.EntityManager;
