@@ -1,7 +1,5 @@
 package cz.muni.fi.hauntedhouse.entity;
-
 import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
