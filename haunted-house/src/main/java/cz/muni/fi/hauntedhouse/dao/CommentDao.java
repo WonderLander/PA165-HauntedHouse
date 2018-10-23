@@ -1,4 +1,6 @@
 package cz.muni.fi.hauntedhouse.dao;
 
-public interface CommentDao {
+public interface CommentDao
+{
+    
 }
