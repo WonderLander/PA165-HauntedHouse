@@ -1,6 +1,7 @@
 package cz.muni.fi.hauntedhouse.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -14,12 +15,17 @@ public class Comment
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String author;
 
+    @NotNull
     private LocalDate date;
 
     @Column(length = 2000)
     private String text;
+
+    //@ManyToOne
+    //private House house;
 
     public Comment(){}
 

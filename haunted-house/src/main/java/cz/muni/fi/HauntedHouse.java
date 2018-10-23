@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -24,7 +25,9 @@ public class HauntedHouse
         //Example
         //Save
         Comment comment1 = new Comment("comment1");
+        comment1.setDate(LocalDate.now());
         Comment comment2 = new Comment("comment2");
+        comment2.setDate(LocalDate.now());
 
         em.getTransaction().begin();
         em.persist(comment1);
@@ -38,7 +41,7 @@ public class HauntedHouse
         em.getTransaction().begin();
         List<Comment> comments = em.createQuery("select i from Comment i", Comment.class).getResultList();
         for(Comment i : comments){
-            System.out.println("Id: "+i.getId()+" text: "+i.getText());
+            System.out.println("Id: "+i.getId()+" text: "+i.getText() +" date:"+i.getDate());
         }
         em.close();
         appContext.close();
