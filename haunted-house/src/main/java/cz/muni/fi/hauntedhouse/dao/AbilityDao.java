@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Martin Wenzl
  */
-public interface IAbilityDao {
+public interface AbilityDao {
     /**
      * Persists Ability entity to database.
      *
@@ -38,7 +38,7 @@ public interface IAbilityDao {
     Ability findAbilityByName(String name) throws IllegalArgumentException;
 
     /**
-     * Retrieves all abilities from database
+     * Retrieves all abilities from database. If there is none then returns empty list.
      *
      * @return List of all abilities
      */
@@ -52,13 +52,14 @@ public interface IAbilityDao {
      * @return List of abilities.
      * @throws IllegalArgumentException when bogeyman is null.
      */
-    List<Ability> findByBogeymen(/*TODO: Parameter is boogeyman class*/) throws IllegalArgumentException, ValidationException;
+    List<Ability> findByBogeyman(/*TODO: Parameter is boogeyman class*/) throws IllegalArgumentException, ValidationException;
 
     /**
      * Removes ability from database.
      *
      * @param ability abitlity to be removed
+     * @throws IllegalArgumentException when ability is null
      */
-    public void remove(Ability ability);
+    public void remove(Ability ability) throws IllegalArgumentException;
 
 }
