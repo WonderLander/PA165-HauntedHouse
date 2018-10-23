@@ -10,20 +10,19 @@ import java.util.List;
  *
  * @author Martin Wenzl
  */
-public interface IAbilityDao {
+public interface AbilityDao {
     /**
      * Persists Ability entity to database.
      *
      * @param ability ability entity to be persisted.
-     * @throws IllegalArgumentException when argument is null or ability has null name property.
-     * @throws ValidationException when there is already ability with same name in database.
+     * @throws IllegalArgumentException when argument is null.
      */
-    void createAbility(Ability ability) throws IllegalArgumentException, ValidationException;
+    void createAbility(Ability ability) throws IllegalArgumentException;
 
     /**
      * Retrieves ability with chosen id from database.
      *
-     * @param id
+     * @param id id
      * @return Ability with chosen id or null if there is no such ability in database.
      * @throws IllegalArgumentException when id is null or negative number.
      */
@@ -32,29 +31,35 @@ public interface IAbilityDao {
     /**
      * Retrieves ability with chosen name from database.
      *
-     * @param name
+     * @param name name of the ability
      * @return Ability with chosen name or null if there is no such ability in database.
      * @throws IllegalArgumentException when name is null.
      */
     Ability findAbilityByName(String name) throws IllegalArgumentException;
 
     /**
-     * Retrieves all abilities from database
+     * Retrieves all abilities from database. If there is none then returns empty list.
      *
      * @return List of all abilities
      */
     List<Ability> findAll();
 
-    // TODO: bogeymen has one or more abilities ?
     /**
-     * Retrieves abilities for chosen bogeyman.
+     * Retrieves abilities for chosen bogeyman, if there is no such bogeyman in database
+     * returns null.
      *
      * //@param Bogeymen
      * @return List of abilities.
      * @throws IllegalArgumentException when bogeyman is null.
-     * @throws ValidationException when there is no such bogeyman in database.
      */
-    List<Ability> findByBogeymen(/*TODO: Parameter is boogeyman class*/) throws IllegalArgumentException, ValidationException;
-    public void remove(Ability ability);
+    List<Ability> findByBogeyman(/*TODO: Parameter is boogeyman class*/) throws IllegalArgumentException, ValidationException;
+
+    /**
+     * Removes ability from database.
+     *
+     * @param ability abitlity to be removed
+     * @throws IllegalArgumentException when ability is null
+     */
+    public void remove(Ability ability) throws IllegalArgumentException;
 
 }
