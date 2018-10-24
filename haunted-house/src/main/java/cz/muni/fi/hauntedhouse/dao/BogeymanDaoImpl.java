@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+
 import java.util.List;
 
 /**
@@ -53,7 +54,7 @@ public class BogeymanDaoImpl implements BogeymanDao {
     @Override
     public List<Bogeyman> findByAbility(Ability ability) {
         return em
-                .createQuery("select b from Bogeyman b where ability = :ability", Bogeyman.class)
+                .createQuery("select b from Bogeyman b where Ability = :ability", Bogeyman.class)
                 .setParameter("ability", ability)
                 .getResultList();
     }
