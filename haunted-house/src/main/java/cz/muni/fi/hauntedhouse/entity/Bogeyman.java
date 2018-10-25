@@ -10,6 +10,7 @@ import java.util.Set;
 /**
  * @author Ondrej Krcma 451363
  */
+@Entity
 public class Bogeyman {
 
     @Id
