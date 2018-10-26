@@ -26,6 +26,9 @@ public class Ability {
     @Column
     private String description;
 
+    @Column
+    private int cooldown;
+
     public Long getId() {
         return id;
     }
@@ -35,4 +38,29 @@ public class Ability {
     }
 
     // TODO: add compare and hash
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
+    }
 }
