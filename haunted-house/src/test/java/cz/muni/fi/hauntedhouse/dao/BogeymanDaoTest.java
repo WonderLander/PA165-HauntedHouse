@@ -31,6 +31,7 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private IHouseDao hDao;
 
+
     @PersistenceContext
     private EntityManager em;
 
@@ -58,6 +59,7 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
 
 
     /*@Test
+
     public void createTest() {
         List<Bogeyman> bList = em.createQuery
                 ("select b from Bogeyman b", Bogeyman.class).getResultList();
@@ -66,6 +68,4 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(bList.contains(b2));
         Assert.assertTrue(bList.contains(b3));
     }*/
-
-
 }
