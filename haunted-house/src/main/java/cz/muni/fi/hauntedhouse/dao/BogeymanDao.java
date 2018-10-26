@@ -1,8 +1,10 @@
 package cz.muni.fi.hauntedhouse.dao;
 
+import cz.muni.fi.hauntedhouse.entity.Ability;
 import cz.muni.fi.hauntedhouse.entity.Bogeyman;
+import cz.muni.fi.hauntedhouse.entity.BogeymanType;
+import cz.muni.fi.hauntedhouse.entity.House;
 
-import javax.xml.bind.ValidationException;
 import java.util.List;
 
 /**
@@ -36,9 +38,33 @@ public interface BogeymanDao {
     Bogeyman findByName(String name);
 
     /**
+     * Finds bogeymen in the database by house.
+     *
+     * @param house the house of the sought bogeymen
+     * @return list of all bogeymen in the given house
+     */
+    List<Bogeyman> findByHouse(House house);
+
+    /**
+     * Finds bogeymen in the database by ability.
+     *
+     * @param ability the ability of the sought bogeymen
+     * @return list of all bogeymen with the given ability
+     */
+    List<Bogeyman> findByAbility(Ability ability);
+
+    /**
+     * Finds bogeymen in the database by type.
+     *
+     * @param type the type of the sought bogeymen
+     * @return list of all bogeymen of the given type
+     */
+    List<Bogeyman> findByType(BogeymanType type);
+
+    /**
      * Finds all bogeymen in the database.
      *
-     * @return List of all bogeymen in the database.
+     * @return list of all bogeymen in the database
      */
     List<Bogeyman> findAll();
 
