@@ -6,6 +6,9 @@ import cz.muni.fi.hauntedhouse.entity.BogeymanType;
 import cz.muni.fi.hauntedhouse.entity.House;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -14,44 +17,65 @@ import java.util.List;
 @Repository
 public class BogeymanDaoImpl implements BogeymanDao {
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public void create(Bogeyman bogeyman) {
-
+        em.persist(bogeyman);
     }
 
     @Override
     public Bogeyman findById(Long id) {
-        return null;
+        return em.find(Bogeyman.class, id);
     }
 
     @Override
     public Bogeyman findByName(String name) {
-        return null;
+        try {
+            return em
+                    .createQuery("select b from Bogeyman b where name = :name", Bogeyman.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 
     @Override
     public List<Bogeyman> findByHouse(House house) {
-        return null;
+        return em
+                .createQuery("select b from Bogeyman b where house = :house", Bogeyman.class)
+                .setParameter("house", house)
+                .getResultList();
     }
 
     @Override
     public List<Bogeyman> findByAbility(Ability ability) {
-        return null;
+        return em
+                .createQuery("select b from Bogeyman b where ability = :ability", Bogeyman.class)
+                .setParameter("ability", ability)
+                .getResultList();
     }
 
     @Override
     public List<Bogeyman> findByType(BogeymanType type) {
-        return null;
+        return em
+                .createQuery("select b from Bogeyman b where type = :type", Bogeyman.class)
+                .setParameter("type", type)
+                .getResultList();
     }
 
     @Override
     public List<Bogeyman> findAll() {
-        return null;
+        return em
+                .createQuery("select b from Bogeyman b", Bogeyman.class)
+                .getResultList();
     }
 
     @Override
     public void delete(Bogeyman bogeyman) {
-
+        em.remove(bogeyman);
     }
 
 }
