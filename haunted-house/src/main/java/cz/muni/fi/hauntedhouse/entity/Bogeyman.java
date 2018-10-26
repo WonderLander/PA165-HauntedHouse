@@ -10,6 +10,7 @@ import java.util.Set;
 /**
  * @author Ondrej Krcma 451363
  */
+@Entity
 public class Bogeyman {
 
     @Id
@@ -33,7 +34,7 @@ public class Bogeyman {
 
     private LocalTime hauntStartTime;
 
-    private LocalTime hountEndTime;
+    private LocalTime hauntEndTime;
 
     @Column(length = 2000)
     private String description;
@@ -92,11 +93,11 @@ public class Bogeyman {
     }
 
     public LocalTime getHountEndTime() {
-        return hountEndTime;
+        return hauntEndTime;
     }
 
-    public void setHountEndTime(LocalTime hountEndTime) {
-        this.hountEndTime = hountEndTime;
+    public void setHountEndTime(LocalTime hauntEndTime) {
+        this.hauntEndTime = hauntEndTime;
     }
 
     public String getDescription() {
