@@ -20,13 +20,12 @@ public class HauntedHouse
     {
         AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(InMemoryConfig.class);
         emf = Persistence.createEntityManagerFactory("default");
-        System.out.println("tady");
         EntityManager em = emf.createEntityManager();
         //Example
         //Save
-        Comment comment1 = new Comment("comment1");
+        Comment comment1 = new Comment("author",LocalDate.now(),"comment1");
         comment1.setDate(LocalDate.now());
-        Comment comment2 = new Comment("comment2");
+        Comment comment2 = new Comment("author",LocalDate.now(),"comment2");
         comment2.setDate(LocalDate.now());
 
         em.getTransaction().begin();

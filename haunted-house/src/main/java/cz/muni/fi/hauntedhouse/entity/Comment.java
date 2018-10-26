@@ -24,12 +24,14 @@ public class Comment
     @Column(length = 2000)
     private String text;
 
-    //@ManyToOne
-    //private House house;
+    @ManyToOne
+    private House house;
 
     public Comment(){}
 
-    public Comment(String text) {
+    public Comment(@NotNull String author, @NotNull LocalDate date, String text) {
+        this.author = author;
+        this.date = date;
         this.text = text;
     }
 
