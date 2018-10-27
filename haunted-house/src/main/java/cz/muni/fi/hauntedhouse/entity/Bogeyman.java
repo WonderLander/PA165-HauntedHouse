@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -92,11 +93,11 @@ public class Bogeyman {
         this.hauntStartTime = hauntStartTime;
     }
 
-    public LocalTime getHountEndTime() {
+    public LocalTime getHauntEndTime() {
         return hauntEndTime;
     }
 
-    public void setHountEndTime(LocalTime hauntEndTime) {
+    public void setHauntEndTime(LocalTime hauntEndTime) {
         this.hauntEndTime = hauntEndTime;
     }
 
@@ -116,6 +117,16 @@ public class Bogeyman {
         this.reason = reason;
     }
 
-    // TODO: equals() and hashCode()
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bogeyman)) return false;
+        Bogeyman bogeyman = (Bogeyman) o;
+        return Objects.equals(getName(), bogeyman.getName());
+    }
 
+    @Override
+    public int hashCode() {
+        return 31 * Objects.hash(getName());
+    }
 }
