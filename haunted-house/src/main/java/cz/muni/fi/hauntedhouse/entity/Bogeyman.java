@@ -93,11 +93,11 @@ public class Bogeyman {
         this.hauntStartTime = hauntStartTime;
     }
 
-    public LocalTime getHountEndTime() {
+    public LocalTime getHauntEndTime() {
         return hauntEndTime;
     }
 
-    public void setHountEndTime(LocalTime hauntEndTime) {
+    public void setHauntEndTime(LocalTime hauntEndTime) {
         this.hauntEndTime = hauntEndTime;
     }
 
