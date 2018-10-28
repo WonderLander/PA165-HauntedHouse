@@ -5,6 +5,7 @@ import cz.muni.fi.hauntedhouse.EntityFactory;
 import cz.muni.fi.hauntedhouse.config.PersistenceSampleApplicationContext;
 import cz.muni.fi.hauntedhouse.entity.Ability;
 import cz.muni.fi.hauntedhouse.entity.Bogeyman;
+import cz.muni.fi.hauntedhouse.entity.BogeymanType;
 import cz.muni.fi.hauntedhouse.entity.House;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +19,9 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Martin Wenzl.
@@ -76,7 +79,7 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
         List<Bogeyman> found = em.createQuery
                 ("select b from Bogeyman b", Bogeyman.class).getResultList();
 
-        Assert.assertTrue(found.size() == 3);
+        Assert.assertEquals(3, found.size());
 
         Assert.assertTrue(found.contains(b1));
         Assert.assertTrue(found.contains(b2));
@@ -90,29 +93,66 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findByName() {
+    public void findByNameTest() {
         Bogeyman found = bDao.findByName(b2.getName());
         Assert.assertEquals(b2, found);
     }
 
     @Test
-    public void findByHouse() {
+    public void findByHouseTest() {
         List<Bogeyman> found = bDao.findByHouse(h1);
 
-        Assert.assertTrue(found.size() == 2);
+        Assert.assertEquals(2, found.size());
 
         Assert.assertTrue(found.contains(b1));
         Assert.assertTrue(found.contains(b2));
     }
 
     @Test
-    public void findByAbility() {
+    public void findByAbilityTest() {
         List<Bogeyman> found = bDao.findByAbility(a1);
 
-        Assert.assertTrue(found.size() == 2);
+        Assert.assertEquals(2, found.size());
 
         Assert.assertTrue(found.contains(b1));
         Assert.assertTrue(found.contains(b3));
+    }
+
+    @Test
+    public void findByTypeTest() {
+        for (BogeymanType t : BogeymanType.values()) {
+            int typeCount = 0;
+            List<Bogeyman> found = bDao.findByType(t);
+            if (b1.getType() == t) {
+                Assert.assertTrue(found.contains(b1));
+                typeCount++;
+            }
+            if (b2.getType() == t) {
+                Assert.assertTrue(found.contains(b2));
+                typeCount++;
+            }
+            if (b3.getType() == t) {
+                Assert.assertTrue(found.contains(b3));
+                typeCount++;
+            }
+            Assert.assertEquals(found.size(), typeCount);
+        }
+    }
+
+    @Test
+    public void findAllTest() {
+        List<Bogeyman> found = bDao.findAll();
+        Assert.assertEquals(found.size(), 3);
+        Assert.assertTrue(found.contains(b1));
+        Assert.assertTrue(found.contains(b2));
+        Assert.assertTrue(found.contains(b3));
+    }
+
+    @Test
+    public void deleteTest() {
+        String name = b1.getName();
+        bDao.delete(b1);
+        Assert.assertTrue(bDao.findByName(name) == null);
     }
 
 

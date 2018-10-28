@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses={House.class}, basePackages = "cz.muni.fi.hauntedhouse")
+@ComponentScan(basePackages = "cz.muni.fi.hauntedhouse")
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 
