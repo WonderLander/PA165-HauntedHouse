@@ -2,9 +2,6 @@ package cz.muni.fi.hauntedhouse.dao;
 
 import cz.muni.fi.hauntedhouse.config.PersistenceSampleApplicationContext;
 import cz.muni.fi.hauntedhouse.entity.Ability;
-import cz.muni.fi.hauntedhouse.entity.Bogeyman;
-import cz.muni.fi.hauntedhouse.entity.BogeymanType;
-import cz.muni.fi.hauntedhouse.entity.House;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -17,7 +14,6 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -88,8 +84,6 @@ public class AbilityDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCreateNullAbility() {
-        em.persist(invisibility);
-
         Assert.assertThrows(
                 IllegalArgumentException.class,
                 () -> abilityDao.createAbility(null));
@@ -119,6 +113,14 @@ public class AbilityDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void testNullResultFindAbilityById() {
+        long id = invisibility.getId() + chill.getId() + noDescriptionAbility.getId() + noCooldownAbility.getId() + negativeCooldownAbility.getId() + 1;
+        Ability foundAbility = abilityDao.findAbilityById(id);
+
+        Assert.assertNull(foundAbility);
+    }
+
+    @Test
     public void testFindAbilityByName() {
         Ability foundAbility = abilityDao.findAbilityByName(noDescriptionAbility.getName());
 
@@ -134,44 +136,17 @@ public class AbilityDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void testNullResultFindAbilityByName() {
+        Ability foundAbility = abilityDao.findAbilityByName("aaaaaa");
+
+        Assert.assertNull(foundAbility);
+    }
+
+    @Test
     public void testFindAll() {
         List<Ability> foundAbilities = abilityDao.findAll();
 
         Assert.assertEquals(foundAbilities.size(), 5);
-    }
-
-    @Test
-    public void testFindByBogeyman() {
-        // TODO
-        /*House house = new House();
-        house.setName("HouseMD");
-        house.setAddress("370 Jones Avenue\nBlackwood, NJ 08012");
-        house.setDate(new Date());
-        house.setHistory("");
-
-        em.persist(house);
-
-        Bogeyman ghost = new Bogeyman();
-        ghost.setName("Casper");
-        ghost.setType(BogeymanType.GHOST);
-        ghost.addAbility(invisibility);
-        ghost.addAbility(chill);
-        ghost.setHouse(house);
-
-        em.persist(ghost);
-
-        List<Ability> foundAbilities = abilityDao.findByBogeyman(ghost);
-
-        Assert.assertEquals(foundAbilities.size(), 2);*/
-    }
-
-    @Test
-    public void testFindByNullBogeyman() {
-        // TODO
-        /*Assert.assertThrows(
-                IllegalArgumentException.class,
-                () -> abilityDao.findByBogeyman(null)
-        );*/
     }
 
     @Test
@@ -186,4 +161,11 @@ public class AbilityDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(foundAbilities.get(1).getName(), noDescriptionAbility.getName());
     }
 
+    @Test
+    public void testRemoveNull() {
+        Assert.assertThrows(
+                IllegalArgumentException.class,
+                () -> abilityDao.remove(null)
+        );
+    }
 }
