@@ -11,14 +11,10 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
 
 @ContextConfiguration(classes= PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
@@ -29,7 +25,7 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
     private BogeymanDao bDao;
 
     @Autowired
-    private IHouseDao hDao;
+    private HouseDao hDao;
 
 
     @PersistenceContext

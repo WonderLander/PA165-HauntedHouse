@@ -30,7 +30,7 @@ public class EntityFactory {
             }
         }
         bogey.setHauntStartTime(start);
-        bogey.setHountEndTime(end);
+        bogey.setHauntEndTime(end);
         bogey.setReason(reason);
         bogey.setDescription(description);
 

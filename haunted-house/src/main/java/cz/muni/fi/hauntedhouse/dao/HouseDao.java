@@ -2,52 +2,53 @@ package cz.muni.fi.hauntedhouse.dao;
 
 import cz.muni.fi.hauntedhouse.entity.House;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
+/**
+ * Interface House Data Access Object
+ * @author Lukáš Sadlek
+ */
+public interface HouseDao {
+    /**
+     * Find House which has this id.
+     * In a case when such house is found, the instance of class House is returned.
+     * Otherwise the return value is null.
+     * @param id: id of a house
+     * @return instance of class House or null
+     */
+    House findHouseById(Long id);
 
-@Repository
-public class HouseDao implements IHouseDao {
-    @PersistenceContext
-    private EntityManager entityManager;
+    /**
+     * Find house which has specified name.
+     * In a case when such a house is found, the instance of class House is returned.
+     * Otherwise the return value is null.
+     * @param name: name of a house
+     * @return instance of class House or null
+     */
+    House findHouseByName(String name);
 
-    @Override
-    public House findHouseById(Long id) {
-        return entityManager.find(House.class, id);
-    }
+    /**
+     * Creates in the DB row for house which is passed as a parameter.
+     * In a case when house with this name already exists, IllegalArgumentException is thrown.
+     * In a case when house has a property with null value, IllegalArgumentException is thrown.
+     * Otherwise the house is created.
+     * @param house: instance of class House to be created
+     * @throws IllegalArgumentException
+     */
+    void createHouse(House house) throws IllegalArgumentException;
 
-    @Override
-    public House findHouseByName(String name) {
-        try {
-            return entityManager.createQuery("select h from House h where name = :name",
-                    House.class).setParameter("name", name).getSingleResult();
-        } catch (NoResultException nre) {
-            return null;
-        }
-    }
+    /**
+     * Delete specified house passed as a parameter.
+     * If this house does not exist, IllegalArgumentException is thrown.
+     * @param house: instance of class House to be deleted
+     * @throws IllegalArgumentException
+     */
+    void deleteHouse(House house) throws IllegalArgumentException;
 
-    @Override
-    public void createHouse(House house) throws IllegalArgumentException{
-        if (entityManager.find(House.class, house.getId()) != null) {
-            throw new IllegalArgumentException("House already exists.");
-        }
-        if ((house.getAddress() == null) ||
-                (house.getDate() == null) ||
-                (house.getHistory() == null) ||
-                (house.getName() == null)) {
-            throw new IllegalArgumentException("House has null property.");
-        }
-        entityManager.persist(house);
-    }
-
-    @Override
-    public void deleteHouse(House house) throws IllegalArgumentException{
-        if (entityManager.find(House.class, house.getId()) == null) {
-            throw new IllegalArgumentException("House to be deleted does not exist");
-        }
-        entityManager.remove(house);
-
-    }
+    /**
+     * Find all houses in the database
+     * @return list of houses in the DB
+     */
+    List<House> findAll();
 }
+
