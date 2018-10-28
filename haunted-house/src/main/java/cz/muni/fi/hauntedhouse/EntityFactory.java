@@ -5,8 +5,8 @@ import cz.muni.fi.hauntedhouse.entity.Bogeyman;
 import cz.muni.fi.hauntedhouse.entity.BogeymanType;
 import cz.muni.fi.hauntedhouse.entity.House;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public class EntityFactory {
         return bogey;
     }
 
-    private static House createHouse(String name, String adress, Date date, String history) {
+    private static House createHouse(String name, String adress, LocalDate date, String history) {
          House house = new House();
          house.setAddress(adress);
          house.setDate(date);
@@ -77,7 +77,7 @@ public class EntityFactory {
         houseCounter++;
         String name = "HouseName" + houseCounter;
         String adress = "Adress" + houseCounter;
-        Date date = new Date();
+        LocalDate date = LocalDate.of(2018 - houseCounter, 10, 23);
         String history = "BriefHistory" + houseCounter;
         return createHouse(name, adress, date, history);
     }

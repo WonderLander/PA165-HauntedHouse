@@ -1,7 +1,7 @@
 package cz.muni.fi.hauntedhouse.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-//import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -25,9 +25,7 @@ public class House {
     private String address;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private Date date;
-    //private LocalDate date;
+    private LocalDate date;
 
     @NotNull
     private String history;
@@ -64,11 +62,11 @@ public class House {
         this.address = address;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
