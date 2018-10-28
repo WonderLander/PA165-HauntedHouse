@@ -37,8 +37,8 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private CommentDao commentDao;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    private HouseDao houseDao;
 
     private Comment comment1;
     private Comment comment2;
@@ -56,10 +56,9 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
 
         comment1.setAuthor("Jirina");
         comment1.setDate(firstDay);
-        comment1.setText(new StringBuilder()
-                        .append("Na pokoji cislo 11 se kazdy den o sedme rano zjevi duch stareho namornika. ")
-                        .append("Vstane z postele, oblekne se, vezme si svuj kufr a odejde pryc. ")
-                        .append("Na ubytovani na pokoji 11 nabizeji vyraznou slevu.").toString());
+        comment1.setText("Na pokoji cislo 11 se kazdy den o sedme rano zjevi duch stareho namornika. " +
+                         "Vstane z postele, oblekne se, vezme si svuj kufr a odejde pryc. " +
+                         "Na ubytovani na pokoji 11 nabizeji vyraznou slevu.");
 
         comment2.setAuthor("Anonym");
         comment2.setDate(firstDay);
@@ -69,17 +68,16 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
         comment3.setDate(theDayBefore);
         comment3.setText("Nemam slov");
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.DAY_OF_MONTH, -7);
-        Date weekBefore = cal.getTime();
         house1 = new House();
         house1.setName("Hotel");
         house1.setAddress("Na plazi");
-        house1.setDate(weekBefore);
-        //comment1.setHouse(house1);
-        //comment2.setHouse(house1);
+        house1.setDate(LocalDate.of(2018, 10, 15));
+        house1.setHistory("This hotel was built in 1997.");
+        comment1.setHouse(house1);
+        comment2.setHouse(house1);
 
+
+        houseDao.createHouse(house1);
         commentDao.create(comment1);
         commentDao.create(comment2);
         commentDao.create(comment3);
@@ -134,7 +132,7 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findById() {
         Comment comment = commentDao.findById(comment1.getId());
-        Assert.assertTrue(comment1.equals(comment));
+        Assert.assertEquals(comment1, comment);
     }
 
     @Test
@@ -145,11 +143,11 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(comments.contains(comment3));
     }
 
-    /*@Test
+    @Test
     public void findByHouse() {
         List<Comment> comments = commentDao.findByHouse(house1);
         Assert.assertEquals(comments.size(), 2);
         Assert.assertTrue(comments.contains(comment1));
         Assert.assertTrue(comments.contains(comment2));
-    }*/
+    }
 }
