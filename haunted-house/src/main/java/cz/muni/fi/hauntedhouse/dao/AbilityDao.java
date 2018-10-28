@@ -2,7 +2,6 @@ package cz.muni.fi.hauntedhouse.dao;
 
 import cz.muni.fi.hauntedhouse.entity.Ability;
 
-import javax.xml.bind.ValidationException;
 import java.util.List;
 
 /**
@@ -45,21 +44,11 @@ public interface AbilityDao {
     List<Ability> findAll();
 
     /**
-     * Retrieves abilities for chosen bogeyman, if there is no such bogeyman in database
-     * returns null.
-     *
-     * //@param Bogeymen
-     * @return List of abilities.
-     * @throws IllegalArgumentException when bogeyman is null.
-     */
-    List<Ability> findByBogeyman(/*TODO: Parameter is boogeyman class*/) throws IllegalArgumentException, ValidationException;
-
-    /**
      * Removes ability from database.
      *
      * @param ability abitlity to be removed
      * @throws IllegalArgumentException when ability is null
      */
-    public void remove(Ability ability) throws IllegalArgumentException;
+    void remove(Ability ability) throws IllegalArgumentException;
 
 }

@@ -3,6 +3,7 @@ package cz.muni.fi.hauntedhouse.dao;
 
 import cz.muni.fi.hauntedhouse.EntityFactory;
 import cz.muni.fi.hauntedhouse.config.PersistenceSampleApplicationContext;
+import cz.muni.fi.hauntedhouse.entity.Ability;
 import cz.muni.fi.hauntedhouse.entity.Bogeyman;
 import cz.muni.fi.hauntedhouse.entity.House;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,17 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
+/**
+ * @author Martin Wenzl.
+ */
 @ContextConfiguration(classes= PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
@@ -27,6 +34,9 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private HouseDao hDao;
 
+    @Autowired
+    private AbilityDao aDao;
+
 
     @PersistenceContext
     private EntityManager em;
@@ -36,32 +46,74 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
     private Bogeyman b1;
     private Bogeyman b2;
     private Bogeyman b3;
+    private Ability a1;
+    private Ability a2;
 
     @BeforeMethod
     public void setup() {
         h1 = EntityFactory.createCompulsoryHouse();
         h2 = EntityFactory.createCompulsoryHouse();
-        b1 = EntityFactory.createCompulsoryBogeyman(h1);
-        b2 = EntityFactory.createCompulsoryBogeyman(h1);
-        b3 = EntityFactory.createCompulsoryBogeyman(h2);
+        a1 = EntityFactory.createCompulsoryAbility();
+        a2 = EntityFactory.createCompulsoryAbility();
+        b1 = EntityFactory.createCompulsoryBogeyman(h1, a1);
+        b2 = EntityFactory.createCompulsoryBogeyman(h1, a2);
+        b3 = EntityFactory.createCompulsoryBogeyman(h2, a1);
 
-        //hDao.createHouse(h1);
-        //hDao.createHouse(h2);
+        hDao.createHouse(h1);
+        hDao.createHouse(h2);
 
-        //bDao.create(b1);
-        //bDao.create(b2);
-        //bDao.create(b3);
+        aDao.createAbility(a1);
+        aDao.createAbility(a2);
+
+        bDao.create(b1);
+        bDao.create(b2);
+        bDao.create(b3);
     }
 
 
-    /*@Test
-
+    @Test
     public void createTest() {
-        List<Bogeyman> bList = em.createQuery
+        List<Bogeyman> found = em.createQuery
                 ("select b from Bogeyman b", Bogeyman.class).getResultList();
 
-        Assert.assertTrue(bList.contains(b1));
-        Assert.assertTrue(bList.contains(b2));
-        Assert.assertTrue(bList.contains(b3));
-    }*/
+        Assert.assertTrue(found.size() == 3);
+
+        Assert.assertTrue(found.contains(b1));
+        Assert.assertTrue(found.contains(b2));
+        Assert.assertTrue(found.contains(b3));
+    }
+
+    @Test
+    public void findByIdTest() {
+        Bogeyman found = bDao.findById(b1.getId());
+        Assert.assertEquals(b1, found);
+    }
+
+    @Test
+    public void findByName() {
+        Bogeyman found = bDao.findByName(b2.getName());
+        Assert.assertEquals(b2, found);
+    }
+
+    @Test
+    public void findByHouse() {
+        List<Bogeyman> found = bDao.findByHouse(h1);
+
+        Assert.assertTrue(found.size() == 2);
+
+        Assert.assertTrue(found.contains(b1));
+        Assert.assertTrue(found.contains(b2));
+    }
+
+    @Test
+    public void findByAbility() {
+        List<Bogeyman> found = bDao.findByAbility(a1);
+
+        Assert.assertTrue(found.size() == 2);
+
+        Assert.assertTrue(found.contains(b1));
+        Assert.assertTrue(found.contains(b3));
+    }
+
+
 }
