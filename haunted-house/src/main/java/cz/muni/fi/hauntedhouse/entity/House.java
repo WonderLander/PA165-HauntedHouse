@@ -1,13 +1,12 @@
 package cz.muni.fi.hauntedhouse.entity;
-// import com.sun.istack.internal.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Objects;
+//import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Class for representing house
- * @author Lukáš Sadlek
+ * @author Lukas Sadlek
  */
 
 @Entity
@@ -28,9 +27,16 @@ public class House {
     @NotNull
     @Temporal(TemporalType.DATE)
     private Date date;
+    //private LocalDate date;
 
     @NotNull
     private String history;
+
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany
+    private List<Bogeyman> bogeymen = new ArrayList<>();
 
     public House() {}
 
@@ -73,6 +79,18 @@ public class House {
     public void setHistory(String history) {
         this.history = history;
     }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
+    public List<Comment> getComments(){ return Collections.unmodifiableList(this.comments);}
+
+    public void addBogeyman(Bogeyman bogeyman) {
+        this.bogeymen.add(bogeyman);
+    }
+
+    public List<Bogeyman> getBogeymen() {return Collections.unmodifiableList(this.bogeymen);}
 
     @Override
     public boolean equals(Object o) {
