@@ -24,7 +24,7 @@ import java.time.LocalDate;
 public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
 {
     @Autowired
-    public IHouseDao houseDao;
+    private HouseDao houseDao;
 
     private House h1;
     private House h2;
