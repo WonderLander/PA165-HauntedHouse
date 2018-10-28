@@ -67,6 +67,14 @@ public class Comment
         this.text = text;
     }
 
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
