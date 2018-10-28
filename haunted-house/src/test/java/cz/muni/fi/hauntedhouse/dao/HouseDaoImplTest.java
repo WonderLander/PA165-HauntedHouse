@@ -24,7 +24,7 @@ import java.time.LocalDate;
 public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
 {
     @Autowired
-    public IHouseDao houseDao;
+    public HouseDao houseDao;
 
     private House h1;
     private House h2;
@@ -88,6 +88,11 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createHouseNull(){
+        houseDao.createHouse(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void createHouseNullProperty(){
         House house = new House();
         house.setAddress("Address");
@@ -107,19 +112,29 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         houseDao.createHouse(house);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test
     public void deleteHouse(){
-        House house = new House();
-        house.setAddress("Address1");
-        house.setName("house1");
-        house.setHistory("house 1 history");
-        house.setDate(LocalDate.now());
-        Assert.assertNotNull(houseDao.findHouseByName(house.getName()));
+        houseDao.deleteHouse(h1);
 
-        houseDao.deleteHouse(house);
-
-        houseDao.findHouseByName(house.getName());
+        Assert.assertNull(houseDao.findHouseByName("house1"));
 
     }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deleteHouseNull(){
+        houseDao.deleteHouse(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deleteHouseNotInDb(){
+        House house = new House();
+        house.setAddress("Address1");
+        house.setName("house not in db");
+        house.setHistory("house history");
+        house.setDate(LocalDate.now());
+
+        houseDao.deleteHouse(house);
+    }
+
 }
 
