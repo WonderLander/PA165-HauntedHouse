@@ -78,7 +78,10 @@ public class Bogeyman {
         ability.addBogeyman(this);
     }
 
-    public void removeAbility(Ability ability) { abilities.remove(ability); }
+    public void removeAbility(Ability ability) {
+        abilities.remove(ability);
+        ability.removeBogeyman(this);
+    }
 
     public House getHouse() {
         return house;
