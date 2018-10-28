@@ -7,6 +7,7 @@ import cz.muni.fi.hauntedhouse.entity.House;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 public class EntityFactory {
     private static int bogeyCounter = 0;
     private static int houseCounter = 0;
+    private static int abilityCounter = 0;
 
      private static Bogeyman createBogeyman(String name, BogeymanType type,
                                             List<Ability> abilities, House house,
@@ -49,29 +51,31 @@ public class EntityFactory {
 
     /**
      * Creates Bogeyman with random notnull attributes.
-     * @return random Bogeyman
+     * @return Bogeyman
      */
     public static Bogeyman createCompulsoryBogeyman() {
-         return createCompulsoryBogeyman(createCompulsoryHouse());
+         return createCompulsoryBogeyman(createCompulsoryHouse(), createCompulsoryAbility());
     }
 
     /**
      * Creates Bogeyman with random notnull attributes but leaves user to choose
      * his own house.
      * @param house House...
-     * @return random Bogeyman
+     * @return Bogeyman
      */
-    public static Bogeyman createCompulsoryBogeyman(House house) {
+    public static Bogeyman createCompulsoryBogeyman(House house, Ability ability) {
         bogeyCounter++;
         String name = "BogeyName" + bogeyCounter;
         BogeymanType type = BogeymanType.values()[bogeyCounter % 10];
-        return createBogeyman(name, type, null, house,
+        List<Ability> abilities = new ArrayList<>();
+        abilities.add(ability);
+        return createBogeyman(name, type, abilities, house,
                 null, null, null, null);
     }
 
     /**
      * Creates House with random notnull attributes.
-     * @return random House
+     * @return House
      */
     public static House createCompulsoryHouse() {
         houseCounter++;
@@ -80,5 +84,23 @@ public class EntityFactory {
         LocalDate date = LocalDate.of(2018 - houseCounter, 10, 23);
         String history = "BriefHistory" + houseCounter;
         return createHouse(name, adress, date, history);
+    }
+
+    /**
+     * Creates Ability with notnull attributes without bogeyman
+     * @return Ability
+     */
+    public static Ability createCompulsoryAbility() {
+        abilityCounter++;
+        String name = "AbilityName" + abilityCounter;
+        String desc = "Description for ability" + abilityCounter + ".";
+        int cooldown = abilityCounter;
+
+        Ability ability = new Ability();
+        ability.setName(name);
+        ability.setDescription(desc);
+        ability.setCooldown(cooldown);
+
+        return ability;
     }
 }

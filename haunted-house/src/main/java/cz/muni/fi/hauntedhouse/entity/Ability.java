@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -29,6 +32,10 @@ public class Ability {
     @Column
     private int cooldown;
 
+    @Column
+    @ManyToMany(mappedBy = "abilities")
+    private List<Bogeyman> bogeymen = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -36,9 +43,6 @@ public class Ability {
     public void setId(Long id) {
         this.id = id;
     }
-
-    // TODO: add compare and hash
-
 
     public String getName() {
         return name;
@@ -62,5 +66,30 @@ public class Ability {
 
     public void setCooldown(int cooldown) {
         this.cooldown = cooldown;
+    }
+
+    public List<Bogeyman> getBogeymen() {
+        return bogeymen;
+    }
+
+    public void setBogeymen(List<Bogeyman> bogeymen) {
+        this.bogeymen = bogeymen;
+    }
+
+    public void addBogeyman (Bogeyman bogeyman) {
+        this.bogeymen.add(bogeyman);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ability)) return false;
+        Ability ability = (Ability) o;
+        return Objects.equals(getName(), ability.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
     }
 }

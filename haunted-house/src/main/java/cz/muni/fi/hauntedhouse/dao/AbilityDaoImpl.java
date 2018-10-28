@@ -1,6 +1,7 @@
 package cz.muni.fi.hauntedhouse.dao;
 
 import cz.muni.fi.hauntedhouse.entity.Ability;
+import cz.muni.fi.hauntedhouse.entity.Bogeyman;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -53,11 +54,6 @@ public class AbilityDaoImpl implements AbilityDao {
         return em.createQuery("select a from Ability a", Ability.class).getResultList();
     }
 
-    // TODO: WAITING FOR BOGEYMAN
-    @Override
-    public List<Ability> findByBogeyman() throws IllegalArgumentException {
-        return null;
-    }
 
     @Override
     public void remove(Ability ability) {
