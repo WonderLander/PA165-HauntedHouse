@@ -79,6 +79,9 @@ public class Ability {
     public void addBogeyman (Bogeyman bogeyman) {
         this.bogeymen.add(bogeyman);
     }
+    public void removeBogeyman (Bogeyman bogeyman) {
+        bogeymen.remove(bogeyman);
+    }
 
     @Override
     public boolean equals(Object o) {
