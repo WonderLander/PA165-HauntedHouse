@@ -18,7 +18,7 @@ public class HauntedHouse
 
     public static void main(String[] args)
     {
-        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(InMemoryConfig.class);
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(PersistenceSampleApplicationContext.class);
         emf = Persistence.createEntityManagerFactory("default");
         EntityManager em = emf.createEntityManager();
         //Example

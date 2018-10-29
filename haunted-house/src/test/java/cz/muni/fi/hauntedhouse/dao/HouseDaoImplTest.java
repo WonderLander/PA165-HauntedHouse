@@ -1,6 +1,6 @@
 package cz.muni.fi.hauntedhouse.dao;
 
-import cz.muni.fi.hauntedhouse.config.InMemoryConfig;
+import cz.muni.fi.hauntedhouse.config.PersistenceSampleApplicationContext;
 import cz.muni.fi.hauntedhouse.entity.House;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
 /**
  * @author Ondřej Štursa
  */
-@ContextConfiguration(classes = InMemoryConfig.class)
+@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
