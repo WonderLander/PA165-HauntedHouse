@@ -78,7 +78,7 @@ public class BogeymanDaoImpl implements BogeymanDao {
         for (Ability ability : bogeyman.getAbilities) {
             bogeyman.removeAbility(ability);
         }
-        em.remove(bogeyman)
+        em.remove(bogeyman);
     }
 
 }
