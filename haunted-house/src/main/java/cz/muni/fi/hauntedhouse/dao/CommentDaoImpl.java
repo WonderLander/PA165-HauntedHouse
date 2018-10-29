@@ -52,7 +52,6 @@ public class CommentDaoImpl implements CommentDao
         if(house == null){
             throw new IllegalArgumentException("House is null");
         }
-        //if(manager.find(House.class,house.getId())==null){
         if(manager.createQuery("SELECT h FROM House h WHERE h.name = :name").setParameter("name",house.getName()).getResultList().size()==0){
             return null;
         }
