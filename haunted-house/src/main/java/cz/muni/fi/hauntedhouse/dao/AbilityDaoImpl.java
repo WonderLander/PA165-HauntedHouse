@@ -1,15 +1,12 @@
 package cz.muni.fi.hauntedhouse.dao;
 
 import cz.muni.fi.hauntedhouse.entity.Ability;
-import cz.muni.fi.hauntedhouse.entity.Bogeyman;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.xml.bind.ValidationException;
 import java.util.List;
-import java.util.Locale;
 
 
 @Repository
