@@ -75,7 +75,10 @@ public class BogeymanDaoImpl implements BogeymanDao {
 
     @Override
     public void delete(Bogeyman bogeyman) {
-        em.remove(bogeyman);
+        for (Ability ability : bogeyman.getAbilities) {
+            bogeyman.removeAbility(ability);
+        }
+        em.remove(bogeyman)
     }
 
 }
