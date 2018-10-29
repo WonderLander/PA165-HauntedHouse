@@ -19,9 +19,7 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Martin Wenzl.
@@ -152,7 +150,7 @@ public class BogeymanDaoTest extends AbstractTestNGSpringContextTests {
     public void deleteTest() {
         String name = b1.getName();
         bDao.delete(b1);
-        Assert.assertTrue(bDao.findByName(name) == null);
+        Assert.assertNull(bDao.findByName(name));
     }
 
 
