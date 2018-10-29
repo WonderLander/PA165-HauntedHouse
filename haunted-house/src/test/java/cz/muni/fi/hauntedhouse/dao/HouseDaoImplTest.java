@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 /**
@@ -134,6 +135,37 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         house.setDate(LocalDate.now());
 
         houseDao.deleteHouse(house);
+    }
+
+    @Test
+    public void findAll(){
+        List<House> houses=houseDao.findAll();
+
+        Assert.assertEquals(houses.size(),2);
+
+        House house = new House();
+        house.setAddress("Address new");
+        house.setName("new house");
+        house.setHistory("new house history");
+        house.setDate(LocalDate.now());
+
+        houseDao.createHouse(house);
+
+        houses = houseDao.findAll();
+
+        Assert.assertEquals(houses.size(),3);
+        
+    }
+
+    @Test
+    public void findAllDelete(){
+        List<House> houses=houseDao.findAll();
+
+        Assert.assertEquals(houses.size(),2);
+
+        houseDao.deleteHouse(h1);
+
+        Assert.assertEquals(houseDao.findAll().size(),1);
     }
 
 }
