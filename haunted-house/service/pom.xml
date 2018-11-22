@@ -11,5 +11,28 @@
 
     <artifactId>service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cz.muni.fi</groupId>
+            <artifactId>persistence</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cz.muni.fi</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
