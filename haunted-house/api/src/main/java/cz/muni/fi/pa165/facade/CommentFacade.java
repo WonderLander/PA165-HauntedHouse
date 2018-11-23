@@ -62,19 +62,19 @@ public interface CommentFacade {
 
     /**
      * create comment in the database
-     * @param Comment comment to be created
+     * @param comment comment to be created
      */
-    void create(CommentCreateDto Comment);
+    void create(CommentCreateDto comment);
 
     /**
      * dalete comment from the database
-     * @param Comment comment to be deleted
+     * @param comment comment to be deleted
      */
-    void delete(CommentDto Comment);
+    void delete(CommentDto comment);
 
     /**
      * update comment in the database
-     * @param Comment comment to be updated
+     * @param comment comment to be updated
      */
-    void update(CommentDto Comment);
+    void update(CommentDto comment);
 }
