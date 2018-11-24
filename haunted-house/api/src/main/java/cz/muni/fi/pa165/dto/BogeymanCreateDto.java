@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.enums.BogeymanType;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,25 +13,26 @@ import java.util.Set;
 /**
  * @author Ondrej Krcma 451363
  */
-public class BogeymanDto {
+public class BogeymanCreateDto {
 
-    private long id;
+    @NotNull
+    @Size(min = 3, max = 50)
     private String name;
+
+    @NotNull
     private BogeymanType type;
     private Set<AbilityDto> abilities = new HashSet<>();
+
+    @NotNull
     private HouseDto house;
     private LocalTime hauntStartTime;
     private LocalTime hauntEndTime;
+
+    @Size(max = 2000)
     private String description;
+
+    @Size(max = 500)
     private String reason;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -106,13 +109,13 @@ public class BogeymanDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BogeymanDto)) return false;
-        BogeymanDto that = (BogeymanDto) o;
+        if (!(o instanceof BogeymanCreateDto)) return false;
+        BogeymanCreateDto that = (BogeymanCreateDto) o;
         return Objects.equals(getName(), that.getName());
     }
 
     @Override
     public int hashCode() {
-        return 41 * Objects.hash(getName());
+        return 43 * Objects.hash(getName());
     }
 }
