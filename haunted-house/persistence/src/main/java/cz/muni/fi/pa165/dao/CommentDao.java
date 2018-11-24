@@ -52,4 +52,10 @@ public interface CommentDao
      * @throws IllegalArgumentException if comment is null
      */
     public void delete(Comment comment);
+
+    /**
+     * Update comment in database
+     * @param comment comment to be updated in the database
+     */
+    public void update(Comment comment);
 }

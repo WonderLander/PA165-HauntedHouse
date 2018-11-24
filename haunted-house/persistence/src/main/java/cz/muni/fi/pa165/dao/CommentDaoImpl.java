@@ -75,4 +75,12 @@ public class CommentDaoImpl implements CommentDao
         manager.remove(comment);
     }
 
+    @Override
+    public void update(Comment comment){
+        if(comment == null){
+            throw new IllegalArgumentException("Comment is null");
+        }
+        manager.merge(comment);
+    }
+
 }
