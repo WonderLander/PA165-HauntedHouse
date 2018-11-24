@@ -1,5 +1,9 @@
 package cz.muni.fi.pa165.config;
 
+import cz.muni.fi.pa165.dao.AbilityDao;
+import cz.muni.fi.pa165.dao.BogeymanDao;
+import cz.muni.fi.pa165.dao.CommentDao;
+import cz.muni.fi.pa165.dao.HouseDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +25,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackages = {"cz/muni/fi/pa165/config", "cz/muni/fi/pa165/entity","dao"})
+@ComponentScan(basePackageClasses = {AbilityDao.class, BogeymanDao.class, CommentDao.class, HouseDao.class},
+		basePackages = "cz.muni.fi.pa165")
 public class PersistenceSampleApplicationContext {
 	
 	@Bean
