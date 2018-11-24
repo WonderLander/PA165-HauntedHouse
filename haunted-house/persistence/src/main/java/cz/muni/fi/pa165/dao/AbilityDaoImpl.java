@@ -59,4 +59,12 @@ public class AbilityDaoImpl implements AbilityDao {
         }
         em.remove(ability);
     }
+
+    @Override
+    public void update(Ability ability) throws IllegalArgumentException {
+        if (ability == null) {
+            throw new IllegalArgumentException("Argument is null");
+        }
+        em.merge(ability);
+    }
 }

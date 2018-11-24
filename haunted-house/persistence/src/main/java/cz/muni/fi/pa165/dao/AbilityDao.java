@@ -46,9 +46,16 @@ public interface AbilityDao {
     /**
      * Removes ability from database.
      *
-     * @param ability abitlity to be removed
+     * @param ability ability to be removed
      * @throws IllegalArgumentException when ability is null
      */
     void remove(Ability ability) throws IllegalArgumentException;
+
+    /**
+     * Updates ability
+     * @param ability ability to be updated
+     * @throws IllegalArgumentException
+     */
+    void update(Ability ability) throws IllegalArgumentException;
 
 }
