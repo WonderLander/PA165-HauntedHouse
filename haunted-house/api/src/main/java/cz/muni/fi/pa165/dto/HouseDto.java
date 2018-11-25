@@ -9,12 +9,21 @@ import java.util.Objects;
  * @author Lukas Sadlek
  */
 public class HouseDto {
+    private Long id;
     private String name;
     private String address;
     private LocalDate date;
     private String history;
     private List<CommentDto> comments = new ArrayList<>();
     private List<BogeymanDto> bogeymen = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
