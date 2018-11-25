@@ -26,11 +26,14 @@ import java.util.List;
 public class BogeymanFacadeImpl implements BogeymanFacade {
 
 
-    @Inject
-    BogeymanService bs;
+    private final BogeymanService bs;
+    private final BeanMappingService bmp;
 
     @Inject
-    BeanMappingService bmp;
+    public BogeymanFacadeImpl(BogeymanService bogeymanService, BeanMappingService beanMappingService) {
+        this.bs = bogeymanService;
+        this.bmp = beanMappingService;
+    }
 
     @Override
     public void create(BogeymanCreateDto bogeyman) {
