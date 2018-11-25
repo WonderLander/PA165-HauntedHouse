@@ -5,12 +5,15 @@ import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author Ondrej Krcma 451363
  */
+
+@Service
 public interface BogeymanService {
 
     /**
