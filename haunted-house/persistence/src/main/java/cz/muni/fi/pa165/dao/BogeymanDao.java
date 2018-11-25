@@ -75,4 +75,11 @@ public interface BogeymanDao {
      */
     void delete(Bogeyman bogeyman);
 
+    /**
+     * Updates the database to contain the given bogeyman.
+     *
+     * @param bogeyman the bogeyman to be updated (with the changed fields)
+     */
+    void update(Bogeyman bogeyman);
+
 }

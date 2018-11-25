@@ -17,7 +17,6 @@ public interface BogeymanService {
      * Adds a bogeyman to the database.
      *
      * @param bogeyman the bogeyman to be added to the database
-     * @throws DataAccessException if DAO layer throws any exception
      */
     void create(Bogeyman bogeyman) throws DataAccessException;
 
@@ -26,7 +25,6 @@ public interface BogeymanService {
      *
      * @param id the id of the sought bogeyman
      * @return the found bogeyman or null if there is no bogeyman with the given id
-     * @throws DataAccessException if DAO layer throws any exception
      */
     Bogeyman findById(Long id) throws DataAccessException;
 
@@ -35,7 +33,6 @@ public interface BogeymanService {
      *
      * @param name the name of the sought bogeyman
      * @return the found bogeyman or null if there is no bogeyman with the given name
-     * @throws DataAccessException if DAO layer throws any exception
      */
     Bogeyman findByName(String name) throws DataAccessException;
 
@@ -44,7 +41,6 @@ public interface BogeymanService {
      *
      * @param house the house of the sought bogeymen
      * @return list of all bogeymen in the given house
-     * @throws DataAccessException if DAO layer throws any exception
      */
     List<Bogeyman> findByHouse(House house) throws DataAccessException;
 
@@ -53,7 +49,6 @@ public interface BogeymanService {
      *
      * @param ability the ability of the sought bogeymen
      * @return list of all bogeymen with the given ability
-     * @throws DataAccessException if DAO layer throws any exception
      */
     List<Bogeyman> findByAbility(Ability ability) throws DataAccessException;
 
@@ -62,7 +57,6 @@ public interface BogeymanService {
      *
      * @param type the type of the sought bogeymen
      * @return list of all bogeymen of the given type
-     * @throws DataAccessException if DAO layer throws any exception
      */
     List<Bogeyman> findByType(BogeymanType type) throws DataAccessException;
 
@@ -70,7 +64,6 @@ public interface BogeymanService {
      * Finds all bogeymen in the database.
      *
      * @return list of all bogeymen in the database
-     * @throws DataAccessException if DAO layer throws any exception
      */
     List<Bogeyman> findAll() throws DataAccessException;
 
@@ -78,7 +71,6 @@ public interface BogeymanService {
      * Deletes a bogeyman from the database.
      *
      * @param bogeyman the bogeyman to be deleted from the database
-     * @throws DataAccessException if DAO layer throws any exception
      */
     void delete(Bogeyman bogeyman) throws DataAccessException;
 
@@ -87,8 +79,22 @@ public interface BogeymanService {
      *
      * @param bogeyman the bogeyman whose house is to be changed
      * @param newHouse the new house of the bogeyman
-     * @throws DataAccessException if DAO layer throws any exception
      */
     void relocate(Bogeyman bogeyman, House newHouse) throws DataAccessException;
+
+    /**
+     * Updates the database to contain the given bogeyman.
+     *
+     * @param bogeyman the bogeyman to be updated (with the changed fields)
+     */
+    void update(Bogeyman bogeyman);
+
+    /**
+     * Swaps the houses of the two given bogeymen.
+     *
+     * @param bogeyman1 the first bogeyman
+     * @param bogeyman2 the second bogeyman
+     */
+    void swapHouses(Bogeyman bogeyman1, Bogeyman bogeyman2);
 
 }

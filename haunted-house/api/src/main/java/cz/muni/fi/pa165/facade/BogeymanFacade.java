@@ -82,4 +82,18 @@ public interface BogeymanFacade {
      */
     void relocate(BogeymanDto bogeyman, HouseDto newHouse);
 
+    /**
+     * Updates the database to contain the given bogeyman.
+     *
+     * @param bogeyman the bogeyman to be updated (with the changed fields)
+     */
+    void update(BogeymanDto bogeyman);
+
+    /**
+     * Swaps the houses of the two given bogeymen.
+     *
+     * @param bogeyman1 the first bogeyman
+     * @param bogeyman2 the second bogeyman
+     */
+    void swapHouses(BogeymanDto bogeyman1, BogeymanDto bogeyman2);
 }
