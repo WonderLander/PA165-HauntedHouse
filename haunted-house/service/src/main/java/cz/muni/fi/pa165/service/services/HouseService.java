@@ -37,7 +37,7 @@ public interface HouseService {
      * @throws DataAccessException in a case when error occurred in the persistence layer
      * @throws IllegalArgumentException when house or any of its attributes is null
      */
-    void createHouse(House house) throws DataAccessException, IllegalArgumentException;
+    void createHouse(House house) throws DataAccessException;
 
     /**
      * Deletes house from the database
@@ -45,7 +45,7 @@ public interface HouseService {
      * @throws DataAccessException in a case when error occurred in the persistence layer
      * @throws IllegalArgumentException when house or any of its attributes is null
      */
-    void deleteHouse(House house) throws DataAccessException, IllegalArgumentException;
+    void deleteHouse(House house) throws DataAccessException;
 
     /**
      * Finds all houses in the database and returns them.
@@ -94,4 +94,11 @@ public interface HouseService {
      * @return
      */
     List<Bogeyman> getBogeymen(House house) throws DataAccessException;
+
+    /**
+     * Associates comment with the house
+     * @param house house to be commented
+     * @param comment comment to be added
+     */
+    void commentHouse(House house, Comment comment) throws DataAccessException;
 }

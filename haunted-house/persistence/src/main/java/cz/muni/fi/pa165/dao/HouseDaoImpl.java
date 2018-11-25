@@ -63,7 +63,13 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public void updateHouse(House house) {
+    public void updateHouse(House house) throws IllegalArgumentException {
+        if (house == null) {
+            throw new IllegalArgumentException("House is null");
+        }
+        if (findHouseByName(house.getName()) == null) {
+            throw new IllegalArgumentException("House to be deleted does not exist.");
+        }
         entityManager.merge(house);
     }
 }

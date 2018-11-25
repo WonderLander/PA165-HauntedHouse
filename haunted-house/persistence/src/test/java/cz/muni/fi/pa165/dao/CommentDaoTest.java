@@ -109,6 +109,11 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
         commentDao.delete(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void updateNullComment() {
+        commentDao.update(null);
+    }
+
     @Test
     public void delete() {
         commentDao.delete(comment1);
@@ -141,5 +146,14 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(comments.size(), 2);
         Assert.assertTrue(comments.contains(comment1));
         Assert.assertTrue(comments.contains(comment2));
+    }
+
+    @Test
+    public void updateComment() {
+        comment1.setText("Zmenila som nazor.");
+        commentDao.create(comment1);
+        List<Comment> comments = commentDao.findByAuthor("Jirina");
+        Assert.assertEquals(comments.size(), 1);
+        Assert.assertEquals(comments.get(0).getText(), "Zmenila som nazor.");
     }
 }

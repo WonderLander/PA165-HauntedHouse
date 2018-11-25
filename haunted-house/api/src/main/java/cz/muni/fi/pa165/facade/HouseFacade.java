@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.BogeymanDto;
 import cz.muni.fi.pa165.dto.CommentDto;
+import cz.muni.fi.pa165.dto.HouseCreateDto;
 import cz.muni.fi.pa165.dto.HouseDto;
 
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public interface HouseFacade {
      * Creates house in the database.
      * @param house house to be created
      */
-    void createHouse(HouseDto house);
+    void createHouse(HouseCreateDto house);
 
     /**
      * Deletes house from the database
@@ -83,4 +84,11 @@ public interface HouseFacade {
      * @return
      */
     List<BogeymanDto> getBogeymen(HouseDto house);
+
+    /**
+     * Associates comment with the house
+     * @param house house to be commented
+     * @param comment comment to be added
+     */
+    void commentHouse(HouseDto house, CommentDto comment);
 }

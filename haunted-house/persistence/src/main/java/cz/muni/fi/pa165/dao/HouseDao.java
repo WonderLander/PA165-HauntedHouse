@@ -56,6 +56,6 @@ public interface HouseDao {
      * Updates house in the database
      * @param house house to be updated
      */
-    void updateHouse(House house);
+    void updateHouse(House house) throws IllegalArgumentException;
 }
 

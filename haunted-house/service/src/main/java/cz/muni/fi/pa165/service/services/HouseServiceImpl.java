@@ -70,7 +70,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House findByAddress(String address) throws DataAccessException {
+    public House findByAddress(String address) throws DataAccessException, IllegalArgumentException {
         if ((address == null ) || (address.isEmpty())) {
             throw new IllegalArgumentException("Adress cannot be null or empty.");
         }
@@ -95,5 +95,13 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<Bogeyman> getBogeymen(House house) throws DataAccessException {
         return Collections.unmodifiableList(house.getBogeymen());
+    }
+
+    @Override
+    public void commentHouse(House house, Comment comment) throws DataAccessException, IllegalArgumentException {
+        if (house == null || comment == null) {
+            throw new IllegalArgumentException("Method commentHouse was called with null argument");
+        }
+        house.addComment(comment);
     }
 }

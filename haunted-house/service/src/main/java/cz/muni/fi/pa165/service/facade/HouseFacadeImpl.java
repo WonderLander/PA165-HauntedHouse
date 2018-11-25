@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.BogeymanDto;
 import cz.muni.fi.pa165.dto.CommentDto;
+import cz.muni.fi.pa165.dto.HouseCreateDto;
 import cz.muni.fi.pa165.dto.HouseDto;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
@@ -22,11 +23,15 @@ import java.util.List;
 @Service
 @Transactional
 public class HouseFacadeImpl implements HouseFacade {
-    @Inject
-    private HouseService houseService;
+    private final HouseService houseService;
+
+    private final BeanMappingService beanMappingService;
 
     @Inject
-    private BeanMappingService beanMappingService;
+    public HouseFacadeImpl(HouseService houseService, BeanMappingService beanMappingService) {
+        this.houseService = houseService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public HouseDto findHouseById(Long id) {
@@ -39,7 +44,7 @@ public class HouseFacadeImpl implements HouseFacade {
     }
 
     @Override
-    public void createHouse(HouseDto house) {
+    public void createHouse(HouseCreateDto house) {
         houseService.createHouse(beanMappingService.mapTo(house, House.class));
     }
 
@@ -101,5 +106,12 @@ public class HouseFacadeImpl implements HouseFacade {
         } else {
             return beanMappingService.mapTo(bogeymen, BogeymanDto.class);
         }
+    }
+
+    @Override
+    public void commentHouse(HouseDto house, CommentDto comment) {
+        houseService.commentHouse(
+                beanMappingService.mapTo(house, House.class),
+                beanMappingService.mapTo(comment, Comment.class));
     }
 }
