@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dao.HouseDao;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.exception.HauntedHouseException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import javax.inject.Inject;
@@ -19,46 +20,78 @@ import java.util.List;
 @Service
 public class HouseServiceImpl implements HouseService {
 
+    private final HouseDao houseDao;
+
     @Inject
-    private HouseDao houseDao;
+    public HouseServiceImpl(HouseDao houseDao) {
+        this.houseDao = houseDao;
+    }
 
     @Override
     public House findHouseById(Long id) throws DataAccessException{
-        return houseDao.findHouseById(id);
+        try {
+            return houseDao.findHouseById(id);
+        } catch (Exception exc) {
+            throw new HauntedHouseException("findHouseById() encountered error", exc);
+        }
     }
 
     @Override
     public House findHouseByName(String name) throws DataAccessException{
-        return houseDao.findHouseByName(name);
+        try {
+            return houseDao.findHouseByName(name);
+        } catch (Exception exc) {
+            throw new HauntedHouseException("findHouseByName() encountered error", exc);
+        }
     }
 
     @Override
-    public void createHouse(House house) throws DataAccessException, IllegalArgumentException {
-        houseDao.createHouse(house);
+    public void createHouse(House house) throws DataAccessException {
+        try {
+            houseDao.createHouse(house);
+        } catch (Exception exc) {
+            throw new HauntedHouseException("findHouseById() encountered error", exc);
+        }
     }
 
     @Override
-    public void deleteHouse(House house) throws DataAccessException, IllegalArgumentException {
-        houseDao.deleteHouse(house);
+    public void deleteHouse(House house) throws DataAccessException {
+        try {
+            houseDao.deleteHouse(house);
+        } catch (Exception exc) {
+            throw new HauntedHouseException("deleteHouse() encountered error", exc);
+        }
     }
 
     @Override
     public List<House> findAll() throws DataAccessException {
-        return houseDao.findAll();
+        try {
+            return houseDao.findAll();
+        } catch (Exception exc) {
+            throw new HauntedHouseException("findAll() encountered error", exc);
+        }
     }
 
     @Override
     public void updateHouse(House house) throws DataAccessException{
-        houseDao.updateHouse(house);
+        try {
+            houseDao.updateHouse(house);
+        } catch (Exception exc) {
+            throw new HauntedHouseException("updateHouse() encountered error", exc);
+        }
     }
 
     @Override
     public List<House> getSortedHousesAfterDate(LocalDate date) throws DataAccessException {
         List<House> houses = new ArrayList<>();
-        for (House house: houseDao.findAll()) {
-            if (house.getDate().isAfter(date)) {
-                houses.add(house);
+        try {
+            for (House house : houseDao.findAll()) {
+                if (house.getDate().isAfter(date)) {
+                    houses.add(house);
+                }
             }
+        } catch (Exception exc) {
+            throw new HauntedHouseException("getSortedHousesAfterDate() encountered error", exc);
         }
         houses.sort(Collections.reverseOrder(new Comparator<House>() {
             @Override
@@ -74,27 +107,43 @@ public class HouseServiceImpl implements HouseService {
         if ((address == null ) || (address.isEmpty())) {
             throw new IllegalArgumentException("Adress cannot be null or empty.");
         }
-        for (House house: houseDao.findAll()) {
-            if (house.getAddress().equals(address)) {
-                return house;
+        try {
+            for (House house : houseDao.findAll()) {
+                if (house.getAddress().equals(address)) {
+                    return house;
+                }
             }
+            return null;
+        } catch (Exception exc) {
+            throw new HauntedHouseException("findByAddress() encountered error", exc);
         }
-        return null;
     }
 
     @Override
     public boolean isHauntedByBogeyman(House house) throws DataAccessException {
-        return !(house.getBogeymen().isEmpty());
+        try {
+            return !(house.getBogeymen().isEmpty());
+        } catch (Exception exc) {
+            throw new HauntedHouseException("isHauntedByBogeyman() encountered error", exc);
+        }
     }
 
     @Override
     public List<Comment> getComments(House house) throws DataAccessException {
-        return Collections.unmodifiableList(house.getComments());
+        try {
+            return Collections.unmodifiableList(house.getComments());
+        } catch (Exception exc) {
+            throw new HauntedHouseException("getComments() encountered error", exc);
+        }
     }
 
     @Override
     public List<Bogeyman> getBogeymen(House house) throws DataAccessException {
-        return Collections.unmodifiableList(house.getBogeymen());
+        try {
+            return Collections.unmodifiableList(house.getBogeymen());
+        } catch (Exception exc) {
+            throw new HauntedHouseException("getBogeymen() encountered error", exc);
+        }
     }
 
     @Override
@@ -102,6 +151,10 @@ public class HouseServiceImpl implements HouseService {
         if (house == null || comment == null) {
             throw new IllegalArgumentException("Method commentHouse was called with null argument");
         }
-        house.addComment(comment);
+        try {
+            house.addComment(comment);
+        } catch (Exception exc) {
+            throw new HauntedHouseException("commentHouse() encountered error", exc);
+        }
     }
 }
