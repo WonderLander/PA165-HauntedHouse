@@ -81,4 +81,9 @@ public class BogeymanDaoImpl implements BogeymanDao {
         em.remove(bogeyman);
     }
 
+    @Override
+    public void update(Bogeyman bogeyman) {
+        em.merge(bogeyman);
+    }
+
 }
