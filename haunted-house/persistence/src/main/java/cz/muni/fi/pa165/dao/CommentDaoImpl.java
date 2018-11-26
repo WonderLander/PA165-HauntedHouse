@@ -76,7 +76,7 @@ public class CommentDaoImpl implements CommentDao
     }
 
     @Override
-    public void update(Comment comment){
+    public void update(Comment comment) throws IllegalArgumentException{
         if(comment == null){
             throw new IllegalArgumentException("Comment is null");
         }

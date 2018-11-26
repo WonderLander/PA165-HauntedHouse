@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.dao.CommentDao;
 import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.exception.HauntedHouseException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +91,11 @@ public class CommentServiceImpl implements CommentService
 
     @Override
     public void update(Comment comment) throws DataAccessException, IllegalArgumentException {
-        update(comment);
+        try {
+            commentDao.update(comment);
+        }catch (Exception e){
+            throw new HauntedHouseException("updateComment() encountered error", e);
+        }
     }
 
     @Override
