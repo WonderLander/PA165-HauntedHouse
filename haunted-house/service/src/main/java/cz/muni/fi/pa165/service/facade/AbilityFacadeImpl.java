@@ -1,11 +1,8 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dao.AbilityDao;
 import cz.muni.fi.pa165.dto.AbilityCreateDto;
 import cz.muni.fi.pa165.dto.AbilityDto;
-import cz.muni.fi.pa165.dto.BogeymanDto;
 import cz.muni.fi.pa165.entity.Ability;
-import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.facade.AbilityFacade;
 import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
@@ -16,18 +13,22 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * @autor Martin Wenzl
+ * @author Martin Wenzl
  */
 
 @Service
 @Transactional
 public class AbilityFacadeImpl implements AbilityFacade {
 
-    @Inject
-    AbilityService as;
+    private final AbilityService as;
+
+    private final BeanMappingService bmp;
 
     @Inject
-    BeanMappingService bmp;
+    public AbilityFacadeImpl(AbilityService as, BeanMappingService bmp) {
+        this.as = as;
+        this.bmp = bmp;
+    }
 
     @Override
     public void createAbility(AbilityCreateDto abilityCreateDto) {
