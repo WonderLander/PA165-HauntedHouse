@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.service.services;
 
 import cz.muni.fi.pa165.dao.AbilityDao;
 import cz.muni.fi.pa165.entity.Ability;
-import cz.muni.fi.pa165.entity.Bogeyman;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +14,13 @@ import java.util.List;
 @Service
 public class AbilityServiceImpl implements AbilityService {
 
-    @Inject
+    final
     AbilityDao abilityDao;
+
+    @Inject
+    public AbilityServiceImpl(AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
+    }
 
     @Override
     public void createAbility(Ability ability) throws IllegalArgumentException, DataAccessException {
