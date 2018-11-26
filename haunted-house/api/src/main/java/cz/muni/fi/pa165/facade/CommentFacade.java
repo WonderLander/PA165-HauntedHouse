@@ -6,6 +6,9 @@ import cz.muni.fi.pa165.dto.HouseDto;
 
 import java.util.List;
 
+/**
+ * @author Ondrej Stursa
+ */
 public interface CommentFacade {
     /**
      * find comment by id

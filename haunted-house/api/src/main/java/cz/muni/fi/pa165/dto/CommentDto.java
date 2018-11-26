@@ -3,6 +3,9 @@ package cz.muni.fi.pa165.dto;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * @author Ondrej Stursa
+ */
 public class CommentDto {
 
     private Long id;

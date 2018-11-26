@@ -6,6 +6,9 @@ import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
+/**
+ * @author Ondrej Stursa
+ */
 public interface CommentService
 {
     /**
