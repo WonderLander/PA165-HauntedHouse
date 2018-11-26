@@ -54,7 +54,7 @@ public class CommentFacadeTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        commentFacade = new CommentFacadeImpl(commentService, beanMappingService);
+        //commentFacade = new CommentFacadeImpl(commentService, beanMappingService);
         mockComments = Collections.singletonList(mockComment);
         mockCommentDtos = Collections.singletonList(mockCommentDto);
     }

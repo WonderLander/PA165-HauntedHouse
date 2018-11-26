@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * @autor Martin Wenzl
+ * @author Martin Wenzl
  */
 @Service
 public class AbilityServiceImpl implements AbilityService {
