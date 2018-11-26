@@ -1,17 +1,21 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.AbilityDto;
 import cz.muni.fi.pa165.dto.CommentCreateDto;
 import cz.muni.fi.pa165.dto.CommentDto;
 import cz.muni.fi.pa165.dto.HouseDto;
+import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
-import cz.muni.fi.pa165.facade.CommentFacade;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.CommentService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 
 import java.util.Collections;
@@ -25,7 +29,9 @@ import static org.mockito.Mockito.when;
  * @author Lukas Sadlek
  */
 public class CommentFacadeTest {
-    private CommentFacade commentFacade;
+    @InjectMocks
+    @Autowired
+    private CommentFacadeImpl commentFacade;
 
     @Mock
     private CommentService commentService;
@@ -54,7 +60,6 @@ public class CommentFacadeTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        //commentFacade = new CommentFacadeImpl(commentService, beanMappingService);
         mockComments = Collections.singletonList(mockComment);
         mockCommentDtos = Collections.singletonList(mockCommentDto);
     }
@@ -159,5 +164,17 @@ public class CommentFacadeTest {
         commentDtoList = commentFacade.findAllSortedByAuthor();
         Assert.assertEquals(commentDtoList, mockCommentDtos);
         verify(commentService).findAllSortedByAuthor();
+    }
+
+    @Test
+    public void findMostCommentedAbility() {
+        List<Ability> abilities = Collections.singletonList(Mockito.mock(Ability.class));
+        when(commentService.findMostCommentedAbility()).thenReturn(abilities);
+        List<AbilityDto> abilityDtos = Collections.singletonList(Mockito.mock(AbilityDto.class));
+        when(beanMappingService.mapTo(Collections.singletonList(new Ability()), AbilityDto.class))
+                .thenReturn(abilityDtos);
+        List<AbilityDto> abilityDtoList = commentFacade.findMostCommentedAbility();
+        Assert.assertEquals(abilityDtoList, abilityDtos);
+        verify(commentService).findMostCommentedAbility();
     }
 }

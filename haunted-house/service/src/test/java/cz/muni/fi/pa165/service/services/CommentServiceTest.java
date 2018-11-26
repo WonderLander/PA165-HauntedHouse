@@ -8,8 +8,10 @@ import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.dao.RecoverableDataAccessException;
@@ -28,7 +30,9 @@ import static org.mockito.Mockito.when;
  * @author Lukas Sadlek
  */
 public class CommentServiceTest {
-    private CommentService commentService;
+    @InjectMocks
+    @Autowired
+    private CommentServiceImpl commentService;
 
     @Mock
     private CommentDao commentDao;
@@ -85,8 +89,6 @@ public class CommentServiceTest {
 
         houseComments.add(comment2);
         houseComments.add(comment1);
-
-        commentService = new CommentServiceImpl(commentDao,abilityDao);
     }
 
     @Test
@@ -173,11 +175,11 @@ public class CommentServiceTest {
     @Test
     public void findAllSortedByDate() {
         when(commentDao.findAll()).thenReturn(comments);
-        List<Comment> resultComments = commentService.findAllSortedByAuthor();
+        List<Comment> resultComments = commentService.findAllSortedByDate();
         Assert.assertEquals(resultComments.size(), 3);
-        Assert.assertEquals(resultComments.get(0).getDate(), firstDay);
+        Assert.assertEquals(resultComments.get(0), comment3);
         Assert.assertEquals(resultComments.get(1).getDate(), firstDay);
-        Assert.assertEquals(resultComments.get(2), comment3);
+        Assert.assertEquals(resultComments.get(2).getDate(), firstDay);
     }
 
     @Test

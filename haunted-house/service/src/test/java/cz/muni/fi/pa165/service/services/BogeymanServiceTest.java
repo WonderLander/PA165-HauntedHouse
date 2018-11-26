@@ -5,8 +5,10 @@ import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.QueryTimeoutException;
 import org.testng.Assert;
@@ -26,7 +28,9 @@ import static org.mockito.Mockito.*;
  */
 public class BogeymanServiceTest {
 
-    private BogeymanService bogeymanService;
+    @InjectMocks
+    @Autowired
+    private BogeymanServiceImpl bogeymanService;
 
     @Mock
     private BogeymanDao dao;
@@ -39,6 +43,9 @@ public class BogeymanServiceTest {
     private Ability a2;
     private List<Bogeyman> bogeymen;
 
+    @Mock
+    private Bogeyman b3;
+
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
@@ -46,7 +53,7 @@ public class BogeymanServiceTest {
 
     @BeforeMethod
     public void setup() {
-        bogeymanService = new BogeymanServiceImpl(dao);
+        //bogeymanService = new BogeymanServiceImpl(dao);
         h1 = new House();
         a1 = new Ability();
         b1 = new Bogeyman();
@@ -115,9 +122,12 @@ public class BogeymanServiceTest {
 
     @Test
     public void updateTest() {
-        b1.setHouse(h2);
-        bogeymanService.update(b1);
-        verify(dao).update(b1);
+//        b1.setHouse(h2);
+//        bogeymanService.update(b1);
+//        verify(dao).update(b1);
+        b3.setHouse(h2);
+        bogeymanService.update(b3);
+        verify(dao).update(b3);
     }
 
     @Test
