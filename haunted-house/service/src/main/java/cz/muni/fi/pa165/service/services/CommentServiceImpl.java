@@ -9,11 +9,22 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author Ondrej Stursa
+ */
 @Service
 public class CommentServiceImpl implements CommentService
 {
-    @Inject
+
     CommentDao commentDao;
+
+    @Inject
+    public CommentServiceImpl(CommentDao commentDao) {
+        this.commentDao = commentDao;
+    }
+
+    @Inject
+
 
     @Override
     public Comment findById(long id) throws DataAccessException {

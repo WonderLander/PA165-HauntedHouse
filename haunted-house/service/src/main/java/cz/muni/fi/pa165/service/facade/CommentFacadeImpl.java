@@ -8,17 +8,28 @@ import cz.muni.fi.pa165.entity.House;
 import cz.muni.fi.pa165.facade.CommentFacade;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.CommentService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author Ondrej Stursa
+ */
+@Service
+@Transactional
 public class CommentFacadeImpl implements CommentFacade
 {
-    @Inject
-    CommentService commentService;
+    private CommentService commentService;
+
+    private BeanMappingService beanMappingService;
 
     @Inject
-    private BeanMappingService beanMappingService;
+    public CommentFacadeImpl(CommentService commentService, BeanMappingService beanMappingService) {
+        this.commentService = commentService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public CommentDto findById(long id) {
