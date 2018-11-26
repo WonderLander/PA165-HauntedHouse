@@ -44,24 +44,31 @@ public class CommentServiceImpl implements CommentService
     @Override
     public List<Comment> findAllSortedByDate() throws DataAccessException {
         List<Comment>comments=commentDao.findAll();
-
-        comments.sort((Comment o1, Comment o2)->o1.getDate().compareTo(o2.getDate()));
+        comments.sort(Comparator.comparing(o->o.getDate()));
 
         return comments;
     }
 
     @Override
     public List<Comment> findAllSortedByAuthor() throws DataAccessException {
+
         List<Comment>comments=commentDao.findAll();
 
         comments.sort((Comment o1, Comment o2)->o1.getAuthor().compareTo(o2.getAuthor()));
+
 
         return comments;
     }
 
     @Override
-    public List<Comment> findByAuthor(String author) throws DataAccessException, IllegalArgumentException {
-        return commentDao.findByAuthor(author);
+    public List<Comment> findByAuthor(String author) throws DataAccessException {
+        List<Comment>comments=null;
+        try{
+            comments=commentDao.findByAuthor(author);
+        }catch (Exception e){
+            throw new HauntedHouseException("",e);
+        }
+        return comments;
     }
 
     @Override
