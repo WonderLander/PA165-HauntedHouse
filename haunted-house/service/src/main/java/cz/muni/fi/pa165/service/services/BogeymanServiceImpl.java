@@ -14,8 +14,13 @@ import java.util.List;
  */
 public class BogeymanServiceImpl implements  BogeymanService {
 
-    @Inject
+    private final
     BogeymanDao bogeymanDao;
+
+    @Inject
+    public BogeymanServiceImpl(BogeymanDao bogeymanDao) {
+        this.bogeymanDao = bogeymanDao;
+    }
 
     @Override
     public void create(Bogeyman bogeyman) {
