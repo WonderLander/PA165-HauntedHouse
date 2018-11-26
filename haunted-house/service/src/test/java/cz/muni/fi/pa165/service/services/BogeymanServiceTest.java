@@ -53,7 +53,6 @@ public class BogeymanServiceTest {
 
     @BeforeMethod
     public void setup() {
-        //bogeymanService = new BogeymanServiceImpl(dao);
         h1 = new House();
         a1 = new Ability();
         b1 = new Bogeyman();
@@ -122,9 +121,6 @@ public class BogeymanServiceTest {
 
     @Test
     public void updateTest() {
-//        b1.setHouse(h2);
-//        bogeymanService.update(b1);
-//        verify(dao).update(b1);
         b3.setHouse(h2);
         bogeymanService.update(b3);
         verify(dao).update(b3);
