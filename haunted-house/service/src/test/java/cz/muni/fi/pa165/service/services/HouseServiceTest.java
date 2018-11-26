@@ -4,15 +4,15 @@ import cz.muni.fi.pa165.dao.HouseDao;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import org.mockito.InjectMocks;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.testng.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.RecoverableDataAccessException;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,14 +26,14 @@ import static org.mockito.Mockito.when;
  * @author Ondrej Stursa
  */
 
-//@Transactional
 public class HouseServiceTest
 {
     @Mock
     private HouseDao houseDao;
 
-    //@Autowired
-    private HouseService houseService;
+    @InjectMocks
+    @Autowired
+    private HouseServiceImpl houseService;
 
 
 
@@ -69,8 +69,6 @@ public class HouseServiceTest
         houses=new ArrayList<>();
         houses.add(h1);
         houses.add(h2);
-        //todo autowired
-        houseService = new HouseServiceImpl(houseDao);
     }
 
     @Test

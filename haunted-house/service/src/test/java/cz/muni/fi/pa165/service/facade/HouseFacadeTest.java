@@ -7,13 +7,14 @@ import cz.muni.fi.pa165.dto.HouseDto;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
-import cz.muni.fi.pa165.facade.HouseFacade;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.HouseService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 
 import java.time.LocalDate;
@@ -28,7 +29,9 @@ import static org.mockito.Mockito.when;
  * @author Ondrej Stursa
  */
 public class HouseFacadeTest {
-    private HouseFacade houseFacade;
+    @InjectMocks
+    @Autowired
+    private HouseFacadeImpl houseFacade;
 
     private HouseDto houseDto;
     private HouseDto houseDto2;
@@ -67,9 +70,6 @@ public class HouseFacadeTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-
-        //todo autowired
-        houseFacade = new HouseFacadeImpl(houseService,beanMappingService);
 
         houseDto=new HouseDto();
         houseDto.setName("House one");
