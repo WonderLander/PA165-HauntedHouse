@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.service.services;
 
+import cz.muni.fi.pa165.dao.AbilityDao;
 import cz.muni.fi.pa165.dao.CommentDao;
+import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
@@ -30,6 +32,9 @@ public class CommentServiceTest {
 
     @Mock
     private CommentDao commentDao;
+
+    @Mock
+    AbilityDao abilityDao;
 
     private Comment comment1, comment2, comment3;
 
@@ -81,7 +86,7 @@ public class CommentServiceTest {
         houseComments.add(comment2);
         houseComments.add(comment1);
 
-        commentService = new CommentServiceImpl(commentDao);
+        commentService = new CommentServiceImpl(commentDao,abilityDao);
     }
 
     @Test
@@ -187,6 +192,42 @@ public class CommentServiceTest {
         Assert.assertThrows(DataAccessException.class, () -> commentService.findById(12L));
         Assert.assertThrows(DataAccessException.class, () -> commentService.findAllSortedByAuthor());
         Assert.assertThrows(DataAccessException.class, () -> commentService.findAllSortedByDate());
+    }
+
+
+
+
+    @Test
+    public void testFindMostCommentedAbility(){
+        Comment c1 = new Comment();
+        c1.setText("ab2");
+        Comment c2 = new Comment();
+        c2.setText("ab1");
+        Comment c3 = new Comment();
+        c3.setText("ab2");
+        Comment c4 = new Comment();
+        c4.setText("no ability");
+        List<Comment>c=new ArrayList<>();
+        c.add(c1);
+        c.add(c2);
+        c.add(c3);
+        c.add(c4);
+        Ability a1 = new Ability();
+        a1.setName("ab1");
+        Ability a2 = new Ability();
+        a2.setName("ab2");
+        List<Ability>a=new ArrayList<>();
+        a.add(a1);
+        a.add(a2);
+        when(commentDao.findAll()).thenReturn(c);
+        when(abilityDao.findAll()).thenReturn(a);
+
+        List<Ability> ability = commentService.findMostCommentedAbility();
+        Assert.assertEquals(ability.size(),1);
+        Assert.assertEquals(ability.get(0),a2);
+
+        verify(commentDao).findAll();
+        verify(abilityDao).findAll();
     }
 
 }

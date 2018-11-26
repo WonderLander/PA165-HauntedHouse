@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.services;
 
+import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
 import org.springframework.dao.DataAccessException;
@@ -100,4 +101,10 @@ public interface CommentService
      * @throws IllegalArgumentException if comment is null
      */
     void update(Comment comment)throws DataAccessException,IllegalArgumentException;
+
+    /**
+     * find most commented abilities
+     * @return most commented abilities
+     */
+    List<Ability> findMostCommentedAbility();
 }
