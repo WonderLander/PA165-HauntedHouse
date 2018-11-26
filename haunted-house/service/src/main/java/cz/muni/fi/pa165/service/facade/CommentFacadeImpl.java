@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.AbilityDto;
 import cz.muni.fi.pa165.dto.CommentCreateDto;
 import cz.muni.fi.pa165.dto.CommentDto;
 import cz.muni.fi.pa165.dto.HouseDto;
@@ -101,5 +102,10 @@ public class CommentFacadeImpl implements CommentFacade
     @Override
     public void update(CommentDto comment) {
         commentService.update(beanMappingService.mapTo(comment,Comment.class));
+    }
+
+    @Override
+    public List<AbilityDto> findMostCommentedAbility() {
+        return beanMappingService.mapTo(commentService.findMostCommentedAbility(),AbilityDto.class);
     }
 }

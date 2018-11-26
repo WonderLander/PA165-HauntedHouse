@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.AbilityDto;
 import cz.muni.fi.pa165.dto.CommentCreateDto;
 import cz.muni.fi.pa165.dto.CommentDto;
 import cz.muni.fi.pa165.dto.HouseDto;
@@ -80,4 +81,10 @@ public interface CommentFacade {
      * @param comment comment to be updated
      */
     void update(CommentDto comment);
+
+    /**
+     * find most commented abilities
+     * @return most commented abilities
+     */
+    List<AbilityDto> findMostCommentedAbility();
 }
