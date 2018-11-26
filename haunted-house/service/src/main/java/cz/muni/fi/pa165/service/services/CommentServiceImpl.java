@@ -1,13 +1,15 @@
 package cz.muni.fi.pa165.service.services;
 
+import cz.muni.fi.pa165.dao.AbilityDao;
 import cz.muni.fi.pa165.dao.CommentDao;
+import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Ondrej Stursa
@@ -16,14 +18,16 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService
 {
 
+
+    AbilityDao abilityDao;
+
     CommentDao commentDao;
 
     @Inject
-    public CommentServiceImpl(CommentDao commentDao) {
+    public CommentServiceImpl(CommentDao commentDao,AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
         this.commentDao = commentDao;
     }
-
-    @Inject
 
 
     @Override
@@ -87,5 +91,36 @@ public class CommentServiceImpl implements CommentService
     @Override
     public void update(Comment comment) throws DataAccessException, IllegalArgumentException {
         update(comment);
+    }
+
+    @Override
+    public List<Ability> findMostCommentedAbility() {
+
+        List<Comment>comments = commentDao.findAll();
+        List<Ability>abilities = abilityDao.findAll();
+        Map<Ability,Integer> map = new HashMap<>();
+        for(Ability a: abilities){
+            map.put(a,0);
+        }
+        for(Comment c: comments){
+            for(Ability a: abilities){
+                if(c.getText().toLowerCase().contains(a.getName())){
+                    map.put(a,map.get(a) + 1);
+                }
+            }
+        }
+        int maxValue=Collections.max(map.values());
+        if(maxValue==0){
+            return new ArrayList<>();
+        }
+        List<Ability>ret = new ArrayList<>();
+        for(Map.Entry<Ability,Integer>entry:map.entrySet()){
+            if(entry.getValue()==maxValue){
+                ret.add(entry.getKey());
+            }
+        }
+
+
+        return ret;
     }
 }
