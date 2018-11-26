@@ -33,17 +33,35 @@ public class CommentServiceImpl implements CommentService
 
     @Override
     public Comment findById(long id) throws DataAccessException {
-        return commentDao.findById(id);
+        Comment comment = null;
+        try{
+            comment = commentDao.findById(id);
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment id",e);
+        }
+        return comment;
     }
 
     @Override
     public List<Comment> findAll() throws DataAccessException {
-        return commentDao.findAll();
+        List<Comment>comments=null;
+        try {
+            comments = commentDao.findAll();
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment find all",e);
+        }
+        return comments;
     }
 
     @Override
     public List<Comment> findAllSortedByDate() throws DataAccessException {
-        List<Comment>comments=commentDao.findAll();
+        List<Comment>comments=null;
+        try {
+            comments = commentDao.findAll();
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment sorted by date",e);
+        }
+
         comments.sort(Comparator.comparing(o->o.getDate()));
 
         return comments;
@@ -52,7 +70,12 @@ public class CommentServiceImpl implements CommentService
     @Override
     public List<Comment> findAllSortedByAuthor() throws DataAccessException {
 
-        List<Comment>comments=commentDao.findAll();
+        List<Comment>comments=null;
+        try {
+            comments = commentDao.findAll();
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment sorted by author",e);
+        }
 
         comments.sort((Comment o1, Comment o2)->o1.getAuthor().compareTo(o2.getAuthor()));
 
@@ -66,14 +89,20 @@ public class CommentServiceImpl implements CommentService
         try{
             comments=commentDao.findByAuthor(author);
         }catch (Exception e){
-            throw new HauntedHouseException("",e);
+            throw new HauntedHouseException("Comment find by author",e);
         }
         return comments;
     }
 
     @Override
     public List<Comment> findByHouse(House house) throws DataAccessException, IllegalArgumentException {
-        return commentDao.findByHouse(house);
+        List<Comment>comments=null;
+        try {
+            comments = commentDao.findByHouse(house);
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment find by house",e);
+        }
+        return comments;
     }
 
     @Override
@@ -88,12 +117,20 @@ public class CommentServiceImpl implements CommentService
 
     @Override
     public void create(Comment comment) throws DataAccessException, IllegalArgumentException {
-        commentDao.create(comment);
+        try {
+            commentDao.create(comment);
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment create", e);
+        }
     }
 
     @Override
     public void delete(Comment comment) throws DataAccessException, IllegalArgumentException {
-        commentDao.delete(comment);
+        try {
+            commentDao.delete(comment);
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment delete", e);
+        }
     }
 
     @Override
@@ -101,15 +138,21 @@ public class CommentServiceImpl implements CommentService
         try {
             commentDao.update(comment);
         }catch (Exception e){
-            throw new HauntedHouseException("updateComment() encountered error", e);
+            throw new HauntedHouseException("Comment update", e);
         }
     }
 
     @Override
     public List<Ability> findMostCommentedAbility() {
 
-        List<Comment>comments = commentDao.findAll();
-        List<Ability>abilities = abilityDao.findAll();
+        List<Comment>comments = null;
+        List<Ability>abilities = null;
+        try {
+            comments = commentDao.findAll();;
+            abilities =abilityDao.findAll();
+        }catch (Exception e){
+            throw new HauntedHouseException("Comment find most commented ability",e);
+        }
         Map<Ability,Integer> map = new HashMap<>();
         for(Ability a: abilities){
             map.put(a,0);
