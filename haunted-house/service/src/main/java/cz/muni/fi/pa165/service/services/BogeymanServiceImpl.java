@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.exception.BogeymanDataAccessException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -19,67 +20,115 @@ public class BogeymanServiceImpl implements  BogeymanService {
 
     @Inject
     public BogeymanServiceImpl(BogeymanDao bogeymanDao) {
-        this.bogeymanDao = bogeymanDao;
+        try {
+            this.bogeymanDao = bogeymanDao;
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public void create(Bogeyman bogeyman) {
-        bogeymanDao.create(bogeyman);
+        try {
+            bogeymanDao.create(bogeyman);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public Bogeyman findById(Long id) {
-        return bogeymanDao.findById(id);
+        try {
+            return bogeymanDao.findById(id);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public Bogeyman findByName(String name) {
-        return bogeymanDao.findByName(name);
+        try {
+            return bogeymanDao.findByName(name);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public List<Bogeyman> findByHouse(House house) {
-        return bogeymanDao.findByHouse(house);
+        try {
+            return bogeymanDao.findByHouse(house);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public List<Bogeyman> findByAbility(Ability ability) {
-        return bogeymanDao.findByAbility(ability);
+        try {
+            return bogeymanDao.findByAbility(ability);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public List<Bogeyman> findByType(BogeymanType type) {
-        return bogeymanDao.findByType(type);
+        try {
+            return bogeymanDao.findByType(type);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public List<Bogeyman> findAll() {
-        return bogeymanDao.findAll();
+        try {
+           return bogeymanDao.findAll();
+        } catch (Exception ex) {
+           throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public void delete(Bogeyman bogeyman) {
-        bogeymanDao.delete(bogeyman);
+        try {
+            bogeymanDao.delete(bogeyman);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public void relocate(Bogeyman bogeyman, House newHouse) {
-        bogeyman.setHouse(newHouse);
-        bogeymanDao.update(bogeyman);
+        try {
+            bogeyman.setHouse(newHouse);
+            bogeymanDao.update(bogeyman);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public void update(Bogeyman bogeyman) {
-        bogeymanDao.update(bogeyman);
+        try {
+            bogeymanDao.update(bogeyman);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 
     @Override
     public void swapHouses(Bogeyman bogeyman1, Bogeyman bogeyman2) {
-        House house1 = bogeyman1.getHouse();
-        bogeyman1.setHouse(bogeyman2.getHouse());
-        bogeyman2.setHouse(house1);
+        try {
+            House house1 = bogeyman1.getHouse();
+            bogeyman1.setHouse(bogeyman2.getHouse());
+            bogeyman2.setHouse(house1);
 
-        bogeymanDao.update(bogeyman1);
-        bogeymanDao.update(bogeyman2);
+            bogeymanDao.update(bogeyman1);
+            bogeymanDao.update(bogeyman2);
+        } catch (Exception ex) {
+            throw new BogeymanDataAccessException(ex);
+        }
     }
 }
