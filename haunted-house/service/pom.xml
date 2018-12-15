@@ -48,7 +48,16 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>io.craftsman</groupId>
+            <artifactId>dozer-jdk8-support</artifactId>
+            <version>1.0.4</version>
+        </dependency>
     </dependencies>
+
+
 
 
 </project>
