@@ -22,13 +22,13 @@ import java.util.List;
 @RequestMapping(path = {"houses"})
 public class HouseController
 {
-    //final
-    //HouseFacade houseFacade;
+    final
+    HouseFacade houseFacade;
 
-    //@Inject
-    //public HouseController(HouseFacade houseFacade) {
-    //    this.houseFacade = houseFacade;
-    //}
+    @Inject
+    public HouseController(HouseFacade houseFacade) {
+        this.houseFacade = houseFacade;
+    }
 
     @RequestMapping(method= RequestMethod.GET)
     public String sayHello(Model model) {
@@ -46,14 +46,15 @@ public class HouseController
     @ResponseBody
     public  String houses(){
 
-        HouseDto house = new HouseDto();
-        house.setName("house1");
-        house.setAddress("address1");
+        //HouseDto house = new HouseDto();
+        //house.setName("house1");
+        //house.setAddress("address1");
+        List<HouseDto> houses = houseFacade.findAll();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json=null;
         try {
-            json = objectMapper.writeValueAsString(house);
+            json = objectMapper.writeValueAsString(houses);
         }catch (Exception e){
             System.err.println("exception");
         }

@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
 import cz.muni.fi.pa165.service.exception.BogeymanDataAccessException;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * @author Ondrej Krcma 451363
  */
+@Service
 public class BogeymanServiceImpl implements  BogeymanService {
 
     private final

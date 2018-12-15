@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import cz.muni.fi.pa165.service.services.CommentService;
 import cz.muni.fi.pa165.service.services.HouseService;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -14,18 +15,18 @@ import javax.inject.Named;
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 @Transactional
-@Named
 public class SampleDataFacadeImpl implements SampleDataFacade {
 
-    //private AbilityService abilityService;
+    private AbilityService abilityService;
     private BogeymanService bogeymanService;
     private CommentService commentService;
     private HouseService houseService;
 
     @Inject
-    public SampleDataFacadeImpl(/*AbilityService abilityService, */BogeymanService bogeymanService, CommentService commentService, HouseService houseService) {
-        //this.abilityService = abilityService;
+    public SampleDataFacadeImpl(/*AbilityService abilityService, BogeymanService bogeymanService, */CommentService commentService, HouseService houseService) {
+        this.abilityService = abilityService;
         this.bogeymanService = bogeymanService;
         this.commentService = commentService;
         this.houseService = houseService;

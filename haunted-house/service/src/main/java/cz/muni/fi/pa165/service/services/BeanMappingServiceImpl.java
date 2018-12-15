@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.services;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author Lukas Sadlek
  */
+@Service
 public class BeanMappingServiceImpl implements BeanMappingService {
     @Autowired
     private Mapper mapper;
