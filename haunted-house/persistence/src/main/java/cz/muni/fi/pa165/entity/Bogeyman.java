@@ -29,7 +29,7 @@ public class Bogeyman {
     @ManyToMany
     private Set<Ability> abilities = new HashSet<>();
 
-    @NotNull
+    //@NotNull
     @ManyToOne
     private House house;
 

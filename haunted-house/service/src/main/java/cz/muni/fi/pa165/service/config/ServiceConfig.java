@@ -19,8 +19,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import java.time.LocalDate;
-
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
 //@ComponentScan(basePackages = {"cz.muni.fi.pa165.service","cz.muni.fi.pa165.service.facade"})
@@ -52,8 +50,6 @@ public class ServiceConfig {
             mapping(House.class, HouseDto.class);
             mapping(Bogeyman.class, BogeymanDto.class);
             mapping(Comment.class, CommentDto.class);
-            mapping(LocalDate.class,LocalDate.class);
-
         }
     }
 }

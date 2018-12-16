@@ -23,7 +23,7 @@ public class BogeymanCreateDto {
     private BogeymanType type;
     private Set<AbilityDto> abilities = new HashSet<>();
 
-    @NotNull
+    //@NotNull
     private HouseDto house;
     private LocalTime hauntStartTime;
     private LocalTime hauntEndTime;
