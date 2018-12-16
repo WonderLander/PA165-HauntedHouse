@@ -2,10 +2,12 @@ package cz.muni.fi.pa165.service.services;
 
 import cz.muni.fi.pa165.dao.AbilityDao;
 import cz.muni.fi.pa165.entity.Ability;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Ondrej Krcma 451363
  */
+@ContextConfiguration(classes = ServiceConfig.class)
 public class AbilityServiceTest {
 
     private AbilityService abilityService;

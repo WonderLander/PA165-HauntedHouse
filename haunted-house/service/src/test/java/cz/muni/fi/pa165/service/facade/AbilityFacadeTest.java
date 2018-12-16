@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.AbilityCreateDto;
 import cz.muni.fi.pa165.dto.AbilityDto;
 import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.facade.AbilityFacade;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import org.junit.Assert;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Ondrej Krcma 451363
  */
-
+@ContextConfiguration(classes = ServiceConfig.class)
 public class AbilityFacadeTest {
 
     private AbilityFacade abilityFacade;
