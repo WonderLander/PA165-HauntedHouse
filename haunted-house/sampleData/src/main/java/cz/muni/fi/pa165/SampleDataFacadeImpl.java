@@ -7,30 +7,32 @@ import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import cz.muni.fi.pa165.service.services.CommentService;
 import cz.muni.fi.pa165.service.services.HouseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.time.LocalDate;
-import java.util.List;
 
 @Component
 @Transactional
 public class SampleDataFacadeImpl implements SampleDataFacade {
 
+    @Autowired
     private AbilityService abilityService;
+    @Autowired
     private BogeymanService bogeymanService;
+    @Autowired
     private CommentService commentService;
+    @Autowired
     private HouseService houseService;
 
-    @Inject
-    public SampleDataFacadeImpl(/*AbilityService abilityService, BogeymanService bogeymanService, */CommentService commentService, HouseService houseService) {
-        this.abilityService = abilityService;
-        this.bogeymanService = bogeymanService;
-        this.commentService = commentService;
-        this.houseService = houseService;
-    }
+//    @Inject
+//    public SampleDataFacadeImpl(AbilityService abilityService, BogeymanService bogeymanService, CommentService commentService, HouseService houseService) {
+//        this.abilityService = abilityService;
+//        this.bogeymanService = bogeymanService;
+//        this.commentService = commentService;
+//        this.houseService = houseService;
+//    }
 
     @Override
     public void init() {

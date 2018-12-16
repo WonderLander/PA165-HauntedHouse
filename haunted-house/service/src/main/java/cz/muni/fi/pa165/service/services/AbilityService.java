@@ -1,17 +1,14 @@
 package cz.muni.fi.pa165.service.services;
 
-import cz.muni.fi.pa165.dao.AbilityDao;
-import cz.muni.fi.pa165.dto.AbilityCreateDto;
-import cz.muni.fi.pa165.dto.AbilityDto;
-import cz.muni.fi.pa165.dto.BogeymanDto;
 import cz.muni.fi.pa165.entity.Ability;
-import cz.muni.fi.pa165.entity.Bogeyman;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @autor Martin Wenzl
  */
+@Service
 public interface AbilityService {
     /**
      * Creates ability

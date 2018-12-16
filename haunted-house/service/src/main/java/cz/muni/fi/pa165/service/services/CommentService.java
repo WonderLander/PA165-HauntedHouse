@@ -4,12 +4,14 @@ import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author Ondrej Stursa
  */
+@Service
 public interface CommentService
 {
     /**

@@ -28,6 +28,14 @@ import javax.sql.DataSource;
 @ComponentScan(basePackageClasses = {AbilityDao.class, BogeymanDao.class, CommentDao.class, HouseDao.class},
 		basePackages = "cz.muni.fi.pa165")
 public class PersistenceSampleApplicationContext {
+
+//    /**
+//     * Enables automatic translation of exceptions to DataAccessExceptions.
+//     */
+//    @Bean
+//    public PersistenceExceptionTranslationPostProcessor postProcessor() {
+//        return new PersistenceExceptionTranslationPostProcessor();
+//    }
 	
 	@Bean
 	public JpaTransactionManager transactionManager(){

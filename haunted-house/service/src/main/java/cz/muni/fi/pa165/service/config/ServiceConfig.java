@@ -9,8 +9,9 @@ import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.facade.HouseFacadeImpl;
+import cz.muni.fi.pa165.service.services.AbilityServiceImpl;
 import org.dozer.DozerBeanMapper;
-import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,12 +20,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackages = {"cz.muni.fi.pa165.service","cz.muni.fi.pa165.service.facade"})
+//@ComponentScan(basePackages = {"cz.muni.fi.pa165.service","cz.muni.fi.pa165.service.facade"})
+@ComponentScan(basePackageClasses = {AbilityServiceImpl.class, HouseFacadeImpl.class})
 public class ServiceConfig {
 
     @Bean
@@ -36,9 +36,12 @@ public class ServiceConfig {
         mappingFiles.add("dozerJdk8Converters.xml");
         dozer.setMappingFiles(mappingFiles);
         return dozer;*/
-        return DozerBeanMapperBuilder.create()
-                .withMappingFiles("dozerMapping.xml", "dozerJdk8Converters.xml")
-                .build();
+//        return DozerBeanMapperBuilder.create()
+//                .withMappingFiles("dozerMapping.xml", "dozerJdk8Converters.xml")
+//                .build();
+        DozerBeanMapper dozer = new DozerBeanMapper();
+        dozer.addMapping(new DozerCustomConfig());
+        return dozer;
     }
 
     public class DozerCustomConfig extends BeanMappingBuilder {

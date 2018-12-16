@@ -4,9 +4,11 @@ import cz.muni.fi.pa165.dao.HouseDao;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +27,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Ondrej Stursa
  */
-
+@ContextConfiguration(classes = ServiceConfig.class)
 public class HouseServiceTest
 {
     @Mock

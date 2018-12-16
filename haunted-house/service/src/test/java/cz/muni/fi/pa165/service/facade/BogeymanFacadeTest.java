@@ -9,10 +9,12 @@ import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
 import cz.muni.fi.pa165.facade.BogeymanFacade;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -29,7 +31,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Martin Wenzl
  */
-
+@ContextConfiguration(classes = ServiceConfig.class)
 public class BogeymanFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
