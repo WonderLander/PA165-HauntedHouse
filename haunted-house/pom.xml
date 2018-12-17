@@ -105,6 +105,7 @@
         <module>api</module>
         <module>sampleData</module>
         <module>web</module>
+        <module>rest</module>
     </modules>
 
 

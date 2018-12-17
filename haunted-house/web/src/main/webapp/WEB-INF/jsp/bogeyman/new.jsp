@@ -10,15 +10,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Create Bogeyman</title>
 </head>
 <body>
 <form:form method="post" action="${pageContext.request.contextPath}/bogeyman/create"
            modelAttribute="bogeymanCreate" cssClass="form-horizontal">
-        <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
-        <div class="col-sm-10">
-            <form:input path="name" cssClass="form-control"/>
-        </div>
+            <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
+            <div class="col-sm-10">
+                <form:input path="name" cssClass="form-control"/>
+            </div>
         <div class="form-group">
             <form:label path="type" cssClass="col-sm-2 control-label">Type</form:label>
             <div class="col-sm-10">
@@ -38,15 +38,14 @@
         <div class="col-sm-10">
             <form:input path="hauntEndTime" cssClass="form-control" placeholder="HH:MM:SS"/>
         </div>
-        <form:label path="description" cssClass="col-sm-2 control-label">Description</form:label>
-        <div class="col-sm-10">
-            <form:input path="description" cssClass="form-control"/>
-        </div>
+            <form:label path="description" cssClass="col-sm-2 control-label">Description</form:label>
+            <div class="col-sm-10">
+                <form:input path="description" cssClass="form-control"/>
+            </div>
         <form:label path="reason" cssClass="col-sm-2 control-label">Reason</form:label>
         <div class="col-sm-10">
             <form:input path="reason" cssClass="form-control"/>
         </div>
-        <div class="form-group">
             <form:label path="house" cssClass="col-sm-2 control-label">Haunts in house</form:label>
             <div class="col-sm-10">
                 <form:select path="house" cssClass="form-control">
@@ -54,8 +53,6 @@
                         <form:option value="${h}">${h}</form:option>
                     </c:forEach>
                 </form:select>
-                <form:errors path="house" cssClass="error"/>
-            </div>
         </div>
     <button class="btn btn-primary" type="submit">Create bogeyman</button>
 </form:form>
