@@ -76,7 +76,8 @@ public class BogeymanDaoImpl implements BogeymanDao {
 
     @Override
     @Transactional
-    public void delete(Bogeyman bogeyman) {
+    public void delete(Bogeyman b) {
+        Bogeyman bogeyman = findByName(b.getName());
         for (Ability ability : bogeyman.getAbilities()) {
             bogeyman.removeAbility(ability);
         }

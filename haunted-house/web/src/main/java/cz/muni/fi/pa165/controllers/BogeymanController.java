@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BogeymanCreateDto;
 import cz.muni.fi.pa165.dto.BogeymanDto;
+import cz.muni.fi.pa165.dto.HouseDto;
 import cz.muni.fi.pa165.enums.BogeymanType;
 import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.facade.HouseFacade;
@@ -61,8 +62,13 @@ public class BogeymanController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createBogeyman(@Valid @ModelAttribute("bogeymanCreate") BogeymanCreateDto formBean, BindingResult bindingResult,
+    public String createBogeyman(@Valid @ModelAttribute("bogeymanCreate") BogeymanCreateDto formBean ,BindingResult bindingResult,
                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        System.err.println("------");
+        System.err.println(formBean.getHouseName());
+        HouseDto house = houseFacade.findHouseByName(formBean.getHouseName());
+        formBean.setHouse(house);
+
         bogeymanFacade.create(formBean);
         return "redirect:" + uriBuilder.path("/bogeyman").toUriString();
     }

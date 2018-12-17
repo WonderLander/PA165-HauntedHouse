@@ -13,7 +13,26 @@
 <jsp:attribute name="body">
 
 
+<form action="${pageContext.request.contextPath}/houses/create" method="post">
+    <div class="form-group">
+        <label>House name</label>
+        <input type="text" class="form-control" name="name">
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input type="text" class="form-control" name="address">
+    </div>
+    <div class="form-group">
+        <label>Date</label>
+        <input type="date" class="form-control" name="StringDate" placeholder="DD.MM.YYYY">
+    </div>
+    <div class="form-group">
+        <label>History</label>
+        <input type="text" class="form-control" name="history">
+    </div>
 
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
 
 </jsp:attribute>
 </my:pagetemplate>

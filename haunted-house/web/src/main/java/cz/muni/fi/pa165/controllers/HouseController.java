@@ -13,6 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,8 +54,8 @@ public class HouseController
             model.setViewName("house/houseView");
             return model;
         }else{
-            //todo exception
-            throw new IllegalArgumentException();
+            model.setViewName("house/houseView");
+            return model;
         }
     }
 
@@ -56,14 +63,23 @@ public class HouseController
     public String delete(@PathVariable("id")long id){
         houseFacade.deleteHouse(houseFacade.findHouseById(id));
 
-        return "redirect:houses";
+        return "redirect:/houses";
     }
 
     @RequestMapping(value = {"/create"},method= RequestMethod.POST)
-    public String create(@ModelAttribute("house") HouseCreateDto house){
+    public String create(@ModelAttribute("house") HouseCreateDto house,@ModelAttribute("StringDate")String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMM.yyyy");
+        LocalDate localDate = null;
+        try {
+            localDate = LocalDate.parse(date, formatter);
+        }catch (DateTimeParseException e){
+            localDate = LocalDate.now();
+        }
+        house.setDate(java.sql.Date.valueOf(localDate));
+        System.err.println(localDate);
         houseFacade.createHouse(house);
 
-        return "redirect:houses";
+        return "redirect:/houses";
     }
     @RequestMapping(value = {"/create"},method= RequestMethod.GET)
     public ModelAndView createView(){
