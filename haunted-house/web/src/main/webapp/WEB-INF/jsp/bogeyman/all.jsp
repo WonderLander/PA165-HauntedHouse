@@ -5,30 +5,31 @@
   Time: 13:03
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>All bogeymen</title>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<my:pagetemplate title="${house.name}">
+    <jsp:attribute name="body">
+         <style>
+             table {
+                 font-family: arial, sans-serif;
+                 border-collapse: collapse;
+                 width: 100%;
+             }
 
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
+             td, th {
+                 border: 1px solid #dddddd;
+                 text-align: left;
+                 padding: 8px;
+             }
 
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
-</head>
-<body>
+             tr:nth-child(even) {
+                 background-color: #dddddd;
+             }
+         </style>
 <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/new"
       role="button">Create new bogeyman</a></p>
 <table>
@@ -65,5 +66,5 @@
     </c:forEach>
     </tbody>
 </table>
-</body>
-</html>
+</jsp:attribute>
+</my:pagetemplate>

@@ -102,18 +102,6 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         houseDao.createHouse(house);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void createHouseAlreadyInDd()
-    {
-        House house = new House();
-        house.setAddress("Address1");
-        house.setName("house1");
-        house.setHistory("house 1 history");
-        house.setDate(Date.valueOf(LocalDate.now()));
-
-        houseDao.createHouse(house);
-    }
-
     @Test
     public void deleteHouse(){
         houseDao.deleteHouse(h1);

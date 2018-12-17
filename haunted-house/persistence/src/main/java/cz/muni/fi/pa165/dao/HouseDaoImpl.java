@@ -40,8 +40,10 @@ public class HouseDaoImpl implements HouseDao {
                 (house.getName() == null)) {
             throw new IllegalArgumentException("House has null property.");
         }
-        if (findHouseByName(house.getName()) != null) {
-            throw new IllegalArgumentException("House already exists.");
+        if(house.getId() != null) {
+            if (findHouseByName(house.getName()) != null) {
+                throw new IllegalArgumentException("House already exists.");
+            }
         }
         entityManager.persist(house);
     }
