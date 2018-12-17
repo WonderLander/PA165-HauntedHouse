@@ -9,15 +9,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>All bogeymen</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/bogeyman/new">Create new bogeyman</a>
-<table class="table">
+<p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/new"
+      role="button">Create new bogeyman</a></p>
+<table>
     <thead>
     <tr>
-        <th>id</th>
-        <th>name</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>House</th>
+        <th>Starts haunting at</th>
+        <th>Ends haunting at</th>
+        <th>Description</th>
+        <th>Reason</th>
+        <!--<th></th>
+        <th></th>-->
     </tr>
     </thead>
     <tbody>
@@ -25,6 +51,16 @@
         <tr>
             <td>${bogeyman.id}</td>
             <td><c:out value="${bogeyman.name}"/></td>
+            <td>${bogeyman.type}</td>
+            <td>${bogeyman.house.name}</td>
+            <td>${bogeyman.hauntStartTime}</td>
+            <td>${bogeyman.hauntEndTime}</td>
+            <td>${bogeyman.description}</td>
+            <td>${bogeyman.reason}</td>
+            <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/delete/${bogeyman.id}"
+                      role="button">Delete</a></p></td>
+            <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/detail/${bogeyman.id}"
+                      role="button">Detail</a></p></td>
         </tr>
     </c:forEach>
     </tbody>

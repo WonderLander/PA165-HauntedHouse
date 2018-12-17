@@ -1,20 +1,15 @@
 package cz.muni.fi.pa165.factory;
 
-import cz.muni.fi.pa165.dto.AbilityDto;
-import cz.muni.fi.pa165.dto.BogeymanCreateDto;
-import cz.muni.fi.pa165.dto.BogeymanDto;
-import cz.muni.fi.pa165.dto.HouseDto;
 import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Martin Wenzl
@@ -26,7 +21,7 @@ public class EntityFactory {
 
      private static Bogeyman createBogeyman(String name, BogeymanType type,
                                             List<Ability> abilities, House house,
-                                            LocalTime start, LocalTime end,
+                                            Time start, Time end,
                                             String description, String reason) {
         Bogeyman bogey = new Bogeyman();
         bogey.setName(name);
@@ -45,7 +40,7 @@ public class EntityFactory {
         return bogey;
     }
 
-    private static House createHouse(String name, String adress, LocalDate date, String history) {
+    private static House createHouse(String name, String adress, Date date, String history) {
          House house = new House();
          house.setAddress(adress);
          house.setDate(date);
@@ -87,7 +82,8 @@ public class EntityFactory {
         houseCounter++;
         String name = "HouseName" + houseCounter;
         String adress = "Adress" + houseCounter;
-        LocalDate date = LocalDate.of(2018 - houseCounter, 10, 23);
+        //Date date = LocalDate.of(2018 - houseCounter, 10, 23);
+        Date date = Date.valueOf(LocalDate.of(2018 - houseCounter, 10, 23));
         String history = "BriefHistory" + houseCounter;
         return createHouse(name, adress, date, history);
     }

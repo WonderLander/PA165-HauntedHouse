@@ -6,7 +6,7 @@ import cz.muni.fi.pa165.entity.House;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -68,7 +68,7 @@ public interface HouseService {
      * @param date date to be used for comparison
      * @return
      */
-    List<House> getSortedHousesAfterDate(LocalDate date) throws DataAccessException;
+    List<House> getSortedHousesAfterDate(Date date) throws DataAccessException;
 
     /**
      * Finds house on the specified address.
@@ -101,4 +101,6 @@ public interface HouseService {
      * @param comment comment to be added
      */
     void commentHouse(House house, Comment comment) throws DataAccessException;
+
+    List<String> getNames();
 }

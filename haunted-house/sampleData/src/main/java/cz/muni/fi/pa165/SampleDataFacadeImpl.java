@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
@@ -37,8 +39,8 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
 
     @Override
     public void init() {
-        House house = createHouse("House 1","Address 1",LocalDate.now(),"text 1",null,null);
-        Comment comment = createComment("Author 1",LocalDate.now(),"Text 1",null);
+        House house = createHouse("House 1","Address 1",Date.valueOf(LocalDate.now()),"text 1",null,null);
+        Comment comment = createComment("Author 1",Date.valueOf(LocalDate.now()),"Text 1",null);
 
         //for bogeymen's .jsp
         Ability fire = createAbility("Fire", "Creature throws fire", 1000);
@@ -52,22 +54,30 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
         witchAbilities.add(ice);
         witchAbilities.add(magic);
         Bogeyman peterGhost = createBogeyman("Peter's ghost", BogeymanType.GHOST, peterAbilities,
-                LocalTime.of(15, 15, 15), LocalTime.of(16, 15, 15),
+                Time.valueOf(LocalTime.of(15, 15, 15)),
+                Time.valueOf(LocalTime.of(16, 15, 15)),
                 "Peter died and did not want to leave his house full of memories",
                 "Sentimentality");
         Bogeyman oldWitch = createBogeyman("Old witch", BogeymanType.WITCH, witchAbilities,
-                LocalTime.of(20, 15, 0), LocalTime.of(6, 0, 0),
+                Time.valueOf(LocalTime.of(20, 15, 0)),
+                Time.valueOf(LocalTime.of(6, 0, 0)),
                 "For her, magic is fun", "Fun");
         Bogeyman zombie = createBogeyman("Zombie", BogeymanType.ZOMBIE, new HashSet<>(),
-                LocalTime.of(20, 15, 16), LocalTime.of(0, 15, 47),
+                Time.valueOf(LocalTime.of(20, 15, 16)),
+                Time.valueOf(LocalTime.of(0, 15, 47)),
                 "Haunts after sunset", "Revenge");
-        House treeHouse = createHouse("Tree house", "On tha tree", LocalDate.of(2011, 5, 6),
+        House treeHouse = createHouse("Tree house", "On tha tree",
+                Date.valueOf(LocalDate.of(2011, 5, 6)),
                 "This house was built on atree for old witch.", null, oldWitch);
-        House familyHouse = createHouse("Family house", "Green Garden, Salisbury 56", LocalDate.of(2018, 1, 1),
+        House familyHouse = createHouse("Family house", "Green Garden, Salisbury 56",
+                Date.valueOf(LocalDate.of(2018, 1, 1)),
                 "Owner of this house did not want to leave ...", null, peterGhost);
         House industryHall = createHouse("Industry hall", "By the river, Kopfburger 85",
-                LocalDate.of(2017, 5, 8), "An explosion appeared in 2017.", null,
+                Date.valueOf(LocalDate.of(2017, 5, 8)), "An explosion appeared in 2017.", null,
                 zombie);
+        peterGhost.setHouse(familyHouse);
+        oldWitch.setHouse(treeHouse);
+        zombie.setHouse(industryHall);
 //        House house1 = createHouse("Residence at the Corner of the Damned", "Corner of the Damned 666", LocalDate.now(),
 //                "It is said that this house was once a residence of one of the most dreadful sabbath", null, null);
 //
@@ -95,9 +105,10 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
 //        Bogeyman bogeyman3 = createBogeyman("Zombie", house3, BogeymanType.ZOMBIE, ability3, LocalTime.now(), LocalTime.now(),
 //                "Embodiment ceaseless hunger.", "Brains are brains. For zombies it does not matter whose brain it is.");
 
+
     }
 
-    private Comment createComment(String author, LocalDate date, String text, House house){
+    private Comment createComment(String author, Date date, String text, House house){
         Comment comment = new Comment(author,date,text);
         comment.setHouse(house);
 
@@ -106,7 +117,7 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
         return comment;
     }
 
-    private House createHouse(String name, String address, LocalDate date,
+    private House createHouse(String name, String address, Date date,
                               String history, Comment comment, Bogeyman bogeyman){
         House house = new House();
         house.setName(name);
@@ -122,7 +133,7 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
     }
 
     private Bogeyman createBogeyman(String name, BogeymanType type, Set<Ability> abilities,
-                                    LocalTime hauntStartTime, LocalTime hauntEndTime, String description,
+                                    Time hauntStartTime, Time hauntEndTime, String description,
                                     String reason) {
         Bogeyman bogeyman = new Bogeyman();
         bogeyman.setName(name);

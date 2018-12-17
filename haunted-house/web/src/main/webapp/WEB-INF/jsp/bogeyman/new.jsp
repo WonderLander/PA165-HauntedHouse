@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
-  User: nay
+  User: Lukas Sadlek
   Date: 16.12.2018
   Time: 15:34
   To change this template use File | Settings | File Templates.
@@ -32,11 +32,11 @@
         </div>
         <form:label path="hauntStartTime" cssClass="col-sm-2 control-label">Haunting starts at</form:label>
         <div class="col-sm-10">
-            <form:input path="hauntStartTime" cssClass="form-control"/>
+            <form:input path="hauntStartTime" cssClass="form-control" placeholder="HH:MM:SS"/>
         </div>
         <form:label path="hauntEndTime" cssClass="col-sm-2 control-label">Haunting ends at</form:label>
         <div class="col-sm-10">
-            <form:input path="hauntEndTime" cssClass="form-control"/>
+            <form:input path="hauntEndTime" cssClass="form-control" placeholder="HH:MM:SS"/>
         </div>
         <form:label path="description" cssClass="col-sm-2 control-label">Description</form:label>
         <div class="col-sm-10">

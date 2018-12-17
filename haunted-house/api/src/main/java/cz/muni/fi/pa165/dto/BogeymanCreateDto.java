@@ -4,7 +4,7 @@ import cz.muni.fi.pa165.enums.BogeymanType;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalTime;
+import java.sql.Time;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -25,8 +25,8 @@ public class BogeymanCreateDto {
 
     //@NotNull
     private HouseDto house;
-    private LocalTime hauntStartTime;
-    private LocalTime hauntEndTime;
+    private Time hauntStartTime;
+    private Time hauntEndTime;
 
     @Size(max = 2000)
     private String description;
@@ -74,19 +74,19 @@ public class BogeymanCreateDto {
         this.house = house;
     }
 
-    public LocalTime getHauntStartTime() {
+    public Time getHauntStartTime() {
         return hauntStartTime;
     }
 
-    public void setHauntStartTime(LocalTime hauntStartTime) {
+    public void setHauntStartTime(Time hauntStartTime) {
         this.hauntStartTime = hauntStartTime;
     }
 
-    public LocalTime getHauntEndTime() {
+    public Time getHauntEndTime() {
         return hauntEndTime;
     }
 
-    public void setHauntEndTime(LocalTime hauntEndTime) {
+    public void setHauntEndTime(Time hauntEndTime) {
         this.hauntEndTime = hauntEndTime;
     }
 

@@ -8,19 +8,8 @@
 <my:pagetemplate>
 <jsp:attribute name="body">
 
-    <div class="jumbotron">
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/houses"
-                role="button">Houses link</a></p>
-    </div>
     <a href="${pageContext.request.contextPath}/bogeyman/">Bogeyman</a>
-
-    <div class="row">
-        <c:forEach begin="1" end="12" var="i">
-            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
-                <p><button class="btn btn-default">Button ${i}</button></p>
-            </div>
-        </c:forEach>
-    </div>
+    <a href="${pageContext.request.contextPath}/houses/">Houses</a>
 
 </jsp:attribute>
 </my:pagetemplate>

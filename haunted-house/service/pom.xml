@@ -28,11 +28,17 @@
             <artifactId>javax.inject</artifactId>
             <!--<version>1</version>-->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.dozermapper/dozer-core -->
         <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-core</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+        <!--<dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
-            <!--<version>5.5.1</version>-->
-        </dependency>
+            <version>5.5.1</version>
+        </dependency>-->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
