@@ -64,10 +64,6 @@ public class BogeymanController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createBogeyman(@Valid @ModelAttribute("bogeymanCreate") BogeymanCreateDto formBean ,BindingResult bindingResult,
                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        System.err.println("------");
-        System.err.println(formBean.getHouseName());
-        HouseDto house = houseFacade.findHouseByName(formBean.getHouseName());
-        formBean.setHouse(house);
 
         bogeymanFacade.create(formBean);
         return "redirect:" + uriBuilder.path("/bogeyman").toUriString();
