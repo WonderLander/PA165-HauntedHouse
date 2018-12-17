@@ -8,8 +8,5 @@
 <my:pagetemplate>
 <jsp:attribute name="body">
 
-    <a href="${pageContext.request.contextPath}/bogeyman/">Bogeyman</a>
-    <a href="${pageContext.request.contextPath}/houses/">Houses</a>
-
 </jsp:attribute>
 </my:pagetemplate>
