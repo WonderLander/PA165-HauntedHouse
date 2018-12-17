@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165;
 
+import cz.muni.fi.pa165.dto.UserDto;
 import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.facade.UserFacade;
 import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import cz.muni.fi.pa165.service.services.CommentService;
@@ -28,6 +30,9 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
     private CommentService commentService;
     @Autowired
     private HouseService houseService;
+
+    @Autowired
+    private UserFacade userFacade;
 
 //    @Inject
 //    public SampleDataFacadeImpl(AbilityService abilityService, BogeymanService bogeymanService, CommentService commentService, HouseService houseService) {
@@ -106,6 +111,15 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
 //                "Embodiment ceaseless hunger.", "Brains are brains. For zombies it does not matter whose brain it is.");
 
 
+        UserDto adminUserDto = new UserDto();
+        adminUserDto.setAdmin(true);
+        adminUserDto.setEmail("admin@hauntedhouses.com");
+        userFacade.registerUser(adminUserDto, "admin");
+
+        UserDto userDto = new UserDto();
+        userDto.setAdmin(false);
+        userDto.setEmail("user@gmail.com");
+        userFacade.registerUser(userDto, "password");
     }
 
     private Comment createComment(String author, Date date, String text, House house){
