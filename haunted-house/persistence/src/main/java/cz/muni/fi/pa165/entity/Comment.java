@@ -73,7 +73,9 @@ public class Comment
 
     public void setHouse(House house) {
         this.house = house;
-        this.house.addComment(this);
+        if(house!=null) {
+            this.house.addComment(this);
+        }
     }
 
 
