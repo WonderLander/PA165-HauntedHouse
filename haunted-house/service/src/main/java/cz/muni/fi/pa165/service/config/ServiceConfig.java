@@ -1,14 +1,8 @@
 package cz.muni.fi.pa165.service.config;
 
 import cz.muni.fi.pa165.config.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.dto.AbilityDto;
-import cz.muni.fi.pa165.dto.BogeymanDto;
-import cz.muni.fi.pa165.dto.CommentDto;
-import cz.muni.fi.pa165.dto.HouseDto;
-import cz.muni.fi.pa165.entity.Ability;
-import cz.muni.fi.pa165.entity.Bogeyman;
-import cz.muni.fi.pa165.entity.Comment;
-import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.service.facade.HouseFacadeImpl;
 import cz.muni.fi.pa165.service.services.AbilityServiceImpl;
 import org.dozer.DozerBeanMapper;
@@ -50,6 +44,7 @@ public class ServiceConfig {
             mapping(House.class, HouseDto.class);
             mapping(Bogeyman.class, BogeymanDto.class);
             mapping(Comment.class, CommentDto.class);
+            mapping(User.class, UserDto.class);
         }
     }
 }
