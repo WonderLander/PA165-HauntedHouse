@@ -14,6 +14,8 @@ public class CommentCreateDto
 
     private String text;
 
+    private HouseDto house;
+
     public String getAuthor() {
         return author;
     }
@@ -36,6 +38,14 @@ public class CommentCreateDto
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public HouseDto getHouse() {
+        return house;
+    }
+
+    public void setHouse(HouseDto house) {
+        this.house = house;
     }
 
     @Override

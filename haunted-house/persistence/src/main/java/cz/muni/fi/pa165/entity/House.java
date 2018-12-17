@@ -34,10 +34,10 @@ public class House {
     @NotNull
     private String history;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Bogeyman> bogeymen = new ArrayList<>();
 
     public House() {}

@@ -7,9 +7,13 @@ import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import cz.muni.fi.pa165.service.services.CommentService;
 import cz.muni.fi.pa165.service.services.HouseService;
+import net.bytebuddy.asm.Advice;
+import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.sql.Date;
 import java.sql.Time;
@@ -30,7 +34,6 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
     private CommentService commentService;
     @Autowired
     private HouseService houseService;
-
     @Autowired
     private UserFacade userFacade;
 
@@ -146,45 +149,34 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
         return house;
     }
 
-    private Bogeyman createBogeyman(String name, BogeymanType type, Set<Ability> abilities,
-                                    Time hauntStartTime, Time hauntEndTime, String description,
+    private Bogeyman createBogeyman(String name, House house, BogeymanType type, Ability ability,
+                                    LocalTime hauntStartTime, LocalTime hauntEndTime, String description,
                                     String reason) {
         Bogeyman bogeyman = new Bogeyman();
+        bogeyman.setHouse(house);
         bogeyman.setName(name);
-        //bogeyman.setHouse(house);
-        bogeyman.setDescription(description);
-        bogeyman.setHauntEndTime(hauntEndTime);
-        bogeyman.setHauntStartTime(hauntStartTime);
         bogeyman.setType(type);
+        bogeyman.addAbility(ability);
+        bogeyman.setHauntStartTime(hauntStartTime);
+        bogeyman.setHauntEndTime(hauntEndTime);
+        bogeyman.setDescription(description);
         bogeyman.setReason(reason);
-        for (Ability ability: abilities) {
-            bogeyman.addAbility(ability);
-        }
-        bogeymanService.create(bogeyman);
-//    private Bogeyman createBogeyman(String name, House house, BogeymanType type, Ability ability,
-//                                    LocalTime hauntStartTime, LocalTime hauntEndTime, String description,
-//                                    String reason) {
-//        Bogeyman bogeyman = new Bogeyman();
-//        bogeyman.setHouse(house);
-//        bogeyman.setName(name);
-//        bogeyman.setType(type);
-//        bogeyman.addAbility(ability);
-//        bogeyman.setHauntStartTime(hauntStartTime);
-//        bogeyman.setHauntEndTime(hauntEndTime);
-//        bogeyman.setDescription(description);
-//        bogeyman.setReason(reason);
-//
-//        bogeymanService.create(bogeyman);
 
+        bogeymanService.create(bogeyman);
         return bogeyman;
     }
 
     private Ability createAbility(String name, String description, int cooldown) {
-        Ability ability = new Ability();
+        Ability ability =  new Ability();
         ability.setName(name);
-        ability.setDescription(description);
         ability.setCooldown(cooldown);
+        ability.setDescription(description);
+
         abilityService.createAbility(ability);
+
         return ability;
     }
+
+
 }
+

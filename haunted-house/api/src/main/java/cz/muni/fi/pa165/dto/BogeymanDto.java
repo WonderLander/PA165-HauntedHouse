@@ -48,7 +48,8 @@ public class BogeymanDto {
     }
 
     public Set<AbilityDto> getAbilities() {
-        return Collections.unmodifiableSet(abilities);
+        //return Collections.unmodifiableSet(abilities);
+        return abilities;
     }
 
     public void setAbilities(Set<AbilityDto> abilities) {

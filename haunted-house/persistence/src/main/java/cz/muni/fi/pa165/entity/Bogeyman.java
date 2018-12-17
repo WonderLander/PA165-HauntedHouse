@@ -29,8 +29,10 @@ public class Bogeyman {
     @ManyToMany
     private Set<Ability> abilities = new HashSet<>();
 
-    //@NotNull
-    @ManyToOne
+
+    @NotNull
+    @ManyToOne(cascade = CascadeType.REMOVE)
+  
     private House house;
 
     private Time hauntStartTime;
@@ -70,7 +72,8 @@ public class Bogeyman {
     }
 
     public Set<Ability> getAbilities() {
-        return Collections.unmodifiableSet(abilities);
+        //return Collections.unmodifiableSet(abilities);
+        return abilities;
     }
 
     public void addAbility(Ability ability) {
@@ -89,6 +92,7 @@ public class Bogeyman {
 
     public void setHouse(House house) {
         this.house = house;
+        this.house.addBogeyman(this);
     }
 
     public Time getHauntStartTime() {
