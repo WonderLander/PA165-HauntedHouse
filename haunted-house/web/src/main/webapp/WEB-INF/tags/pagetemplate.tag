@@ -55,6 +55,14 @@
 
 <div class="container">
     <!-- page body -->
+
+    <a href="${pageContext.request.contextPath}/bogeyman/">Bogeyman</a>
+    <a href="${pageContext.request.contextPath}/houses/">Houses</a>
+    <a href="${pageContext.request.contextPath}/user/list/">Users</a>
+
+
+
+
     <jsp:invoke fragment="body"/>
 
 </div>
