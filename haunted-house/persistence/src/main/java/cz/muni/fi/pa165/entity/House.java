@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +29,7 @@ public class House {
     private String address;
 
     @NotNull
-    private LocalDate date;
+    private Date date;
 
     @NotNull
     private String history;
@@ -66,11 +66,11 @@ public class House {
         this.address = address;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

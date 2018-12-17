@@ -6,7 +6,7 @@ import cz.muni.fi.pa165.dto.CommentDto;
 import cz.muni.fi.pa165.dto.HouseCreateDto;
 import cz.muni.fi.pa165.dto.HouseDto;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -58,7 +58,7 @@ public interface HouseFacade {
      * @param date date to be used for comparison
      * @return
      */
-    List<HouseDto> getSortedHousesAfterDate(LocalDate date);
+    List<HouseDto> getSortedHousesAfterDate(Date date);
 
     /**
      * Finds house on the specified address.
@@ -91,4 +91,6 @@ public interface HouseFacade {
      * @param comment comment to be added
      */
     void commentHouse(HouseDto house, CommentDto comment);
+
+    List<String> getNames();
 }

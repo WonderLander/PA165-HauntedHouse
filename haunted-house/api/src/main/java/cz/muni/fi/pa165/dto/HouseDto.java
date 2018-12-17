@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +12,7 @@ public class HouseDto {
     private Long id;
     private String name;
     private String address;
-    private LocalDate date;
+    private Date date;
     private String history;
     private List<CommentDto> comments = new ArrayList<>();
     private List<BogeymanDto> bogeymen = new ArrayList<>();
@@ -41,11 +41,11 @@ public class HouseDto {
         this.address = address;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

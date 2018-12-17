@@ -5,17 +5,20 @@ import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.QueryTimeoutException;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +29,7 @@ import static org.mockito.Mockito.*;
 /**
  * @author Martin Wenzl
  */
+@ContextConfiguration(classes = ServiceConfig.class)
 public class BogeymanServiceTest {
 
     @InjectMocks
@@ -69,7 +73,7 @@ public class BogeymanServiceTest {
         h1.setName(h1Name);
         h1.setHistory(h1History);
         h1.setAddress(h1Address);
-        h1.setDate(h1Date);
+        h1.setDate(Date.valueOf(h1Date));
 
         String a1Name = "Third eye";
         a1.setName(a1Name);
@@ -90,7 +94,7 @@ public class BogeymanServiceTest {
         h2.setName(h2Name);
         h2.setHistory(h2History);
         h2.setAddress(h2Address);
-        h2.setDate(h2Date);
+        h2.setDate(Date.valueOf(h2Date));
 
         String a2Name = "Table breaker";
         a2.setName(a2Name);

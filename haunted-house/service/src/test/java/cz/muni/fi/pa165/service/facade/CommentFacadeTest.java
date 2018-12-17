@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.dto.HouseDto;
 import cz.muni.fi.pa165.entity.Ability;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.CommentService;
 import org.junit.Before;
@@ -16,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 
 import java.util.Collections;
@@ -28,6 +30,7 @@ import static org.mockito.Mockito.when;
  * Simple tests for facade layer - one test per method
  * @author Lukas Sadlek
  */
+@ContextConfiguration(classes = ServiceConfig.class)
 public class CommentFacadeTest {
     @InjectMocks
     @Autowired

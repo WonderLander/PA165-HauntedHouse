@@ -9,16 +9,19 @@ import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
 import cz.muni.fi.pa165.facade.BogeymanFacade;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Martin Wenzl
  */
-
+@ContextConfiguration(classes = ServiceConfig.class)
 public class BogeymanFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
@@ -82,12 +85,12 @@ public class BogeymanFacadeTest extends AbstractTestNGSpringContextTests {
         bogeymanDto2 = new BogeymanDto();
 
         String address = "Fakestreet 123";
-        LocalDate date = LocalDate.now();
+        Date date = Date.valueOf(LocalDate.now());
         String history = "Once upon a time someone came with this brief history";
         String houseName = "Soul Sanctum";
 
         String newAddress = "Botanicka 68a";
-        LocalDate newDate = LocalDate.now();
+        Date newDate = Date.valueOf(LocalDate.now());
         String newHistory = "When you enter you realize you did HUGE mistake";
         String newHouseName = "Asylum";
 

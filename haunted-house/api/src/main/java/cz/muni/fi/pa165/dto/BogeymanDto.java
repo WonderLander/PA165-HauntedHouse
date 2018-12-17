@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.enums.BogeymanType;
 
-import java.time.LocalTime;
+import java.sql.Time;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,8 +18,8 @@ public class BogeymanDto {
     private BogeymanType type;
     private Set<AbilityDto> abilities = new HashSet<>();
     private HouseDto house;
-    private LocalTime hauntStartTime;
-    private LocalTime hauntEndTime;
+    private Time hauntStartTime;
+    private Time hauntEndTime;
     private String description;
     private String reason;
 
@@ -72,19 +72,19 @@ public class BogeymanDto {
         this.house = house;
     }
 
-    public LocalTime getHauntStartTime() {
+    public Time getHauntStartTime() {
         return hauntStartTime;
     }
 
-    public void setHauntStartTime(LocalTime hauntStartTime) {
+    public void setHauntStartTime(Time hauntStartTime) {
         this.hauntStartTime = hauntStartTime;
     }
 
-    public LocalTime getHauntEndTime() {
+    public Time getHauntEndTime() {
         return hauntEndTime;
     }
 
-    public void setHauntEndTime(LocalTime hauntEndTime) {
+    public void setHauntEndTime(Time hauntEndTime) {
         this.hauntEndTime = hauntEndTime;
     }
 

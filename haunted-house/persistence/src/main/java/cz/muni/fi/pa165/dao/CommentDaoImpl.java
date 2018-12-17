@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dao;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

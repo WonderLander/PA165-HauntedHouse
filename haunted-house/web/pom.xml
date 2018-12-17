@@ -12,15 +12,15 @@
     <artifactId>web</artifactId>
 
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>my-webapp Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <!--<version>1.0-SNAPSHOT</version>-->
+    <name>web front end</name>
+    <!--<url>http://maven.apache.org</url>-->
 
-    <properties>
+    <!--<properties>
         <tomcat.version>8.5.31</tomcat.version>
-    </properties>
+    </properties>-->
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
@@ -28,7 +28,7 @@
                 <version>1.7.0</version>
                 <configuration>
                     <container>
-                        <containerId>tomcat9x</containerId>
+                        <containerId>tomcat8x</containerId>
                     </container>
                     <deployables>
                         <deployable>
@@ -36,7 +36,7 @@
                             <artifactId>${project.artifactId}</artifactId>
                             <type>war</type>
                             <properties>
-                                <context>pa165</context>
+                                <context>/pa165</context>
                             </properties>
                         </deployable>
                     </deployables>
@@ -44,14 +44,27 @@
 
             </plugin>
         </plugins>
+    </build>-->
+    <build>
+        <!-- what to do when only "mvn" is run -->
+        <defaultGoal>cargo:run</defaultGoal>
+        <!-- name of the produced war -->
+        <finalName>pa165</finalName>
+        <plugins>
+            <!--  embedded Tomcat -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>cz.muni.fi</groupId>
             <artifactId>api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>cz.muni.fi</groupId>
             <artifactId>sampleData</artifactId>
@@ -64,8 +77,44 @@
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-spec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+        </dependency>
+        <!-- Spring MVC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <!-- validator for bean properties -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <!-- must provide logging implementation, this is a runnable project -->
+        <!-- see viz http://docs.spring.io/platform/docs/1.1.4.RELEASE/reference/htmlsingle/#getting-started-logging -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
 
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.7</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -75,11 +124,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
 
-        </dependency>
-        <!-- Spring MVC -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
         </dependency>
 
 
@@ -104,18 +148,13 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.7</version>
-        </dependency>
+
 
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
-        </dependency>
-
+        </dependency>-->
     </dependencies>
 
 </project>

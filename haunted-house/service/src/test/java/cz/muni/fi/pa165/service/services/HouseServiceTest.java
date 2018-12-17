@@ -4,9 +4,11 @@ import cz.muni.fi.pa165.dao.HouseDao;
 import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.Comment;
 import cz.muni.fi.pa165.entity.House;
+import cz.muni.fi.pa165.service.config.ServiceConfig;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.RecoverableDataAccessException;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +28,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Ondrej Stursa
  */
-
+@ContextConfiguration(classes = ServiceConfig.class)
 public class HouseServiceTest
 {
     @Mock
@@ -57,12 +60,12 @@ public class HouseServiceTest
         h1= new House();
         h1.setName("House one");
         h1.setAddress("Address one");
-        h1.setDate(LocalDate.MAX);
+        h1.setDate(Date.valueOf(LocalDate.of(2018, 12, 17)));
         h1.setHistory("House one history");
         h2 = new House();
         h2.setName("House two");
         h2.setAddress("Address two");
-        h2.setDate(LocalDate.now());
+        h2.setDate(Date.valueOf(LocalDate.of(2018, 12, 15)));
         h2.setHistory("History two");
 
 
@@ -125,13 +128,13 @@ public class HouseServiceTest
     public void getSortedHousesAfterDateTest(){
         when(houseDao.findAll()).thenReturn(houses);
 
-        List<House>h=houseService.getSortedHousesAfterDate(LocalDate.MIN);
+        List<House>h=houseService.getSortedHousesAfterDate(Date.valueOf(LocalDate.of(1996, 12, 1)));
         Assert.assertEquals(h.size(),2);
         Assert.assertEquals(h.get(1),h2);
 
         verify(houseDao).findAll();
 
-        h=houseService.getSortedHousesAfterDate(LocalDate.now());
+        h=houseService.getSortedHousesAfterDate(Date.valueOf(LocalDate.of(2018, 12, 16)));
         Assert.assertEquals(h.size(),1);
         Assert.assertEquals(h.get(0),h1);
 
@@ -190,6 +193,6 @@ public class HouseServiceTest
         Assert.assertThrows(DataAccessException.class, () -> houseService.findHouseById(0l));
         Assert.assertThrows(DataAccessException.class, () -> houseService.findAll());
         Assert.assertThrows(DataAccessException.class, () -> houseService.findHouseByName("Not name"));
-        Assert.assertThrows(DataAccessException.class, () -> houseService.getSortedHousesAfterDate(LocalDate.now()));
+        Assert.assertThrows(DataAccessException.class, () -> houseService.getSortedHousesAfterDate(Date.valueOf(LocalDate.now())));
     }
 }

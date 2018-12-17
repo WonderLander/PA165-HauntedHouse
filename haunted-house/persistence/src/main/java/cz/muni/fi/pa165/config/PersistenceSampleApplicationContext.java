@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.config;
 
-import cz.muni.fi.pa165.dao.AbilityDao;
-import cz.muni.fi.pa165.dao.BogeymanDao;
-import cz.muni.fi.pa165.dao.CommentDao;
-import cz.muni.fi.pa165.dao.HouseDao;
+import cz.muni.fi.pa165.dao.*;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,9 +22,17 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {AbilityDao.class, BogeymanDao.class, CommentDao.class, HouseDao.class},
+@ComponentScan(basePackageClasses = {AbilityDao.class, BogeymanDao.class, CommentDao.class, HouseDao.class, UserDao.class},
 		basePackages = "cz.muni.fi.pa165")
 public class PersistenceSampleApplicationContext {
+
+//    /**
+//     * Enables automatic translation of exceptions to DataAccessExceptions.
+//     */
+//    @Bean
+//    public PersistenceExceptionTranslationPostProcessor postProcessor() {
+//        return new PersistenceExceptionTranslationPostProcessor();
+//    }
 	
 	@Bean
 	public JpaTransactionManager transactionManager(){

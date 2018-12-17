@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -10,7 +10,7 @@ public class CommentCreateDto
 {
     private String author;
 
-    private LocalDate date;
+    private Date date;
 
     private String text;
 
@@ -24,11 +24,11 @@ public class CommentCreateDto
         this.author = author;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
