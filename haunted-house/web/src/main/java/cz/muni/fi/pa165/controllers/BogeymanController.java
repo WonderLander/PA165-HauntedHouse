@@ -20,6 +20,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author Lukas Sadlek
+ */
 @Controller
 @RequestMapping("/bogeyman")
 public class BogeymanController {
