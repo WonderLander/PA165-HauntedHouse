@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.Bogeyman;
 import cz.muni.fi.pa165.entity.BogeymanType;
 import cz.muni.fi.pa165.entity.House;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -74,6 +75,7 @@ public class BogeymanDaoImpl implements BogeymanDao {
     }
 
     @Override
+    @Transactional
     public void delete(Bogeyman bogeyman) {
         for (Ability ability : bogeyman.getAbilities()) {
             bogeyman.removeAbility(ability);

@@ -13,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -47,23 +48,23 @@ public class CommentDaoTest extends AbstractTestNGSpringContextTests {
         LocalDate theDayBefore = LocalDate.of(2018, 10, 27);
 
         comment1.setAuthor("Jirina");
-        comment1.setDate(firstDay);
+        comment1.setDate(Date.valueOf(firstDay));
         comment1.setText("Na pokoji cislo 11 se kazdy den o sedme rano zjevi duch stareho namornika. " +
                          "Vstane z postele, oblekne se, vezme si svuj kufr a odejde pryc. " +
                          "Na ubytovani na pokoji 11 nabizeji vyraznou slevu.");
 
         comment2.setAuthor("Anonym");
-        comment2.setDate(firstDay);
+        comment2.setDate(Date.valueOf(firstDay));
         comment2.setText("Prilis daleko do centra");
 
         comment3.setAuthor("Anonym");
-        comment3.setDate(theDayBefore);
+        comment3.setDate(Date.valueOf(theDayBefore));
         comment3.setText("Nemam slov");
 
         house1 = new House();
         house1.setName("Hotel");
         house1.setAddress("Na plazi");
-        house1.setDate(LocalDate.of(2018, 10, 15));
+        house1.setDate(Date.valueOf(LocalDate.of(2018, 10, 15)));
         house1.setHistory("This hotel was built in 1997.");
         comment1.setHouse(house1);
         comment2.setHouse(house1);

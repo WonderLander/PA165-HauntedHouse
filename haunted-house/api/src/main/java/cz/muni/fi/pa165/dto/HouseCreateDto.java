@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.dto;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Objects;
 
 public class HouseCreateDto {
     private String name;
     private String address;
-    private LocalDate date;
+    private Date date;
     private String history;
 
     public String getName() {
@@ -25,11 +25,11 @@ public class HouseCreateDto {
         this.address = address;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

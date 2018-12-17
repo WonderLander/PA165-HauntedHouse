@@ -12,6 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -37,13 +38,13 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         h1.setAddress("Address1");
         h1.setName("house1");
         h1.setHistory("house 1 history");
-        h1.setDate(LocalDate.now());
+        h1.setDate(Date.valueOf(LocalDate.now()));
 
         h2=new House();
         h2.setAddress("Address2");
         h2.setName("house2");
         h2.setHistory("house 2 history");
-        h2.setDate(LocalDate.now());
+        h2.setDate(Date.valueOf(LocalDate.now()));
 
         houseDao.createHouse(h1);
         houseDao.createHouse(h2);
@@ -80,7 +81,7 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         house.setAddress("Address");
         house.setName("house");
         house.setHistory("house history");
-        house.setDate(LocalDate.now());
+        house.setDate(Date.valueOf(LocalDate.now()));
         houseDao.createHouse(house);
 
         House find = houseDao.findHouseById(house.getId());
@@ -108,7 +109,7 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         house.setAddress("Address1");
         house.setName("house1");
         house.setHistory("house 1 history");
-        house.setDate(LocalDate.now());
+        house.setDate(Date.valueOf(LocalDate.now()));
 
         houseDao.createHouse(house);
     }
@@ -132,7 +133,7 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         house.setAddress("Address1");
         house.setName("house not in db");
         house.setHistory("house history");
-        house.setDate(LocalDate.now());
+        house.setDate(Date.valueOf(LocalDate.now()));
 
         houseDao.deleteHouse(house);
     }
@@ -147,7 +148,7 @@ public class HouseDaoImplTest extends AbstractTestNGSpringContextTests
         house.setAddress("Address new");
         house.setName("new house");
         house.setHistory("new house history");
-        house.setDate(LocalDate.now());
+        house.setDate(Date.valueOf(LocalDate.now()));
 
         houseDao.createHouse(house);
 

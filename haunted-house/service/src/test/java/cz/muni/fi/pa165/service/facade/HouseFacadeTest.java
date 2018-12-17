@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,13 +78,13 @@ public class HouseFacadeTest {
         houseDto=new HouseDto();
         houseDto.setName("House one");
         houseDto.setAddress("Address one");
-        houseDto.setDate(LocalDate.MAX);
+        houseDto.setDate(Date.valueOf(LocalDate.MAX));
         houseDto.setHistory("History one");
 
         houseDto2=new HouseDto();
         houseDto2.setName("House two");
         houseDto2.setAddress("Address two");
-        houseDto2.setDate(LocalDate.now());
+        houseDto2.setDate(Date.valueOf(LocalDate.now()));
         houseDto2.setHistory("History two");
 
         houseDtos.add(houseDto);
@@ -157,13 +158,13 @@ public class HouseFacadeTest {
 
     @Test
     public void getSortedHousesAfterDateTest(){
-        when(houseService.getSortedHousesAfterDate(LocalDate.now())).thenReturn(houses);
+        when(houseService.getSortedHousesAfterDate(Date.valueOf(LocalDate.now()))).thenReturn(houses);
         when(beanMappingService.mapTo(houses,HouseDto.class)).thenReturn(houseDtos);
-        List<HouseDto>h=houseFacade.getSortedHousesAfterDate(LocalDate.now());
+        List<HouseDto>h=houseFacade.getSortedHousesAfterDate(Date.valueOf(LocalDate.now()));
 
         Assert.assertEquals(h.size(),2);
         Assert.assertEquals(h.get(1),houseDto2);
-        verify(houseService).getSortedHousesAfterDate(LocalDate.now());
+        verify(houseService).getSortedHousesAfterDate(Date.valueOf(LocalDate.now()));
     }
 
     @Test

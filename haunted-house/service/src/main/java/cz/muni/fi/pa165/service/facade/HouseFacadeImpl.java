@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -55,12 +55,13 @@ public class HouseFacadeImpl implements HouseFacade {
 
     @Override
     public List<HouseDto> findAll() {
-        List<House> houses = houseService.findAll();
-        if (houses == null) {
-            return null;
-        } else {
-            return beanMappingService.mapTo(houses, HouseDto.class);
-        }
+//        List<House> houses = houseService.findAll();
+//        if (houses == null) {
+//            return null;
+//        } else {
+//            return beanMappingService.mapTo(houses, HouseDto.class);
+//        }
+        return beanMappingService.mapTo(houseService.findAll(), HouseDto.class);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class HouseFacadeImpl implements HouseFacade {
     }
 
     @Override
-    public List<HouseDto> getSortedHousesAfterDate(LocalDate date) {
+    public List<HouseDto> getSortedHousesAfterDate(Date date) {
         List<House> houses = houseService.getSortedHousesAfterDate(date);
         if (houses == null) {
             return null;
@@ -113,5 +114,10 @@ public class HouseFacadeImpl implements HouseFacade {
         houseService.commentHouse(
                 beanMappingService.mapTo(house, House.class),
                 beanMappingService.mapTo(comment, Comment.class));
+    }
+
+    @Override
+    public List<String> getNames() {
+        return houseService.getNames();
     }
 }

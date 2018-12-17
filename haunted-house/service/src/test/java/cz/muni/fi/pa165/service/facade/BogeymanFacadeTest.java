@@ -21,6 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,12 +85,12 @@ public class BogeymanFacadeTest extends AbstractTestNGSpringContextTests {
         bogeymanDto2 = new BogeymanDto();
 
         String address = "Fakestreet 123";
-        LocalDate date = LocalDate.now();
+        Date date = Date.valueOf(LocalDate.now());
         String history = "Once upon a time someone came with this brief history";
         String houseName = "Soul Sanctum";
 
         String newAddress = "Botanicka 68a";
-        LocalDate newDate = LocalDate.now();
+        Date newDate = Date.valueOf(LocalDate.now());
         String newHistory = "When you enter you realize you did HUGE mistake";
         String newHouseName = "Asylum";
 

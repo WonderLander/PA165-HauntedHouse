@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -19,7 +19,7 @@ public class Comment
     private String author;
 
     @NotNull
-    private LocalDate date;
+    private Date date;
 
     @Column(length = 2000)
     private String text;
@@ -29,7 +29,7 @@ public class Comment
 
     public Comment(){}
 
-    public Comment(@NotNull String author, @NotNull LocalDate date, String text) {
+    public Comment(@NotNull String author, @NotNull Date date, String text) {
         this.author = author;
         this.date = date;
         this.text = text;
@@ -51,11 +51,11 @@ public class Comment
         this.author = author;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

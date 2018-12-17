@@ -19,6 +19,7 @@ import org.springframework.dao.RecoverableDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,17 +71,17 @@ public class CommentServiceTest {
         theDayBefore = LocalDate.of(2018, 10, 27);
 
         comment1.setAuthor("Jirina");
-        comment1.setDate(firstDay);
+        comment1.setDate(Date.valueOf(firstDay));
         comment1.setText("Na pokoji cislo 11 se kazdy den o sedme rano zjevi duch stareho namornika. " +
                 "Vstane z postele, oblekne se, vezme si svuj kufr a odejde pryc. " +
                 "Na ubytovani na pokoji 11 nabizeji vyraznou slevu.");
 
         comment2.setAuthor("Anonym");
-        comment2.setDate(firstDay);
+        comment2.setDate(Date.valueOf(firstDay));
         comment2.setText("Prilis daleko do centra");
 
         comment3.setAuthor("Anonym");
-        comment3.setDate(theDayBefore);
+        comment3.setDate(Date.valueOf(theDayBefore));
         comment3.setText("Nemam slov");
 
         comment1.setHouse(house1);
@@ -181,8 +182,8 @@ public class CommentServiceTest {
         List<Comment> resultComments = commentService.findAllSortedByDate();
         Assert.assertEquals(resultComments.size(), 3);
         Assert.assertEquals(resultComments.get(0), comment3);
-        Assert.assertEquals(resultComments.get(1).getDate(), firstDay);
-        Assert.assertEquals(resultComments.get(2).getDate(), firstDay);
+        Assert.assertEquals(resultComments.get(1).getDate(), Date.valueOf(firstDay));
+        Assert.assertEquals(resultComments.get(2).getDate(), Date.valueOf(firstDay));
     }
 
     @Test

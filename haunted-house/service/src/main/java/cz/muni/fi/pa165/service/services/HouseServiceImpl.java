@@ -7,8 +7,9 @@ import cz.muni.fi.pa165.entity.House;
 import cz.muni.fi.pa165.service.exception.HauntedHouseException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
 import javax.inject.Inject;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -82,11 +83,12 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> getSortedHousesAfterDate(LocalDate date) throws DataAccessException {
+    public List<House> getSortedHousesAfterDate(Date date) throws DataAccessException {
         List<House> houses = new ArrayList<>();
         try {
             for (House house : houseDao.findAll()) {
-                if (house.getDate().isAfter(date)) {
+                //if (house.getDate().after(date)) {
+                if (house.getDate().compareTo(date) > 0) {
                     houses.add(house);
                 }
             }
@@ -156,5 +158,14 @@ public class HouseServiceImpl implements HouseService {
         } catch (Exception exc) {
             throw new HauntedHouseException("commentHouse() encountered error", exc);
         }
+    }
+
+    @Override
+    public List<String> getNames() {
+        List<String> resultList = new ArrayList<>();
+        for (House house: houseDao.findAll()) {
+            resultList.add(house.getName());
+        }
+        return resultList;
     }
 }

@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalTime;
+import java.sql.Time;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -29,13 +29,13 @@ public class Bogeyman {
     @ManyToMany
     private Set<Ability> abilities = new HashSet<>();
 
-    @NotNull
+    //@NotNull
     @ManyToOne
     private House house;
 
-    private LocalTime hauntStartTime;
+    private Time hauntStartTime;
 
-    private LocalTime hauntEndTime;
+    private Time hauntEndTime;
 
     @Column(length = 2000)
     private String description;
@@ -91,19 +91,19 @@ public class Bogeyman {
         this.house = house;
     }
 
-    public LocalTime getHauntStartTime() {
+    public Time getHauntStartTime() {
         return hauntStartTime;
     }
 
-    public void setHauntStartTime(LocalTime hauntStartTime) {
+    public void setHauntStartTime(Time hauntStartTime) {
         this.hauntStartTime = hauntStartTime;
     }
 
-    public LocalTime getHauntEndTime() {
+    public Time getHauntEndTime() {
         return hauntEndTime;
     }
 
-    public void setHauntEndTime(LocalTime hauntEndTime) {
+    public void setHauntEndTime(Time hauntEndTime) {
         this.hauntEndTime = hauntEndTime;
     }
 
