@@ -152,7 +152,8 @@ public class HouseServiceImpl implements HouseService {
             throw new IllegalArgumentException("Method commentHouse was called with null argument");
         }
         try {
-            house.addComment(comment);
+            House h = houseDao.findHouseByName(house.getName());
+            h.addComment(comment);
         } catch (Exception exc) {
             throw new HauntedHouseException("commentHouse() encountered error", exc);
         }

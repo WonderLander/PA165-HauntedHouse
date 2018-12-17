@@ -24,7 +24,7 @@ public class Comment
     @Column(length = 2000)
     private String text;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.REMOVE)
     private House house;
 
     public Comment(){}
@@ -73,7 +73,9 @@ public class Comment
 
     public void setHouse(House house) {
         this.house = house;
+        this.house.addComment(this);
     }
+
 
     @Override
     public boolean equals(Object o) {

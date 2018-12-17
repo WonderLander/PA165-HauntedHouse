@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -41,19 +43,14 @@ public class CommentController
     public String create(@ModelAttribute("comment")CommentCreateDto comment,@ModelAttribute("id")long id){
         comment.setDate(LocalDate.now());
         HouseDto houseDto = houseFacade.findHouseById(id);
-        //houseFacade.updateHouse(houseDto);
-        comment.setHouse(houseDto);
+
         commentFacade.create(comment);
-        //CommentDto commentDto = commentFacade.findByAuthor(comment.getAuthor()).get(0);
-        //comment.setHouse(houseDto);
 
-        //List<CommentDto>comments = houseDto.getComments();
-        //comments.add(commentDto);
-        //houseDto.setComments(comments);
-        //commentDto.setHouse(houseDto);
+        List<CommentDto> commentDtos = commentFacade.findByAuthor(comment.getAuthor());
+        CommentDto commentDto = commentDtos.stream().max(Comparator.comparing(v->v.getId())).get();
 
-        //houseFacade.updateHouse(houseDto);
-        //commentFacade.update(commentDto);
+        houseFacade.commentHouse(houseDto,commentDto);
+
         return "redirect:/comments/house/"+id;
     }
 

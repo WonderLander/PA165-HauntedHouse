@@ -33,16 +33,18 @@
 </div>
 <div class="container">
     <div class="jumbotron">
+        <div class="panel panel-default">
         <c:forEach items="${comments}" var="comment">
             <div class="container">
                 <div class="jumbotron">
-                    <h6>${comment.author}</h6>
-                    <p>${comment.date}</p>
+                    <h3>${comment.author}</h3>
+                    <h5>${comment.date}</h5>
                     <div class="h-divider"></div>
                     <p>${comment.text}</p>
                 </div>
             </div>
         </c:forEach>
+        </div>
     </div>
 </div>
 </body>

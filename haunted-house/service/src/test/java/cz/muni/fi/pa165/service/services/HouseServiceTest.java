@@ -176,6 +176,7 @@ public class HouseServiceTest
 
     @Test
     public void commentHouse(){
+        when(houseDao.findHouseByName(h3.getName())).thenReturn(h3);
         houseService.commentHouse(h3,comment);
         verify(h3).addComment(comment);
     }

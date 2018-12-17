@@ -15,12 +15,24 @@
         <class-b>cz.muni.fi.pa165.dto.BogeymanDto</class-b>
     </mapping>
     <mapping>
+        <class-a>cz.muni.fi.pa165.entity.Bogeyman</class-a>
+        <class-b>cz.muni.fi.pa165.dto.BogeymanCreateDto</class-b>
+    </mapping>
+    <mapping>
         <class-a>cz.muni.fi.pa165.entity.House</class-a>
         <class-b>cz.muni.fi.pa165.dto.HouseDto</class-b>
     </mapping>
     <mapping>
+        <class-a>cz.muni.fi.pa165.entity.House</class-a>
+        <class-b>cz.muni.fi.pa165.dto.HouseCreateDto</class-b>
+    </mapping>
+    <mapping>
         <class-a>cz.muni.fi.pa165.entity.Ability</class-a>
         <class-b>cz.muni.fi.pa165.dto.AbilityDto</class-b>
+    </mapping>
+    <mapping>
+        <class-a>cz.muni.fi.pa165.entity.Ability</class-a>
+        <class-b>cz.muni.fi.pa165.dto.AbilityCreateDto</class-b>
     </mapping>
 
 </mappings>

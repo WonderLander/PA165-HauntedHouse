@@ -22,7 +22,7 @@
     <h2>${house.name}</h2>
     <h4>${house.address}</h4>
     <p>${house.history}</p>
-    <table>
+    <table class="table table-condensed">
         <tr>
             <th>Bogeyman</th>
             <th>Type</th>
