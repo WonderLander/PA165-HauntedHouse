@@ -34,7 +34,7 @@
                 <td>${bogey.name}</td>
                 <td>${bogey.type}</td>
                 <td>${bogey.hauntStartTime} - ${bogey.hauntEndTime}</td>
-                <td><a href="houses/${house.id}">View</a></td>
+                <td><a href="/pa165/bogeyman/detail/${bogey.id}">View</a></td>
             </tr>
         </c:forEach>
     </table>
