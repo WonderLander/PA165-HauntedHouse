@@ -7,6 +7,10 @@
         <class-b>cz.muni.fi.pa165.dto.CommentDto</class-b>
     </mapping>
     <mapping>
+        <class-a>cz.muni.fi.pa165.entity.Comment</class-a>
+        <class-b>cz.muni.fi.pa165.dto.CommentCreateDto</class-b>
+    </mapping>
+    <mapping>
         <class-a>cz.muni.fi.pa165.entity.Bogeyman</class-a>
         <class-b>cz.muni.fi.pa165.dto.BogeymanDto</class-b>
     </mapping>

@@ -3,19 +3,15 @@ package cz.muni.fi.pa165.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.muni.fi.pa165.dto.HouseDto;
 import cz.muni.fi.pa165.facade.HouseFacade;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Collections;
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -31,43 +27,26 @@ public class HouseController
     }
 
     @RequestMapping(method= RequestMethod.GET)
-    public String sayHello(Model model) {
-        model.addAttribute("message","Hello Spring MVC!");
-
-        //Java 8 LocalDate
-        DateTimeFormatter formatter=DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
-        LocalDate date=LocalDate.now();
-        model.addAttribute("date", date.format(formatter));
-
-        return "houses";
+    public ModelAndView houses(ModelAndView model) {
+        model.addObject("houses",houseFacade.findAll());
+        model.setViewName("house/houses");
+        return model;
     }
 
-    @RequestMapping(path = {"/houses"},method = RequestMethod.GET)
-    @ResponseBody
-    public  String houses(){
-
-        //HouseDto house = new HouseDto();
-        //house.setName("house1");
-        //house.setAddress("address1");
-        List<HouseDto> houses = houseFacade.findAll();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json=null;
-        try {
-            json = objectMapper.writeValueAsString(houses);
-        }catch (Exception e){
-            System.err.println("exception");
+    @RequestMapping(value = {"/{id}"},method = RequestMethod.GET)
+    public ModelAndView getHouse(@PathVariable("id") long id){
+        ModelAndView model = new ModelAndView();
+        HouseDto house = houseFacade.findHouseById(id);
+        if(house != null){
+            model.addObject("house",house);
+            model.setViewName("house/houseView");
+            return model;
+        }else{
+            //todo exception
+            throw new IllegalArgumentException();
         }
-        return json;
-        //return houseFacade.findAll();
-        //HouseDto house = new HouseDto();
-        //house.setName("house1");
-        //house.setAddress("address1");
-
-        //List<HouseDto> ret = Collections.singletonList(house);
-
-
     }
+
 
 
 }
