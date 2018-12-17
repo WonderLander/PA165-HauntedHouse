@@ -15,6 +15,10 @@ import javax.inject.Inject;
 import java.io.File;
 import java.util.List;
 
+
+/**
+ * @author Ondrej Stursa
+ */
 @Controller
 @RequestMapping(path = {"houses"})
 public class HouseController
@@ -60,6 +64,13 @@ public class HouseController
         houseFacade.createHouse(house);
 
         return "redirect:houses";
+    }
+    @RequestMapping(value = {"/create"},method= RequestMethod.GET)
+    public ModelAndView createView(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("house/new");
+        return model;
     }
 
     @RequestMapping(value = {"/update"},method = RequestMethod.POST)

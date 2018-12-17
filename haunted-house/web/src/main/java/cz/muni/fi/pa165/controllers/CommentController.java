@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * @author Ondrej Stursa
+ */
 @Controller
 @RequestMapping(path = {"comments"})
 public class CommentController
@@ -41,7 +45,7 @@ public class CommentController
 
     @RequestMapping(value = {"/create"},method= RequestMethod.POST)
     public String create(@ModelAttribute("comment")CommentCreateDto comment,@ModelAttribute("id")long id){
-        comment.setDate(LocalDate.now());
+        comment.setDate(Date.valueOf(LocalDate.now()));
         HouseDto houseDto = houseFacade.findHouseById(id);
 
         commentFacade.create(comment);
@@ -67,9 +71,10 @@ public class CommentController
     }
 
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
-    public String delete(@PathVariable("id")long id){
+    public ModelAndView delete(@PathVariable("id")long id){
         commentFacade.delete(commentFacade.findById(id));
-
-        return "redirect:/houses";
+        ModelAndView model = new ModelAndView();
+        model.setViewName("house/houses");
+        return model;
     }
 }

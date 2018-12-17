@@ -1,23 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Ondrej Stursa
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<html>
-<head>
-    <title>${house.name}</title>
-</head>
-<body>
-<div class="col-xs-6">
-    <img src="<c:url value="/${img}"/>" class="img-thumbnail" style="size: auto">
+<my:pagetemplate title="${house.name}">
+<jsp:attribute name="body">
 
-</div>
 <div class="col-xs-6">
     <h2>${house.name}</h2>
     <h4>${house.address}</h4>
@@ -38,9 +32,13 @@
             </tr>
         </c:forEach>
     </table>
+    <a href="/pa165/comments/house/${house.id}">Your comments</a>
+</div>
+<div class="col-xs-6">
+    <img src="<c:url value="http://coloringhome.com/coloring/xcg/nnM/xcgnnMx7i.jpg"/>" class="img-thumbnail" style="size: auto">
+
 </div>
 
-<a href="/pa165/comments/house/${house.id}">Your comments</a>
 
-</body>
-</html>
+</jsp:attribute>
+</my:pagetemplate>

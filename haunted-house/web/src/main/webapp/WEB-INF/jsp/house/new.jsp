@@ -9,25 +9,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-<my:pagetemplate title="Houses">
+<my:pagetemplate title="Create house">
 <jsp:attribute name="body">
-    <table class="table table-striped">
-        <tr>
-            <th>House</th>
-            <th>Address</th>
-            <th></th>
-        </tr>
-        <c:forEach items="${houses}" var="house">
-            <tr>
-                <td data-toggle="tooltip" title="${house.history}">${house.name}</td>
-                <td>${house.address}</td>
-                <td><a href="${pageContext.request.contextPath}/houses/${house.id}">View</a></td>
-            </tr>
-        </c:forEach>
 
 
-    </table>
+
 
 </jsp:attribute>
 </my:pagetemplate>
