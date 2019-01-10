@@ -47,8 +47,17 @@ public class AbilityController {
 
     @RequestMapping(value = "/delete/{abilityId}", method = RequestMethod.GET)
     public String deleteAbility(@PathVariable("abilityId") long abilityId, UriComponentsBuilder uriBuilder) {
-        abilityFacade.deleteAbility(abilityFacade.getAbilityById(abilityId));
+        try
+        {
+            abilityFacade.deleteAbility(abilityFacade.getAbilityById(abilityId));
+        } catch (Exception e)
+        {
+            return "ability/unableToDelete";
+
+        }
         return "redirect:" + uriBuilder.path("/ability").toUriString();
     }
+
+
 
 }

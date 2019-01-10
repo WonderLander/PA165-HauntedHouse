@@ -12,7 +12,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Users">
+<my:pagetemplate title="Abilities">
 <jsp:attribute name="body">
 <form:form method="post" action="${pageContext.request.contextPath}/ability/create"
            modelAttribute="abilityCreate" cssClass="form-horizontal">
