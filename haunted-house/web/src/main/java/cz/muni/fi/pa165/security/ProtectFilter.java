@@ -15,7 +15,7 @@ import java.util.Base64;
 /**
  * @author Ondrej Krcma 451363
  */
-@WebFilter(urlPatterns = {"/user/*","/comments/house/*"})
+@WebFilter(urlPatterns = {"/user/*","/comments/house/*","/ability/delete/*","/bogeyman/delete/*"})
 public class ProtectFilter implements Filter {
 
 

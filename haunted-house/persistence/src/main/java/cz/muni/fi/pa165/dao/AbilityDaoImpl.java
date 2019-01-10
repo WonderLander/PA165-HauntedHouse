@@ -57,7 +57,8 @@ public class AbilityDaoImpl implements AbilityDao {
         if (ability == null) {
             throw new IllegalArgumentException("Argument is null");
         }
-        em.remove(ability);
+        em.remove(em.contains(ability) ? ability : em.merge(ability));
+
     }
 
     @Override
