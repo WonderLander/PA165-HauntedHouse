@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,16 +21,14 @@ import javax.validation.Valid;
 public class AbilityController {
 
     private final AbilityFacade abilityFacade;
-    private final AbilityService abilityService;
 
-    public AbilityController(AbilityFacade abilityFacade, AbilityService abilityService) {
+    public AbilityController(AbilityFacade abilityFacade) {
         this.abilityFacade = abilityFacade;
-        this.abilityService = abilityService;
     }
 
     @RequestMapping(value = {""}, method = RequestMethod.GET)
     public String abilities(Model model) {
-        model.addAttribute("abilities", abilityService.getAllAbilities());
+        model.addAttribute("abilities", abilityFacade.getAllAbilities());
         return "ability/all";
     }
 
@@ -40,9 +39,15 @@ public class AbilityController {
     }
 
     @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
-    public String createAbility(@Valid @ModelAttribute("abilityCreate") AbilityCreateDto formBean, BindingResult bindingResult,
+    public String createAbility(@Valid @ModelAttribute("abilityCreate") AbilityCreateDto abilityCreateDto, BindingResult bindingResult,
                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        abilityFacade.createAbility(formBean);
+        abilityFacade.createAbility(abilityCreateDto);
+        return "redirect:" + uriBuilder.path("/ability").toUriString();
+    }
+
+    @RequestMapping(value = "/delete/{abilityId}", method = RequestMethod.GET)
+    public String deleteAbility(@PathVariable("abilityId") long abilityId, UriComponentsBuilder uriBuilder) {
+        abilityFacade.deleteAbility(abilityFacade.getAbilityById(abilityId));
         return "redirect:" + uriBuilder.path("/ability").toUriString();
     }
 

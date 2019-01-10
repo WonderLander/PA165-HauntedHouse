@@ -14,7 +14,10 @@
 
 <my:pagetemplate title="Users">
 <jsp:attribute name="body">
-<table>
+
+<p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/ability/new"
+      role="button">Create ability</a></p>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>Name</th>
@@ -28,13 +31,15 @@
             <td>${ability.name}</td>
             <td>${ability.description}</td>
             <td>${ability.cooldown}</td>
+            <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/ability/delete/${ability.id}"
+                      role="button">Delete</a></p></td>
         </tr>
+
     </c:forEach>
     </tbody>
 </table>
 
-<p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/ability/new"
-      role="button">Create ability</a></p>
+
 
 
 </jsp:attribute>
