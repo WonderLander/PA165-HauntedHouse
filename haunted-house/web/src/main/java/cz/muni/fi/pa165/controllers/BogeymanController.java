@@ -71,7 +71,14 @@ public class BogeymanController {
 
     @RequestMapping(value = "/delete/{bogeymanId}", method = RequestMethod.GET)
     public String deleteBogeyman(@PathVariable("bogeymanId") long bogeymanId, UriComponentsBuilder uriBuilder) {
-        bogeymanFacade.delete(bogeymanFacade.findById(bogeymanId));
+        try
+        {
+            bogeymanFacade.delete(bogeymanFacade.findById(bogeymanId));
+
+        } catch (Exception ex)
+        {
+            return "bogeyman/unableToDelete";
+        }
         return "redirect:" + uriBuilder.path("/bogeyman").toUriString();
     }
 
