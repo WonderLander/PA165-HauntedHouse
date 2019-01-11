@@ -37,7 +37,9 @@ public class House {
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+//    @NotNull
+    //cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "house")
     private List<Bogeyman> bogeymen = new ArrayList<>();
 
     public House() {}

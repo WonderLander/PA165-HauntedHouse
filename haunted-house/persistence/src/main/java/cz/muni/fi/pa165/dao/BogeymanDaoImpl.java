@@ -21,6 +21,7 @@ public class BogeymanDaoImpl implements BogeymanDao {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     public void create(Bogeyman bogeyman) {
         em.persist(bogeyman);

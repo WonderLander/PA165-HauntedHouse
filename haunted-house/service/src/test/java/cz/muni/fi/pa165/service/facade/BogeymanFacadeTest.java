@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.service.config.ServiceConfig;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
+import cz.muni.fi.pa165.service.services.HouseService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,6 +42,9 @@ public class BogeymanFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private BeanMappingService bmp;
 
+    @Mock
+    private HouseService houseService;
+
     private BogeymanFacade bogeymanFacade;
 
     private Bogeyman bogeyman;
@@ -63,7 +67,7 @@ public class BogeymanFacadeTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        bogeymanFacade = new BogeymanFacadeImpl(bogeymanService, bmp);
+        bogeymanFacade = new BogeymanFacadeImpl(bogeymanService, bmp, houseService);
     }
 
     @BeforeMethod
