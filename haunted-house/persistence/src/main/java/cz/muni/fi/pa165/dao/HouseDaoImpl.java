@@ -56,8 +56,8 @@ public class HouseDaoImpl implements HouseDao {
         if (findHouseByName(house.getName()) == null) {
             throw new IllegalArgumentException("House to be deleted does not exist.");
         }
-        entityManager.remove(house);
-
+        //entityManager.remove(house);
+        entityManager.remove(findHouseByName(house.getName()));
     }
 
     @Override
@@ -70,9 +70,16 @@ public class HouseDaoImpl implements HouseDao {
         if (house == null) {
             throw new IllegalArgumentException("House is null");
         }
-        if (findHouseByName(house.getName()) == null) {
-            throw new IllegalArgumentException("House to be deleted does not exist.");
+        House h = findHouseByName(house.getName());
+        if(h==null){
+        //if (findHouseByName(house.getName()) == null) {
+            throw new IllegalArgumentException("House to be updated does not exist.");
         }
-        entityManager.merge(house);
+        //House h = findHouseByName(house.getName());
+        h.setName(house.getName());
+        h.setDate(house.getDate());
+        h.setAddress(house.getAddress());
+        h.setHistory(house.getHistory());
+        entityManager.merge(h);
     }
 }

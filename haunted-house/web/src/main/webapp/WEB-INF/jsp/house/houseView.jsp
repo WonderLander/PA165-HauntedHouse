@@ -32,7 +32,17 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/pa165/comments/house/${house.id}">Your comments</a>
+    <div style="display:inline-block; vertical-align: middle;">
+        <form action="${pageContext.request.contextPath}/houses/edit/${house.id}" style="display:inline-block;">
+            <button type="submit" class="btn btn-default">Edit</button>
+        </form>
+        <form action="${pageContext.request.contextPath}/houses/delete/${house.id}" style="display:inline-block;" method="post">
+            <button type="submit" class="btn btn-default" value="${house.id}">Delete</button>
+        </form>
+    </div>
+    <div>
+        <a href="/pa165/comments/house/${house.id}">Your comments</a>
+    </div>
 </div>
 <div class="col-xs-6">
     <img src="<c:url value="http://coloringhome.com/coloring/xcg/nnM/xcgnnMx7i.jpg"/>" class="img-thumbnail" style="size: auto">
