@@ -2,7 +2,9 @@ package cz.muni.fi.pa165.controllers;
 
 
 import cz.muni.fi.pa165.dto.AbilityCreateDto;
+import cz.muni.fi.pa165.dto.UserDto;
 import cz.muni.fi.pa165.facade.AbilityFacade;
+import cz.muni.fi.pa165.facade.UserFacade;
 import cz.muni.fi.pa165.service.services.AbilityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -46,13 +50,19 @@ public class AbilityController {
     }
 
     @RequestMapping(value = "/delete/{abilityId}", method = RequestMethod.GET)
-    public String deleteAbility(@PathVariable("abilityId") long abilityId, UriComponentsBuilder uriBuilder) {
+    public String deleteAbility(@PathVariable("abilityId") long abilityId, UriComponentsBuilder uriBuilder, ServletRequest r) {
+        UserDto user = (UserDto) r.getAttribute("authenticatedUser");
+        if (!user.isAdmin())
+        {
+            return "ability/unableToDelete";
+        }
+
         try
         {
             abilityFacade.deleteAbility(abilityFacade.getAbilityById(abilityId));
         } catch (Exception e)
         {
-            return "ability/unableToDelete";
+
 
         }
         return "redirect:" + uriBuilder.path("/ability").toUriString();
