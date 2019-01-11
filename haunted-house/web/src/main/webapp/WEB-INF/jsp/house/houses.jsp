@@ -17,12 +17,14 @@
             <th>House</th>
             <th>Address</th>
             <th></th>
+            <th></th>
         </tr>
         <c:forEach items="${houses}" var="house">
             <tr>
                 <td data-toggle="tooltip" title="${house.history}">${house.name}</td>
                 <td>${house.address}</td>
                 <td><a href="${pageContext.request.contextPath}/houses/${house.id}">View</a></td>
+                <td><a href="${pageContext.request.contextPath}/houses/edit/${house.id}">Edit</a></td>
             </tr>
         </c:forEach>
 

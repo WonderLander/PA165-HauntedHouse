@@ -61,6 +61,8 @@ public class HouseController
 
     @RequestMapping(value = {"/delete/{id}"})
     public String delete(@PathVariable("id")long id){
+        System.err.println("Delete id "+id);
+        System.err.println(houseFacade.findHouseById(id).getId());
         houseFacade.deleteHouse(houseFacade.findHouseById(id));
 
         return "redirect:/houses";
@@ -76,7 +78,6 @@ public class HouseController
             localDate = LocalDate.now();
         }
         house.setDate(java.sql.Date.valueOf(localDate));
-        System.err.println(localDate);
         houseFacade.createHouse(house);
 
         return "redirect:/houses";
@@ -89,8 +90,18 @@ public class HouseController
         return model;
     }
 
-    @RequestMapping(value = {"/update"},method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute("comment") HouseDto house){
+    @RequestMapping(value = {"/edit"},method = RequestMethod.POST)
+    public ModelAndView update(@ModelAttribute("house") HouseDto house,@ModelAttribute("StringDate")String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMM.yyyy");
+        LocalDate localDate = null;
+        try {
+            localDate = LocalDate.parse(date, formatter);
+        }catch (DateTimeParseException e){
+            localDate = LocalDate.now();
+        }
+        house.setDate(java.sql.Date.valueOf(localDate));
+        System.err.println("house id is:"+house.getId());
+
         houseFacade.updateHouse(house);
 
         ModelAndView model = new ModelAndView();
@@ -98,5 +109,17 @@ public class HouseController
         model.setViewName("house/houseView");
         return model;
     }
+
+    @RequestMapping(value = {"/edit/{id}"},method = RequestMethod.GET)
+    public ModelAndView editView(@PathVariable("id")long id){
+        ModelAndView model = new ModelAndView();
+
+        HouseDto house = houseFacade.findHouseById(id);
+        model.addObject("savedHouse",house);
+        model.setViewName("house/houseEdit");
+        return model;
+    }
+
+
 
 }
