@@ -62,9 +62,9 @@ public class AbilityController {
             abilityFacade.deleteAbility(abilityFacade.getAbilityById(abilityId));
         } catch (Exception e)
         {
-
-
+            return "ability/unableToDelete";
         }
+        
         return "redirect:" + uriBuilder.path("/ability").toUriString();
     }
 
