@@ -7,13 +7,9 @@ import cz.muni.fi.pa165.service.services.AbilityService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import cz.muni.fi.pa165.service.services.CommentService;
 import cz.muni.fi.pa165.service.services.HouseService;
-import net.bytebuddy.asm.Advice;
-import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.sql.Date;
 import java.sql.Time;
@@ -103,14 +99,20 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
         Ability ability3 = createAbility("Undead", "Nothing can stop a zombie. Not even cannon fire.", 1);
         Ability ability1 = createAbility("Lich Immortality", "Life of a lich is bound to powerful artifact, where the power of lich resides.", 1);
 
-        Bogeyman bogeyman1 = createBogeyman("Lich", house1, BogeymanType.LICH, ability1, LocalTime.now(), LocalTime.now(),
+        Bogeyman bogeyman1 = createBogeyman("Lich", house1, BogeymanType.LICH, ability1,
+                Time.valueOf(LocalTime.of(8, 15, 0)),
+                Time.valueOf(LocalTime.of(22, 0)),
                 "Life of a lich is bound to powerful artifact, where the power of lich resides. Destroy the artifact and you " +
                         "shall destroy the lich", "Unfulfilled dreams of becoming a IT specialist drove Mark to bound his life with his old Intel 8080.");
 
-        Bogeyman bogeyman12 = createBogeyman("Witch", house1, BogeymanType.WITCH, ability2, LocalTime.now(), LocalTime.now(),
+        Bogeyman bogeyman12 = createBogeyman("Witch", house1, BogeymanType.WITCH, ability2,
+                Time.valueOf(LocalTime.of(0, 12, 45)),
+                Time.valueOf(LocalTime.of(23, 59)),
                 "For a witch is a burning at stake only a pleasant entertainment.", "Who would resist the temptation of a broom flight");
 
-        Bogeyman bogeyman3 = createBogeyman("Zombie", house3, BogeymanType.ZOMBIE, ability3, LocalTime.now(), LocalTime.now(),
+        Bogeyman bogeyman3 = createBogeyman("Zombie", house3, BogeymanType.ZOMBIE, ability3,
+                Time.valueOf(LocalTime.of(20, 0)),
+                Time.valueOf(LocalTime.of(4, 0)),
                 "Embodiment ceaseless hunger.", "Brains are brains. For zombies it does not matter whose brain it is.");
 
 
@@ -150,15 +152,15 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
     }
 
     private Bogeyman createBogeyman(String name, House house, BogeymanType type, Ability ability,
-                                    LocalTime hauntStartTime, LocalTime hauntEndTime, String description,
+                                    Time hauntStartTime, Time hauntEndTime, String description,
                                     String reason) {
         Bogeyman bogeyman = new Bogeyman();
         bogeyman.setHouse(house);
         bogeyman.setName(name);
         bogeyman.setType(type);
         bogeyman.addAbility(ability);
-       // bogeyman.setHauntStartTime(hauntStartTime);
-       // bogeyman.setHauntEndTime(hauntEndTime);
+        bogeyman.setHauntStartTime(hauntStartTime);
+        bogeyman.setHauntEndTime(hauntEndTime);
         bogeyman.setDescription(description);
         bogeyman.setReason(reason);
 

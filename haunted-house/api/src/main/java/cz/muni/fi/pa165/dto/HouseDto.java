@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,11 @@ public class HouseDto {
     private String address;
     private Date date;
     private String history;
+
+    @JsonIgnore
     private List<CommentDto> comments = new ArrayList<>();
+
+    @JsonIgnore
     private List<BogeymanDto> bogeymen = new ArrayList<>();
 
     public Long getId() {

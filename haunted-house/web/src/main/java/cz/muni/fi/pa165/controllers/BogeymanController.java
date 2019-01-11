@@ -2,22 +2,23 @@ package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BogeymanCreateDto;
 import cz.muni.fi.pa165.dto.BogeymanDto;
-import cz.muni.fi.pa165.dto.HouseDto;
+import cz.muni.fi.pa165.dto.UserDto;
 import cz.muni.fi.pa165.enums.BogeymanType;
 import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.facade.HouseFacade;
 import cz.muni.fi.pa165.service.services.BogeymanService;
+import cz.muni.fi.pa165.validator.BogeymanCreateDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -61,16 +62,34 @@ public class BogeymanController {
         return houseFacade.getNames();
     }
 
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        if (binder.getTarget() instanceof BogeymanCreateDto) {
+            binder.addValidators(new BogeymanCreateDtoValidator());
+        }
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createBogeyman(@Valid @ModelAttribute("bogeymanCreate") BogeymanCreateDto formBean ,BindingResult bindingResult,
                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+            }
+            return "bogeyman/new";
+        }
         bogeymanFacade.create(formBean);
         return "redirect:" + uriBuilder.path("/bogeyman").toUriString();
     }
 
     @RequestMapping(value = "/delete/{bogeymanId}", method = RequestMethod.GET)
-    public String deleteBogeyman(@PathVariable("bogeymanId") long bogeymanId, UriComponentsBuilder uriBuilder) {
+    public String deleteBogeyman(@PathVariable("bogeymanId") long bogeymanId, UriComponentsBuilder uriBuilder,
+                                 ServletRequest r) {
+        UserDto user = (UserDto) r.getAttribute("authenticatedUser");
+        if (!user.isAdmin())
+        {
+            return "bogeyman/unableToDelete";
+        }
         try
         {
             bogeymanFacade.delete(bogeymanFacade.findById(bogeymanId));

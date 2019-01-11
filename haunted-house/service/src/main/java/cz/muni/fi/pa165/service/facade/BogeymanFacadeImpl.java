@@ -11,6 +11,7 @@ import cz.muni.fi.pa165.enums.BogeymanType;
 import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.service.services.BeanMappingService;
 import cz.muni.fi.pa165.service.services.BogeymanService;
+import cz.muni.fi.pa165.service.services.HouseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +29,24 @@ public class BogeymanFacadeImpl implements BogeymanFacade {
 
     private final BogeymanService bs;
     private final BeanMappingService bmp;
+    private final HouseService hs;
 
     @Inject
-    public BogeymanFacadeImpl(BogeymanService bogeymanService, BeanMappingService beanMappingService) {
+    public BogeymanFacadeImpl(BogeymanService bogeymanService, BeanMappingService beanMappingService,
+                              HouseService houseService) {
         this.bs = bogeymanService;
         this.bmp = beanMappingService;
+        this.hs = houseService;
     }
 
     @Override
     public void create(BogeymanCreateDto bogeyman) {
-        bs.create(bmp.mapTo(bogeyman, Bogeyman.class));
+        Bogeyman mappedBogeyman = bmp.mapTo(bogeyman, Bogeyman.class);
+        if (bogeyman.getFormHouse() != null) {
+            House house = hs.findHouseByName(bogeyman.getFormHouse());
+            mappedBogeyman.setHouse(house);
+        }
+        bs.create(mappedBogeyman);
     }
 
     @Override

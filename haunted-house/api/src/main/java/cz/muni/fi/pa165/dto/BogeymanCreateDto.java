@@ -27,11 +27,12 @@ public class BogeymanCreateDto {
     private HouseDto house;
     private Time hauntStartTime;
     private Time hauntEndTime;
+    private String formHouse;
 
-    @Size(max = 2000)
+    @Size(min = 3, max = 2000)
     private String description;
 
-    @Size(max = 500)
+    @Size(min = 3, max = 500)
     private String reason;
 
     public String getName() {
@@ -73,6 +74,10 @@ public class BogeymanCreateDto {
     public void setHouse(HouseDto house) {
         this.house = house;
     }
+
+    public String getFormHouse() { return formHouse; }
+
+    public void setFormHouse(String formHouse) { this.formHouse = formHouse; }
 
     public Time getHauntStartTime() {
         return hauntStartTime;

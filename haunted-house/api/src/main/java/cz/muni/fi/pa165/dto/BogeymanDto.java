@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.enums.BogeymanType;
 
 import java.sql.Time;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +16,8 @@ public class BogeymanDto {
     private long id;
     private String name;
     private BogeymanType type;
+
+    @JsonIgnore
     private Set<AbilityDto> abilities = new HashSet<>();
     private HouseDto house;
     private Time hauntStartTime;
