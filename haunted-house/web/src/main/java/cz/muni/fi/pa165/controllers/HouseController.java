@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.HouseCreateDto;
 import cz.muni.fi.pa165.dto.HouseDto;
+import cz.muni.fi.pa165.dto.UserDto;
 import cz.muni.fi.pa165.facade.HouseFacade;
 import cz.muni.fi.pa165.validator.HouseCreateDtoValidator;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.inject.Inject;
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 /**
@@ -62,14 +66,19 @@ public class HouseController
     }
 
     @RequestMapping(value = {"/delete/{id}"})
-    public String delete(@PathVariable("id")long id){
+    public String delete(@PathVariable("id")long id,ServletRequest r){
+        UserDto user = (UserDto) r.getAttribute("authenticatedUser");
+        if (!user.isAdmin())
+        {
+            return "redirect:/houses/error";
+        }
         houseFacade.deleteHouse(houseFacade.findHouseById(id));
 
         return "redirect:/houses";
     }
 
     @RequestMapping(value = {"/create"},method= RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("house") HouseCreateDto house,BindingResult bindingResult, Model model){
+    public String create(@Valid @ModelAttribute("house") HouseCreateDto house,BindingResult bindingResult,Model model){
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
@@ -82,28 +91,39 @@ public class HouseController
         return "redirect:/houses";
     }
     @RequestMapping(value = {"/create"},method= RequestMethod.GET)
-    public ModelAndView createView(){
-
+    public ModelAndView createView( ServletRequest r){
+        UserDto user = (UserDto) r.getAttribute("authenticatedUser");
         ModelAndView model = new ModelAndView();
+        if (!user.isAdmin())
+        {
+            model.setViewName("house/error");
+            return model;
+        }
+
         model.addObject("house",new HouseCreateDto());
         model.setViewName("house/new");
         return model;
     }
 
     @RequestMapping(value = {"/edit"},method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("house") HouseDto house,BindingResult bindingResult, Model model){
-        System.err.println("updated house name is "+house.getName());
-        if (bindingResult.hasErrors()) {
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                model.addAttribute("savedHouse",house);
-            }
-            return "house/houseEdit";
+    public ModelAndView update(@ModelAttribute("house") HouseDto house,@ModelAttribute("StringDate") String date){
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = null;
+        try {
+            localDate = LocalDate.parse(date, formatter);
+        }catch (DateTimeParseException e){
+            localDate = LocalDate.now();
         }
+        house.setDate(java.sql.Date.valueOf(localDate));
 
         houseFacade.updateHouse(house);
 
-        return "redirect:/houses";
+        ModelAndView model = new ModelAndView();
+        model.addObject("house",houseFacade.findHouseById(house.getId()));
+        model.setViewName("house/houseView");
+        return model;
+
     }
 
     @RequestMapping(value = {"/edit/{id}"},method = RequestMethod.GET)
@@ -117,6 +137,11 @@ public class HouseController
         return model;
     }
 
-
+    @RequestMapping(value = {"/error"})
+    public ModelAndView error(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("house/houseError");
+        return model;
+    }
 
 }
