@@ -87,7 +87,18 @@ public class BogeymanDaoImpl implements BogeymanDao {
 
     @Override
     public void update(Bogeyman bogeyman) {
-        em.merge(bogeyman);
+        Bogeyman b = findById(bogeyman.getId());
+        if(b==null){
+            throw new IllegalArgumentException("Bogeynam to be updated does not exist.");
+        }
+        b.setName(bogeyman.getName());
+        b.setHauntStartTime(bogeyman.getHauntStartTime());
+        b.setHauntEndTime(bogeyman.getHauntEndTime());
+        b.setDescription(bogeyman.getDescription());
+        b.setReason(bogeyman.getReason());
+        b.setType(bogeyman.getType());
+
+        em.merge(b);
     }
 
 }

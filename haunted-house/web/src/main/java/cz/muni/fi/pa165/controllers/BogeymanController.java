@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.facade.HouseFacade;
 import cz.muni.fi.pa165.service.services.BogeymanService;
 import cz.muni.fi.pa165.validator.BogeymanCreateDtoValidator;
+import cz.muni.fi.pa165.validator.BogeymanDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -67,6 +69,9 @@ public class BogeymanController {
         if (binder.getTarget() instanceof BogeymanCreateDto) {
             binder.addValidators(new BogeymanCreateDtoValidator());
         }
+        if (binder.getTarget() instanceof BogeymanDto) {
+            binder.addValidators(new BogeymanDtoValidator());
+        }
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -108,5 +113,41 @@ public class BogeymanController {
         model.addAttribute("abilities", bogeyman.getAbilities());
         return "bogeyman/detail";
     }
+
+    @RequestMapping(value = {"/edit/{id}"},method = RequestMethod.GET)
+    public ModelAndView editView(@PathVariable("id")long id){
+        ModelAndView model = new ModelAndView();
+
+        BogeymanDto bogeymanDto = bogeymanFacade.findById(id);
+        model.addObject("savedBogey",bogeymanDto);
+        model.addObject("bogey",new BogeymanDto());
+        model.addObject("houseString",new String());
+        model.setViewName("bogeyman/edit");
+        return model;
+    }
+
+    @RequestMapping(value = {"/edit"},method = RequestMethod.POST)
+    public ModelAndView update(@Valid @ModelAttribute("bogey") BogeymanDto bogey,BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder){
+
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                //model.addAttribute(fe.getField() + "_error", true);
+                modelAndView.addObject(fe.getField() + "_error", true);
+            }
+            modelAndView.setViewName("bogeyman/edit");
+            return modelAndView;
+        }
+
+        bogeymanFacade.update(bogey);
+
+
+        modelAndView.addObject("bogeyman",bogeymanFacade.findById(bogey.getId()));
+        modelAndView.setViewName("bogeyman/detail");
+        return modelAndView;
+
+    }
+
 
 }
