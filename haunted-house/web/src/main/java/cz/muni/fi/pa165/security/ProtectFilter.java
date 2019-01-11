@@ -43,10 +43,7 @@ public class ProtectFilter implements Filter {
         UserAuthenticateDto userAuthenticateDTO = new UserAuthenticateDto();
         userAuthenticateDTO.setUserId(matchingUser.getId());
         userAuthenticateDTO.setPassword(password);
-        if (!userFacade.isAdmin(matchingUser)) {
-            response401(response);
-            return;
-        }
+        
         if (!userFacade.authenticate(userAuthenticateDTO)) {
             response401(response);
             return;
