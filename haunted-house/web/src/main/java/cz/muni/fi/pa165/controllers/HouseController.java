@@ -1,26 +1,21 @@
 package cz.muni.fi.pa165.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.muni.fi.pa165.dto.BogeymanDto;
 import cz.muni.fi.pa165.dto.HouseCreateDto;
 import cz.muni.fi.pa165.dto.HouseDto;
-import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.facade.HouseFacade;
-import org.springframework.beans.factory.annotation.Autowired;
+import cz.muni.fi.pa165.validator.HouseCreateDtoValidator;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import javax.inject.Inject;
-import java.io.File;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.List;
+import javax.validation.Valid;
+
 
 
 /**
@@ -36,6 +31,13 @@ public class HouseController
     @Inject
     public HouseController(HouseFacade houseFacade) {
         this.houseFacade = houseFacade;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        if (binder.getTarget() instanceof HouseCreateDto) {
+            binder.addValidators(new HouseCreateDtoValidator(houseFacade));
+        }
     }
 
     @RequestMapping(method= RequestMethod.GET)
@@ -61,23 +63,20 @@ public class HouseController
 
     @RequestMapping(value = {"/delete/{id}"})
     public String delete(@PathVariable("id")long id){
-        System.err.println("Delete id "+id);
-        System.err.println(houseFacade.findHouseById(id).getId());
         houseFacade.deleteHouse(houseFacade.findHouseById(id));
 
         return "redirect:/houses";
     }
 
     @RequestMapping(value = {"/create"},method= RequestMethod.POST)
-    public String create(@ModelAttribute("house") HouseCreateDto house,@ModelAttribute("StringDate")String date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMM.yyyy");
-        LocalDate localDate = null;
-        try {
-            localDate = LocalDate.parse(date, formatter);
-        }catch (DateTimeParseException e){
-            localDate = LocalDate.now();
+    public String create(@Valid @ModelAttribute("house") HouseCreateDto house,BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+            }
+            return "house/new";
         }
-        house.setDate(java.sql.Date.valueOf(localDate));
+
         houseFacade.createHouse(house);
 
         return "redirect:/houses";
@@ -86,28 +85,25 @@ public class HouseController
     public ModelAndView createView(){
 
         ModelAndView model = new ModelAndView();
+        model.addObject("house",new HouseCreateDto());
         model.setViewName("house/new");
         return model;
     }
 
     @RequestMapping(value = {"/edit"},method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute("house") HouseDto house,@ModelAttribute("StringDate")String date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMM.yyyy");
-        LocalDate localDate = null;
-        try {
-            localDate = LocalDate.parse(date, formatter);
-        }catch (DateTimeParseException e){
-            localDate = LocalDate.now();
+    public String update(@Valid @ModelAttribute("house") HouseDto house,BindingResult bindingResult, Model model){
+        System.err.println("updated house name is "+house.getName());
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                model.addAttribute("savedHouse",house);
+            }
+            return "house/houseEdit";
         }
-        house.setDate(java.sql.Date.valueOf(localDate));
-        System.err.println("house id is:"+house.getId());
 
         houseFacade.updateHouse(house);
 
-        ModelAndView model = new ModelAndView();
-        model.addObject("house",houseFacade.findHouseById(house.getId()));
-        model.setViewName("house/houseView");
-        return model;
+        return "redirect:/houses";
     }
 
     @RequestMapping(value = {"/edit/{id}"},method = RequestMethod.GET)
@@ -116,6 +112,7 @@ public class HouseController
 
         HouseDto house = houseFacade.findHouseById(id);
         model.addObject("savedHouse",house);
+        model.addObject("house",new HouseDto());
         model.setViewName("house/houseEdit");
         return model;
     }

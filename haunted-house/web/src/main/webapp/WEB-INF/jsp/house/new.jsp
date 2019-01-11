@@ -12,11 +12,10 @@
 <my:pagetemplate title="Create house">
 <jsp:attribute name="body">
 
-
 <form action="${pageContext.request.contextPath}/houses/create" method="post">
     <div class="form-group">
         <label>House name</label>
-        <input type="text" class="form-control" name="name">
+        <input type="text" class="form-control" name="name" required>
     </div>
     <div class="form-group">
         <label>Address</label>
@@ -33,6 +32,8 @@
 
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+
 
 </jsp:attribute>
 </my:pagetemplate>
