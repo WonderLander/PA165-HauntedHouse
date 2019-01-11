@@ -47,8 +47,8 @@ public class SampleDataFacadeImpl implements SampleDataFacade {
 
     @Override
     public void init() {
-        House house = createHouse("House 1","Address 1",Date.valueOf(LocalDate.now()),"text 1",null,null);
-        Comment comment = createComment("Author 1",Date.valueOf(LocalDate.now()),"Text 1",null);
+        House house = createHouse( "Shadow House","Hidden street 13",Date.valueOf(LocalDate.now()),"House hidden in shadows",null,null);
+        Comment comment = createComment("Arthur Blind",Date.valueOf(LocalDate.now()),"I could not find the house",house);
 
         //for bogeymen's .jsp
         Ability fire = createAbility("Fire", "Creature throws fire", 1000);
