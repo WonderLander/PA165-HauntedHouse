@@ -63,5 +63,17 @@
     </c:forEach>
     </tbody>
 </table>
+    <h2>Add ability to bogeyman</h2>
+    <form:form method="post" action="${pageContext.request.contextPath}/bogeyman/addAbility/${bogeyman.id}"
+               modelAttribute="addAbility" cssClass="form-horizontal">
+            <div class="col-sm-10">
+                <form:select path="name" cssClass="form-control">
+                    <c:forEach items="${freeAbilities}" var="a">
+                        <form:option value="${a}">${a}</form:option>
+                    </c:forEach>
+                </form:select>
+            </div>
+        <button class="btn btn-primary" type="submit">Add</button>
+    </form:form>
 </jsp:attribute>
 </my:pagetemplate>

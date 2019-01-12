@@ -27,7 +27,7 @@ public class BogeymanCreateDtoValidator implements Validator {
 //            errors.rejectValue("hauntEndTime", "Time must be in the specified format and have valid value.");
 //        }
         if ((bogeymanCreateDto.getHauntStartTime() != null)&&(bogeymanCreateDto.getHauntStartTime().after(bogeymanCreateDto.getHauntEndTime()))) {
-            errors.rejectValue("hauntStartTime", null, "Start time must be after end time.");
+            errors.rejectValue("hauntStartTime", null, "Start time must not be after end time.");
         }
     }
 }
