@@ -58,10 +58,12 @@
             <td>${bogeyman.hauntEndTime}</td>
             <td>${bogeyman.description}</td>
             <td>${bogeyman.reason}</td>
-            <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/delete/${bogeyman.id}"
-                      role="button">Delete</a></p></td>
             <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/detail/${bogeyman.id}"
                       role="button">Detail</a></p></td>
+            <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/edit/${bogeyman.id}"
+                      role="button">Edit</a></p></td>
+            <td><p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/bogeyman/delete/${bogeyman.id}"
+                      role="button">Delete</a></p></td>
         </tr>
     </c:forEach>
     </tbody>
