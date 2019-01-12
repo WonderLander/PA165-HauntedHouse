@@ -97,6 +97,10 @@ public class BogeymanDaoImpl implements BogeymanDao {
         b.setDescription(bogeyman.getDescription());
         b.setReason(bogeyman.getReason());
         b.setType(bogeyman.getType());
+        for (Ability ability: bogeyman.getAbilities()) {
+            b.addAbility(ability);
+
+        }
 
         em.merge(b);
     }

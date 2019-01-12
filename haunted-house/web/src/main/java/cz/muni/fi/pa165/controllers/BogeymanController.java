@@ -1,9 +1,8 @@
 package cz.muni.fi.pa165.controllers;
 
-import cz.muni.fi.pa165.dto.BogeymanCreateDto;
-import cz.muni.fi.pa165.dto.BogeymanDto;
-import cz.muni.fi.pa165.dto.UserDto;
+import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.enums.BogeymanType;
+import cz.muni.fi.pa165.facade.AbilityFacade;
 import cz.muni.fi.pa165.facade.BogeymanFacade;
 import cz.muni.fi.pa165.facade.HouseFacade;
 import cz.muni.fi.pa165.service.services.BogeymanService;
@@ -22,6 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,12 +35,15 @@ public class BogeymanController {
     private final BogeymanService bogeymanService;
     private final BogeymanFacade bogeymanFacade;
     private final HouseFacade houseFacade;
+    private final AbilityFacade abilityFacade;
 
     @Autowired
-    public BogeymanController(BogeymanService bogeymanService, BogeymanFacade bogeymanFacade, HouseFacade houseFacade) {
+    public BogeymanController(BogeymanService bogeymanService, BogeymanFacade bogeymanFacade, HouseFacade houseFacade,
+                              AbilityFacade abilityFacade) {
         this.bogeymanService = bogeymanService;
         this.bogeymanFacade = bogeymanFacade;
         this.houseFacade = houseFacade;
+        this.abilityFacade = abilityFacade;
     }
 
     @RequestMapping(value = {""}, method = RequestMethod.GET)
@@ -106,12 +110,34 @@ public class BogeymanController {
         return "redirect:" + uriBuilder.path("/bogeyman").toUriString();
     }
 
+    @ModelAttribute("freeAbilities")
+    public List<String> freeAbilities() {
+        List<String> abilities = new ArrayList<>();
+        for (AbilityDto ability: abilityFacade.getAllAbilities()) {
+            abilities.add(ability.getName());
+        }
+        return Collections.unmodifiableList(abilities);
+    }
+
     @RequestMapping(value = { "/detail/{id}" }, method = RequestMethod.GET)
-    public String bogeymanDetail(@PathVariable("id") long id, Model model) {
+    public String bogeymanDetail(@PathVariable("id") long id,
+                                  Model model) {
         BogeymanDto bogeyman = bogeymanFacade.findById(id);
         model.addAttribute("bogeyman", bogeyman);
         model.addAttribute("abilities", bogeyman.getAbilities());
+        model.addAttribute("addAbility", new AbilityCreateDto());
         return "bogeyman/detail";
+    }
+
+    @RequestMapping(value = "/addAbility/{id}", method = RequestMethod.POST)
+    public String addAbility(@PathVariable("id") long id, @Valid @ModelAttribute("addAbility") AbilityCreateDto ability,
+                             BindingResult bindingResult,
+                             Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        AbilityDto newAbility = abilityFacade.getAbilityByName(ability.getName());
+        BogeymanDto bogeymanDto = bogeymanFacade.findById(id);
+        bogeymanDto.addAbility(newAbility);
+        bogeymanFacade.update(bogeymanDto);
+        return "redirect:" + uriBuilder.path("/bogeyman/detail/{id}").toUriString();
     }
 
     @RequestMapping(value = {"/edit/{id}"},method = RequestMethod.GET)

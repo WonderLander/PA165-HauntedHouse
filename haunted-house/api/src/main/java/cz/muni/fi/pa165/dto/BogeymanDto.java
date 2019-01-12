@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.enums.BogeymanType;
 
+import javax.validation.constraints.Size;
 import java.sql.Time;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,7 +23,11 @@ public class BogeymanDto {
     private HouseDto house;
     private Time hauntStartTime;
     private Time hauntEndTime;
+
+    @Size(min = 3, max = 2000)
     private String description;
+
+    @Size(min = 3, max = 500)
     private String reason;
 
     public long getId() {
